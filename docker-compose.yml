@@ -1,0 +1,16 @@
+services:
+  linuxgsm:
+    image: gameservermanagers/gameserver:mta
+    # image: ghcr.io/gameservermanagers/gameserver:mta
+    container_name: mtaserver
+    restart: unless-stopped
+    volumes:
+      - ./deathmatch:/data/serverfiles/mods/deathmatch
+    ports:
+      - 22003:22003/udp
+      - 22005:22005/tcp
+
+networks:
+  default:
+    external: true
+    name: base
