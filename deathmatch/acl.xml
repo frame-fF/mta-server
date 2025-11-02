@@ -23,6 +23,7 @@
         <object name="resource.admin"></object>
         <object name="resource.acpanel"></object>
         <object name="resource.webadmin"></object>
+        <object name="resource.modloader_reborn"></object>
         <object name="user.fF"></object>
     </group>
     <group name="Console">
@@ -49,6 +50,10 @@
     </group>
     <group name="DevGroup">
         <acl name="DevACL"></acl>
+    </group>
+    <group name="autoGroup_modloader_reborn">
+        <acl name="autoACL_modloader_reborn"></acl>
+        <object name="resource.modloader_reborn"></object>
     </group>
     <acl name="Default">
         <right name="general.ModifyOtherObjects" access="false"></right>
@@ -850,5 +855,8 @@
         <right name="command.deletescreenshot" access="false"></right>
         <right name="command.viewscreenshot" access="false"></right>
         <right name="command.listscreenshots" access="false"></right>
+    </acl>
+    <acl name="autoACL_modloader_reborn">
+        <right name="general.ModifyOtherObjects" access="false" who="" pending="true" date=""></right>
     </acl>
 </acl>
