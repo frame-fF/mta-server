@@ -9,6 +9,7 @@ services:
     ports:
       - 22003:22003/udp
       - 22005:22005/tcp
+      - 22126:22126/udp
 
 networks:
   default:
