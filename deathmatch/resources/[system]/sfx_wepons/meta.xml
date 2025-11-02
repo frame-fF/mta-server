@@ -1,0 +1,44 @@
+<meta>
+<info author='Yakuza, Dutchman101' version='0.3' name='Weapons, Sounds' description='Replace weapons with new models and new sounds' type='script' />
+
+<script src="replaceweapons.lua" type="client"/>
+<script src="replacesounds.lua" type="client"/>
+
+<file src="sounds/weap/ak-47.ogg" />
+<file src="sounds/weap/colt45.ogg" />
+<file src="sounds/weap/deagle.ogg" />
+<file src="sounds/weap/silenced.ogg" />
+<file src="sounds/weap/shotgun.ogg" />
+<file src="sounds/weap/sawed-off.ogg" />
+<file src="sounds/weap/combat_shotgun.ogg" />
+<file src="sounds/weap/m4.ogg" />
+<file src="sounds/weap/tec9.ogg" />
+<file src="sounds/weap/uzi.ogg" />
+<file src="sounds/weap/sniper.ogg" />
+
+<file src="models/weap/ak47.txd" />
+<file src="models/weap/ak47.dff" />
+<file src="models/weap/colt.txd" />
+<file src="models/weap/colt.dff" />
+<file src="models/weap/m4.txd" />
+<file src="models/weap/m4.dff" />
+<file src="models/weap/magnum.txd" />
+<file src="models/weap/magnum.dff" />
+<file src="models/weap/spray.txd" />
+<file src="models/weap/spray.dff" />
+<file src="models/weap/off.txd" />
+<file src="models/weap/off.dff" />
+<file src="models/weap/shotgun.txd" />
+<file src="models/weap/shotgun.dff" />
+<file src="models/weap/sniper.txd" />
+<file src="models/weap/sniper.dff" />
+<file src="models/weap/spaz.txd" />
+<file src="models/weap/spaz.dff" />
+<file src="models/weap/uzi.txd" />
+<file src="models/weap/uzi.dff" />
+<file src="models/weap/tec9.txd" />
+<file src="models/weap/tec9.dff" />
+<file src="models/weap/silen.txd" />
+<file src="models/weap/silen.dff" />
+
+</meta>
