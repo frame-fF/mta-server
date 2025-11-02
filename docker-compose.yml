@@ -10,6 +10,7 @@ services:
       - 22003:22003/udp
       - 22005:22005/tcp
       - 22126:22126/udp
+      - 8800:22003/udp
 
 networks:
   default:
