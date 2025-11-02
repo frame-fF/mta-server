@@ -1,9 +1,6 @@
 local function onPlayerJoin()
-    outputChatBox("Welcome to the server, " .. getPlayerName(source) .. "!")
-    -- สปอนผู้เล่นที่ San Fierro
-    spawnPlayer(source, -1969.4, 137.85, 27.69, 0, 0, 0, 0)
-    fadeCamera(source, true)
-    setCameraTarget(source, source)
+    outputChatBox("Welcome to the server")
+    outputChatBox("login using /login [username] [password]")
 end
 
 addEventHandler("onPlayerJoin", root, onPlayerJoin)
