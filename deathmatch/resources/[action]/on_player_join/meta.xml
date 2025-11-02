@@ -1,0 +1,4 @@
+<meta>
+    <info name="on_player_join" version="1.0" description="on player join" type="script"/>
+    <script src="on_player_join.lua" type="server"/>
+</meta>
