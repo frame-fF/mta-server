@@ -1,1 +1,3 @@
-<settings></settings>
+<settings>
+    <setting name="*zombies.MaxZombies" value="[10]"></setting>
+</settings>
