@@ -1,4 +1,4 @@
 <meta>
-    <info name="remote_player_join" version="1.0" description="start server" type="script"/>
+    <info name="remote_player_join" version="1.0" description="remote player join" type="script"/>
     <script src="remote_player_join.lua" type="server"/>
 </meta>

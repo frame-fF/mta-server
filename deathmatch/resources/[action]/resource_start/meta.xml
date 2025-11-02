@@ -1,4 +1,4 @@
 <meta>
-    <info name="resource_start" version="1.0" description="start server" type="script"/>
+    <info name="resource_start" version="1.0" description="resource start" type="script"/>
     <script src="resource_start.lua" type="server"/>
 </meta>

@@ -1,4 +1,4 @@
 <meta>
-    <info name="player_join" version="1.0" description="start server" type="script"/>
+    <info name="player_join" version="1.0" description="player join" type="script"/>
     <script src="player_join.lua" type="server"/>
 </meta>
