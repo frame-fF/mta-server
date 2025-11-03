@@ -1,0 +1,10 @@
+<meta>
+    <info name="api" version="1.0" description="api player" type="script"/>
+
+    <script src="get_player_account.lua" type="server"/>
+    <export function="get_player_account" type="server"/>
+    
+    <settings>
+		  <setting name="*url" value="http://127.0.0.1:8000" />
+    </settings>
+</meta>

@@ -25,6 +25,7 @@
         <object name="resource.webadmin"></object>
         <object name="resource.modloader_reborn"></object>
         <object name="user.fF"></object>
+        <object name="resource.api_player"></object>
     </group>
     <group name="Console">
         <acl name="Moderator"></acl>
