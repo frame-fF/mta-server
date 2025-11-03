@@ -1,12 +1,13 @@
 function get_player_account(source)
     local username = getPlayerName(source)
     local url = "http://127.0.0.1:8000" .. '/api/player/' .. username .. '/'
+    local key = getElementData(source, "results").key
     local sendOptions = {
         connectionAttempts = 3,
         connectTimeout = 5000,
         method = "GET",
         headers = {
-            ["Authorization"] = "Bearer "
+            ["Authorization"] = "Bearer ".. key
         }
     }
     fetchRemote(url, sendOptions, function(data, info)

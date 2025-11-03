@@ -11,6 +11,11 @@ function get_account(source, username, password)
     }
     fetchRemote(url, sendOptions, function(data, info)
         if info.statusCode == 200 then
+
+            -- Parse JSON data
+            local result = fromJSON(data)
+            setElementData(source, "results", result)
+            
             -- เช็คว่าเคยร์มีอยู่ในระบบหรือไม่
             local account = getAccount(username, password)
             if (account ~= false) then
@@ -21,10 +26,6 @@ function get_account(source, username, password)
                 local new_account = addAccount(username, password)
                 logIn(source, new_account, password)
             end
-
-            -- Parse JSON data
-            local result = fromJSON(data)
-            setElementData(source, "results", result)
         else
             outputChatBox('Error: ' .. data, source, 255, 255, 0)
         end
