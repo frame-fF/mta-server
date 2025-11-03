@@ -35,32 +35,43 @@ end
 
 
 -- Registration here
-function registerPlayer(username,password,passwordConfirm)
+function registerPlayer(username,email,password,passwordConfirm)
 	if not (username == "") then
-		if not (password == "") then
-			if not (passwordConfirm == "") then
-				if password == passwordConfirm then
-					local account = getAccount (username,password)
-					if (account == false) then
-						local accountAdded = addAccount(tostring(username),tostring(password))
-						if (accountAdded) then
-							triggerClientEvent(source,"hideRegisterWindow",getRootElement())
-							outputChatBox ("#0000FF* #FFFFFFYou have sucessfuly registered! [Username: #ABCDEF" .. username .. " #FF0000| #FFFFFFPassword: #ABCDEF" .. password .. "#FFFFFF]",source,255,255,255,true )
-							setTimer(outputChatBox,800,1,"#0000FF* #FFFFFFYou can now login with your new account.",source,255,255,255,true )
+		if not (email == "") then
+			-- Simple email validation
+			if string.match(email, "^[%w._%+-]+@[%w.-]+%.%w+$") then
+				if not (password == "") then
+					if not (passwordConfirm == "") then
+						if password == passwordConfirm then
+							local account = getAccount (username,password)
+							if (account == false) then
+								local accountAdded = addAccount(tostring(username),tostring(password))
+								if (accountAdded) then
+									-- Store email in account data
+									setAccountData(accountAdded, "email", tostring(email))
+									triggerClientEvent(source,"hideRegisterWindow",getRootElement())
+									outputChatBox ("#0000FF* #FFFFFFYou have sucessfuly registered! [Username: #ABCDEF" .. username .. " #FF0000| #FFFFFFEmail: #ABCDEF" .. email .. "#FFFFFF]",source,255,255,255,true )
+									setTimer(outputChatBox,800,1,"#0000FF* #FFFFFFYou can now login with your new account.",source,255,255,255,true )
+								else
+									outputChatBox ("#0000FF* #FFFFFFAn unknown error has occured! Please choose a different username/password and try again.",source,255,255,255,true )
+								end
+							else
+								outputChatBox ("#0000FF* #FFFFFFError! An account with this username already exists!",source,255,255,255,true )
+							end
 						else
-							outputChatBox ("#0000FF* #FFFFFFAn unknown error has occured! Please choose a different username/password and try again.",source,255,255,255,true )
+							outputChatBox ("#0000FF* #FFFFFFError! Passwords do not match!",source,255,255,255,true)
 						end
 					else
-						outputChatBox ("#0000FF* #FFFFFFError! An account with this username already exists!",source,255,255,255,true )
+						outputChatBox ("#0000FF* #FFFFFFError! Please confirm your password!",source,255,255,255,true)
 					end
 				else
-					outputChatBox ("#0000FF* #FFFFFFError! Passwords do not match!",source,255,255,255,true)
+					outputChatBox ("#0000FF* #FFFFFFError! Please enter a password!",source,255,255,255,true)
 				end
 			else
-				outputChatBox ("#0000FF* #FFFFFFError! Please confirm your password!",source,255,255,255,true)
+				outputChatBox ("#0000FF* #FFFFFFError! Please enter a valid email address!",source,255,255,255,true)
 			end
 		else
-			outputChatBox ("#0000FF* #FFFFFFError! Please enter a password!",source,255,255,255,true)
+			outputChatBox ("#0000FF* #FFFFFFError! Please enter your email address!",source,255,255,255,true)
 		end
 	else
 		outputChatBox ("#0000FF* #FFFFFFError! Please enter a username you would like to register with!",source,255,255,255,true)

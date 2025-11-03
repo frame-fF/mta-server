@@ -102,12 +102,14 @@ function loginPanel()
 				registerWindow = guiCreateWindow(screenWidth/2-regWidth/2,screenHeight/2-regHeight/2,regWidth,regHeight,"Registration",false)
 				guiWindowSetSizable(registerWindow,false)
 
-				editRegistrationUsername = guiCreateEdit(98,138,242,25,"",false,registerWindow)
+				editRegistrationUsername = guiCreateEdit(98,108,242,25,"",false,registerWindow)
 
-				editRegistrationPassword = guiCreateEdit(98,195,242,25,"",false,registerWindow)
+				editRegistrationEmail = guiCreateEdit(98,158,242,25,"",false,registerWindow)
+
+				editRegistrationPassword = guiCreateEdit(98,208,242,25,"",false,registerWindow)
 				guiEditSetMasked(editRegistrationPassword,true)
 
-				editRegistrationRepeatPassword = guiCreateEdit(99,252,242,25,"",false,registerWindow)
+				editRegistrationRepeatPassword = guiCreateEdit(99,258,242,25,"",false,registerWindow)
 				guiEditSetMasked(editRegistrationRepeatPassword,true)
 
 				lblRegister = guiCreateLabel(24,24,391,97,"Register",false,registerWindow)
@@ -116,19 +118,25 @@ function loginPanel()
 				guiLabelSetHorizontalAlign(lblRegister,"center",false)
 				guiSetFont(lblRegister,"sa-gothic")
 
-				lblRUsername = guiCreateLabel(98,113,242,17,"Username:",false,registerWindow)
+				lblRUsername = guiCreateLabel(98,83,242,17,"Username:",false,registerWindow)
 				guiLabelSetColor(lblRUsername,0,85,255)
 				guiLabelSetVerticalAlign(lblRUsername,"center")
 				guiLabelSetHorizontalAlign(lblRUsername,"center",false)
 				guiSetFont(lblRUsername,"default-bold-small")
 
-				lblRPassword = guiCreateLabel(98,171,242,17,"Password:",false,registerWindow)
+				lblREmail = guiCreateLabel(98,133,242,17,"Email:",false,registerWindow)
+				guiLabelSetColor(lblREmail,0,85,255)
+				guiLabelSetVerticalAlign(lblREmail,"center")
+				guiLabelSetHorizontalAlign(lblREmail,"center",false)
+				guiSetFont(lblREmail,"default-bold-small")
+
+				lblRPassword = guiCreateLabel(98,183,242,17,"Password:",false,registerWindow)
 				guiLabelSetColor(lblRPassword,0,85,255)
 				guiLabelSetVerticalAlign(lblRPassword,"center")
 				guiLabelSetHorizontalAlign(lblRPassword,"center",false)
 				guiSetFont(lblRPassword,"default-bold-small")
 
-				lblRepeatPassword = guiCreateLabel(98,230,242,17,"Repeat password:",false,registerWindow)
+				lblRepeatPassword = guiCreateLabel(98,233,242,17,"Repeat password:",false,registerWindow)
 				guiLabelSetColor(lblRepeatPassword,0,85,255)
 				guiLabelSetVerticalAlign(lblRepeatPassword,"center")
 				guiLabelSetHorizontalAlign(lblRepeatPassword,"center",false)
@@ -224,9 +232,10 @@ function onClickRegisterConfirm(button,state)
 	if(button == "left" and state == "up") then
 		if (source == btnConfirmRegistration) then
 			username = guiGetText(editRegistrationUsername)
+			email = guiGetText(editRegistrationEmail)
 			password = guiGetText(editRegistrationPassword)
 			passwordConfirm = guiGetText(editRegistrationRepeatPassword)
-			triggerServerEvent("onRequestRegister",getLocalPlayer(),username,password,passwordConfirm)
+			triggerServerEvent("onRequestRegister",getLocalPlayer(),username,email,password,passwordConfirm)
 		end
 	end
 end
