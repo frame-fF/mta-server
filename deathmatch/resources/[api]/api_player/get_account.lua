@@ -1,20 +1,14 @@
 function get_account(source, username, password)
-    local url = "http://127.0.0.1:8000" .. '/api/player/login'
-
-    local jsonData = toJSON({
-        username = username,
-        password = password
-    })
+    local url = "http://127.0.0.1:8000" .. '/api/player/login/'
 
     sendOptions = {
         connectionAttempts = 3,
         connectTimeout = 5000,
         method = "POST",
-        postData = jsonData,
-        headers = {
-            ["accept"] = "application/json",
-            ["Content-Type"] = "application/json"  -- เพิ่ม header
-        } 
+        formFields = {
+            username=username,
+            password=password,
+        }
     }
     fetchRemote(url, sendOptions, function(data, info)
         iprint("----", data, info.statusCode)
