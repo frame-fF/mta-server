@@ -1,12 +1,15 @@
 function get_player_account(source, username)
-    local url =  get("url") .. '/userdata/' .. username
+    -- Get API URL from global server configuration
+    local url = get("api_base_url") or "http://127.0.0.1:8000"
+    local apiEndpoint = url .. '/userdata/' .. username
+    
     sendOptions = {
         connectionAttempts = 3,
         connectTimeout = 5000,
         method = "GET",
         formFields = {},
     }
-    fetchRemote(url, sendOptions, function(data, info)
+    fetchRemote(apiEndpoint, sendOptions, function(data, info)
         if info.success then
             outputChatBox('load data success', source, 0, 255, 0)
             iprint('load data success')
