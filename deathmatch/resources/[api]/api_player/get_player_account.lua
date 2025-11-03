@@ -5,6 +5,9 @@ function get_player_account(source)
         connectionAttempts = 3,
         connectTimeout = 5000,
         method = "GET",
+        headers = {
+            ["Authorization"] = "Bearer "
+        }
     }
     fetchRemote(url, sendOptions, function(data, info)
         if info.statusCode == 200 then
