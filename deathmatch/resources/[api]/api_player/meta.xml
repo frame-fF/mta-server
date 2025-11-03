@@ -1,5 +1,6 @@
 <meta>
     <info name="api" version="1.0" description="api player" type="script"/>
+    <min_mta_version server="1.5.4-9.11413" />
 
     <script src="register.lua" type="server"/>
     <export function="register" type="server"/>
