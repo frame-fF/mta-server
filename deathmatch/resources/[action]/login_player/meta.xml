@@ -1,4 +1,5 @@
 <meta>
     <info name="login_player" version="1.0" description="login player" type="script"/>
     <script src="login_player.lua" type="server"/>
+    <export function="loginPlayer" type="server"/>
 </meta>
