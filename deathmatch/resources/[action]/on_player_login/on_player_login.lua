@@ -8,7 +8,7 @@ local function onPlayerLogin()
     -- local account = getPlayerAccount(source)
     -- local username = getAccountName(account)
     
-    result = exports.api_player:get_player_account(source, username)
+    -- result = exports.api_player:get_player_account(source, username)
 end
 
 addEventHandler("onPlayerLogin", root, onPlayerLogin)
