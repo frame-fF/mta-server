@@ -8,7 +8,7 @@ function get_player_account(source)
     }
     fetchRemote(url, sendOptions, function(data, info)
         if info.statusCode == 200 then
-            iprint(data)
+            local result = fromJSON(data)
         else
             outputChatBox('Error: ' .. data, source, 255, 255, 0)
         end
