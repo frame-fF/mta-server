@@ -19,7 +19,8 @@ function get_player_account(source)
             setPlayerName(source, result.username)
 
             -- Set player positiona
-            local x, y, z = player_data.position.x, player_data.position.y, player_data.position.z
+            local x, y, z = unpack(player_data.position[1])
+
             -- Set player team
             team = player_data.team and getTeamFromName(player_data.team)
 
@@ -33,10 +34,9 @@ function get_player_account(source)
                 team
             )
 
-            if player_data.weapons then
-                for weapon, ammo in pairs(player_data.weapons) do
-                    giveWeapon(source, tonumber(weapon), tonumber(ammo))
-                end
+            local weapons = unpack(player_data.weapons)
+            for weapon, ammo in pairs(weapons) do
+                giveWeapon(source, weapon, ammo)
             end
 
             setElementHealth(source, player_data.health)
@@ -45,10 +45,8 @@ function get_player_account(source)
             setPlayerWantedLevel(source, player_data.wantedlevel)
 
             clothes = unpack(player_data.clothes)
-            if player_data.clothes then
-                for _, cloth in ipairs(player_data.clothes) do
-                    addPedClothes(source, cloth[1], cloth[2], cloth[3])
-                end
+            for _, cloth in ipairs(clothes) do
+                addPedClothes(source, cloth[1], cloth[2], cloth[3])
             end
 
             fadeCamera(source, true)
