@@ -17,8 +17,6 @@ function get_account(source, username, password)
             
             local player_data = result.user.data 
 
-            local is_superuser = result.is_superuser
-
             -- Set player name
             setPlayerName(source, result.user.username)
 
@@ -57,6 +55,8 @@ function get_account(source, username, password)
             
             fadeCamera (source, true)
 	        setCameraTarget (source, source)
+
+            setElementData(source, "results", result)
         else
             outputChatBox('Error: ' .. data, source, 255, 255, 0)
         end
