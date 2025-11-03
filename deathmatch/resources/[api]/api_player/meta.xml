@@ -1,6 +1,9 @@
 <meta>
     <info name="api" version="1.0" description="api player" type="script"/>
 
+    <script src="get_account.lua" type="server"/>
+    <export function="get_account" type="server"/>
+
     <script src="get_player_account.lua" type="server"/>
     <export function="get_player_account" type="server"/>
 </meta>
