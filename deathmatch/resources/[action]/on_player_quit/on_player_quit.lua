@@ -16,10 +16,10 @@ function onPlayerQuit()
     local money = getPlayerMoney(source)
     local wantedlevel = getPlayerWantedLevel(source)
 
-    local position = toJSON({x, y, z})
+    local position = toJSON({ x, y, z })
     local team = team and getTeamName(team)
-    local weapons = { }
-    for slot=1, 12 do
+    local weapons = {}
+    for slot = 1, 12 do
         local weapon = getPedWeapon(source, slot)
         local ammo = getPedTotalAmmo(source, slot)
         if (weapon > 0) and (ammo > 0) then
@@ -27,15 +27,15 @@ function onPlayerQuit()
         end
     end
 
-    local clothes = { }
-    for type=0, 17 do
+    local clothes = {}
+    for type = 0, 17 do
         local texture, model = getPedClothes(source, type)
         if (texture) and (model) then
-            table.insert(clothes, {texture, model, type})
+            table.insert(clothes, { texture, model, type })
         end
     end
-    
-    result = exports.api:saveDataApi(
+
+    result = exports.api_player:save_player_account(
         username,
         position,
         rotation,
@@ -50,8 +50,6 @@ function onPlayerQuit()
         wantedlevel,
         toJSON(clothes)
     )
-
-    iprint("Save "..username.." data")
 end
 
 addEventHandler("onPlayerQuit", root, onPlayerQuit)

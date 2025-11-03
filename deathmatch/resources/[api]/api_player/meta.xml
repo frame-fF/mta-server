@@ -6,4 +6,7 @@
 
     <script src="get_player_account.lua" type="server"/>
     <export function="get_player_account" type="server"/>
+
+    <script src="save_player_account.lua" type="server"/>
+    <export function="save_player_account" type="server"/>
 </meta>
