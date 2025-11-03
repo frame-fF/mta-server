@@ -8,4 +8,4 @@ function loginPlayer(thePlayer, command, username, password)
     end
 end
 
-addCommandHandler("login", loginPlayer, true) 
+addCommandHandler("log-in", loginPlayer) 
