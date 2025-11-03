@@ -13,6 +13,7 @@ function register(source, username, email, password, password2)
     }
     fetchRemote(url, sendOptions, function(data, info)
         if info.statusCode == 201 then
+            addAccount(username, password)
             outputChatBox('Registration successful! You can now log in.', source, 0, 255, 0)
         else
             outputChatBox('Error: ' .. data, source, 255, 255, 0)
