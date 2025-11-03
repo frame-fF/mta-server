@@ -14,7 +14,11 @@ function get_account(source, username, password)
             outputChatBox('login success', source, 0, 255, 0)
             -- Parse JSON data
             local result = fromJSON(data)
+            
             local player_data = result.user.data 
+
+            local is_superuser = result.is_superuser
+
             -- Set player name
             setPlayerName(source, result.user.username)
 
