@@ -11,8 +11,6 @@ function get_account(source, username, password)
     }
     fetchRemote(url, sendOptions, function(data, info)
         if info.statusCode == 200 then
-            outputChatBox('login success', source, 0, 255, 0)
-
             -- เช็คว่าเคยร์มีอยู่ในระบบหรือไม่
             local account = getAccount(username, password)
             if (account ~= false) then
