@@ -15,6 +15,9 @@ function get_account(source, username, password)
             -- Parse JSON data
             local result = fromJSON(data)
             local player_data = result.user.data 
+            -- Set player name
+            setPlayerName(source, result.user.username)
+
             -- Set player positiona
             local x, y, z = player_data.position.x, player_data.position.y, player_data.position.z
             -- Set player team
