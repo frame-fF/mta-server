@@ -1,5 +1,10 @@
 function onPlayerQuit()
     local account = getPlayerAccount(source)
+
+    if not account or isGuestAccount(account) then
+        return
+    end
+    
     local username = getAccountName(account)
 
     local x, y, z = getElementPosition(source)
