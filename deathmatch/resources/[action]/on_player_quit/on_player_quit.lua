@@ -4,7 +4,7 @@ function onPlayerQuit()
     if not account or isGuestAccount(account) then
         return
     end
-    
+
     local username = getAccountName(account)
 
     local x, y, z = getElementPosition(source)
@@ -40,22 +40,21 @@ function onPlayerQuit()
         end
     end
 
-    result = exports.api_player:save_player_account(
-        source,
-        username,
-        position,
-        rotation,
-        skin,
-        interior,
-        dimension,
-        team,
-        toJSON(weapons),
-        health,
-        armor,
-        money,
-        wantedlevel,
-        toJSON(clothes)
-    )
+    local data = {
+        position = position,
+        rotation = rotation,
+        skin = skin,
+        interior = interior,
+        dimension = dimension,
+        team = team,
+        weapons = toJSON(weapons),
+        health = health,
+        armor = armor,
+        money = money,
+        wantedlevel = wantedlevel,
+        clothes = toJSON(clothes)
+    }
+    result = exports.api_player:save_player_account(source, data)
     logOut(source)
 end
 

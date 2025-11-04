@@ -1,39 +1,11 @@
-function save_player_account(
-    source,
-    username,
-    position,
-    rotation,
-    skin,
-    interior,
-    dimension,
-    team,
-    weapons,
-    health,
-    armor,
-    money,
-    wantedlevel,
-    clothes
-)
+function save_player_account(source, data)
     local url = get("base_url") .. '/api/player/me/data/update/'
     local key = getElementData(source, "results").key
     local sendOptions = {
         connectionAttempts = 3,
         connectTimeout = 5000,
         method = "PATCH",
-        formFields = {
-            position = position,
-            rotation = rotation,
-            skin = skin,
-            interior = interior,
-            dimension = dimension,
-            team = team,
-            weapons = weapons,
-            health = health,
-            armor = armor,
-            money = money,
-            wantedlevel = wantedlevel,
-            clothes = clothes
-        },
+        formFields = data,
         headers = {
             ["Authorization"] = "Token ".. key
         }
