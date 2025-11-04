@@ -1,0 +1,4 @@
+<meta>
+    <info author="Server" type="script" name="Custom Nametag" description="แสดงชื่อผู้เล่นบนหัวโดยไม่แสดงแทบเลือด" />
+    <script src="client.lua" type="client" />
+</meta>
