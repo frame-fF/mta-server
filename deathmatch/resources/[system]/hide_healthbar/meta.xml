@@ -1,0 +1,5 @@
+<meta>
+    <info author="Server" version="1.0.0" name="Hide Health Bar" description="ปิดการแสดงผลแทบเลือดของผู้เล่นอื่น" type="script" />
+    
+    <script src="client.lua" type="client" />
+</meta>
