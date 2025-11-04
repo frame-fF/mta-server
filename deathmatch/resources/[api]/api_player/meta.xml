@@ -1,7 +1,9 @@
 <meta>
 
     <settings>
-        <setting name="base_url" value="http://mta-backend:8888"></setting>
+        <!-- http://mta-backend:8888 -->
+        <!-- http://127.0.0.1:8000 -->
+        <setting name="base_url" value="http://127.0.0.1:8000"></setting> 
     </settings>
 
     <info name="api" version="1.0" description="api player" type="script"/>

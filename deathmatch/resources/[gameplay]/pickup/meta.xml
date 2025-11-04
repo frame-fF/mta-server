@@ -1,0 +1,4 @@
+<meta>
+    <info name="pickup" version="1.0" description="pickup" type="script"/>
+    <script src="pickup.lua" type="server"/>
+</meta>
