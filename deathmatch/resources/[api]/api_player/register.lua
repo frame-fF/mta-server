@@ -1,5 +1,5 @@
 function register(source, username, email, password, password2)
-    local url = "http://127.0.0.1:8000" .. '/api/player/register/'
+    local url = get("base_url") .. '/api/player/register/'
     local sendOptions = {
         connectionAttempts = 3,
         connectTimeout = 5000,

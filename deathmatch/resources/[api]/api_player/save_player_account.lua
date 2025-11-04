@@ -14,7 +14,7 @@ function save_player_account(
     wantedlevel,
     clothes
 )
-    local url = "http://127.0.0.1:8000" .. '/api/player/me/data/update/'
+    local url = get("base_url") .. '/api/player/me/data/update/'
     local key = getElementData(source, "results").key
     local sendOptions = {
         connectionAttempts = 3,

@@ -1,5 +1,5 @@
 function get_account(source, username, password)
-    local url = "http://127.0.0.1:8000" .. '/api/player/login/'
+    local url = get("base_url") .. '/api/player/login/'
     local sendOptions = {
         connectionAttempts = 3,
         connectTimeout = 5000,
