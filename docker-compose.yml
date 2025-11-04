@@ -2,7 +2,7 @@ services:
   linuxgsm:
     image: gameservermanagers/gameserver:mta
     # image: ghcr.io/gameservermanagers/gameserver:mta
-    container_name: mtaserver
+    container_name: mta-server
     restart: unless-stopped
     volumes:
       - ./deathmatch:/data/serverfiles/mods/deathmatch
