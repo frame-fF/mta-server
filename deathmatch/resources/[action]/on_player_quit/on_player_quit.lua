@@ -56,6 +56,7 @@ function onPlayerQuit()
         wantedlevel,
         toJSON(clothes)
     )
+    logOut(source)
 end
 
 addEventHandler("onPlayerQuit", root, onPlayerQuit)
