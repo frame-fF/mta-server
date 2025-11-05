@@ -60,6 +60,24 @@ local weaponData = {
 function buyWeapon(weaponID)
     -- client คือผู้เล่นที่ส่ง event มา
     local player = client
+
+    if weaponID == "armor" then
+        local armorInfo = weaponData["armor"]
+        if not armorInfo then return end
+        
+        local price = armorInfo.price
+        local armorAmount = armorInfo.ammo -- ใช้ ammo เป็นค่าเกราะ
+        
+        if getPlayerMoney(player) >= price then
+            takePlayerMoney(player, price)
+            setPedArmor(player, armorAmount) -- ให้เกราะแทนปืน
+            outputChatBox("You have purchased Body Armor.", player, 0, 255, 0)
+        else
+            outputChatBox("You don't have enough money.", player, 255, 0, 0)
+        end
+        return
+    end
+    
     local weaponInfo = weaponData[tonumber(weaponID)]
 
     if not weaponInfo then return end
