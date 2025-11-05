@@ -24,29 +24,33 @@ addEventHandler("onMarkerHit", b, activeMarkers)
 addEventHandler("onMarkerLeave", b, disabledMarkers)
 
 -- ตารางราคาปืนฝั่ง server
-local weaponPrices = {
-    [22] = 200,         -- Colt 45
-    [24] = 500,         -- Desert Eagle
-    [29] = 1500,        -- SMG
-    [31] = 3000,        -- M4
-    [34] = 5000         -- Sniper Rifle
+local weaponData = {
+    [22] = { price = 200, ammo = 10 }, -- Colt 45
+    [24] = { price = 500, ammo = 50 },  -- Desert Eagle
+    [29] = { price = 1500, ammo = 250 },-- SMG
+    [31] = { price = 3000, ammo = 300 },-- M4
+    [34] = { price = 5000, ammo = 25 }  -- Sniper Rifle
 }
 
 function buyWeapon(weaponID)
     -- client คือผู้เล่นที่ส่ง event มา
     local player = client
-    local price = weaponPrices[tonumber(weaponID)]
+    local weaponInfo = weaponData[tonumber(weaponID)]
 
-    if not price then return end
+    if not weaponInfo then return end
+
+    local price = weaponInfo.price
+    local ammo = weaponInfo.ammo
 
     if getPlayerMoney(player) >= price then
         takePlayerMoney(player, price)
-        giveWeapon(player, weaponID, 300, true) -- ให้ปืนพร้อมกระสุน 300 นัด
+        giveWeapon(player, weaponID, ammo, true) -- ให้ปืนพร้อมกระสุนตามที่กำหนด
         outputChatBox("You have purchased a weapon.", player, 0, 255, 0)
     else
         outputChatBox("You don't have enough money.", player, 255, 0, 0)
     end
 end
+
 addEvent("shop_weapons:buyWeapon", true)
 addEventHandler("shop_weapons:buyWeapon", root, buyWeapon)
 
