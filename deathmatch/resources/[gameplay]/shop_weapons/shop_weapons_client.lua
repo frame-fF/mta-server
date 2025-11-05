@@ -12,7 +12,7 @@
 local screenW, screenH = guiGetScreenSize()
 
 -- กำหนดขนาด GUI Window (กว้าง x สูง)
-local windowWidth, windowHeight = 700, 500
+local windowWidth, windowHeight = 900, 500
 
 -- คำนวณตำแหน่งให้ GUI อยู่กลางจอ
 local x = (screenW - windowWidth) / 2
@@ -135,7 +135,7 @@ function createWeaponShopGUI()
 
     -- สร้าง TabPanel สำหรับแยกหมวดหมู่อาวุธ
     -- ตำแหน่ง X=10, Y=30, กว้าง=480, สูง=420
-    tabPanel = guiCreateTabPanel(10, 30, 480, 420, false, weaponShopWindow)
+    tabPanel = guiCreateTabPanel(10, 30, 680, 420, false, weaponShopWindow)
     
     -- วนลูปสร้าง Tab สำหรับแต่ละหมวดหมู่อาวุธ
     for categoryIndex, category in ipairs(weaponCategories) do
@@ -197,7 +197,7 @@ function createWeaponShopGUI()
     -- ========================================
     -- สร้างพื้นที่แสดงอาวุธที่เลือก (ด้านขวาของหน้าต่าง)
     -- ========================================
-    local infoX = 500  -- ตำแหน่ง X เริ่มต้น
+    local infoX = 700  -- ตำแหน่ง X เริ่มต้น
     local infoY = 30   -- ตำแหน่ง Y เริ่มต้น
     
     -- Label หัวข้อ "Selected Weapon:"
