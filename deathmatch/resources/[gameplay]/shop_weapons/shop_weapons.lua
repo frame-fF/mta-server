@@ -48,6 +48,11 @@ local weaponData = {
     [36] = { price = 1000, ammo = 500 }, -- Rocket Launcher HS
     [37] = { price = 1000, ammo = 500 },-- Flame
     [38] = { price = 1000, ammo = 500 },-- Minigun
+    --Projectiles 
+    [16] = { price = 50, ammo = 20 },-- Grenade
+    [17] = { price = 50, ammo = 20 },-- Tear Gas
+    [18] = { price = 50, ammo = 20 },-- Molotov
+    [39] = { price = 50, ammo = 20 },-- Satchel
 }
 
 function buyWeapon(weaponID)

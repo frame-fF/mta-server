@@ -107,6 +107,16 @@ local weaponCategories = {
             { 37, "Flamethrower", 1000 },       -- พ่นไฟ
             { 38, "Minigun", 1000 }             -- ปืนกลหนัก
         }
+    },
+    -- หมวดระเบิดและวัตถุระเบิด (Projectiles)
+    {
+        name = "Projectiles",
+        weapons = {
+            { 16, "Grenade", 50 },             -- ระเบิดมือ
+            { 17, "Tear Gas", 50 },            -- แก๊สน้ำตา
+            { 18, "Molotov", 50 },              -- ขวดเพลิง
+            { 39, "Satchel Charge", 50 }       -- ระเบิดชนิดวางกับพื้น
+        }
     }
 }
 

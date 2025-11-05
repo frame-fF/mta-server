@@ -4,6 +4,9 @@
     <script src="shop_weapons_client.lua" type="client" />
 
     <file src="images/item_bg.jpg" />
+    <file src="images/weapons/16.png" />
+    <file src="images/weapons/17.png" />
+    <file src="images/weapons/18.png" />
     <file src="images/weapons/22.png" />
     <file src="images/weapons/23.png" />
     <file src="images/weapons/24.png" />
@@ -21,6 +24,7 @@
     <file src="images/weapons/36.png" />
     <file src="images/weapons/37.png" />
     <file src="images/weapons/38.png" />
+    <file src="images/weapons/39.png" />
 </meta>
 
 
