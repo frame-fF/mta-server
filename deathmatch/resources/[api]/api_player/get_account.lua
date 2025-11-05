@@ -15,6 +15,9 @@ function get_account(source, username, password)
             -- Parse JSON data
             local result = fromJSON(data)
             setElementData(source, "results", result)
+
+            setElementData(source, "hunger", 100)
+            setElementData(source, "thirst", 100)
             
             -- เช็คว่าเคยร์มีอยู่ในระบบหรือไม่
             local account = getAccount(username, password)
