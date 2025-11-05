@@ -26,6 +26,7 @@
         <object name="resource.modloader_reborn"></object>
         <object name="user.fF"></object>
         <object name="resource.api_player"></object>
+        <object name="resource.pattach"></object>
     </group>
     <group name="Console">
         <acl name="Moderator"></acl>
@@ -55,6 +56,10 @@
     <group name="autoGroup_modloader_reborn">
         <acl name="autoACL_modloader_reborn"></acl>
         <object name="resource.modloader_reborn"></object>
+    </group>
+    <group name="autoGroup_pattach">
+        <acl name="autoACL_pattach"></acl>
+        <object name="resource.pattach"></object>
     </group>
     <acl name="Default">
         <right name="general.ModifyOtherObjects" access="false"></right>
@@ -859,5 +864,8 @@
     </acl>
     <acl name="autoACL_modloader_reborn">
         <right name="general.ModifyOtherObjects" access="false" who="" pending="true" date=""></right>
+    </acl>
+    <acl name="autoACL_pattach">
+        <right name="function.fetchRemote" access="false" who="" pending="true" date=""></right>
     </acl>
 </acl>
