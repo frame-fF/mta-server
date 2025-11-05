@@ -191,7 +191,6 @@ end)
 local function attachItems(player)
     -- ลบ attachments เก่าก่อน
     detachAll(player)
-    
     local backpack = createObject(371, 0, 0, 0)
     exports.pAttach:attach(backpack, player, "backpack", 0, -0.15, 0, 0, 90, 0)
 end

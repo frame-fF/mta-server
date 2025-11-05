@@ -85,6 +85,10 @@ addEventHandler("onClientPlayerVehicleExit",root,function()
 end)
 
 addEventHandler("onClientPreRender",root,function()
+
+	local allowedWeapons = {[25]=true, [30]=true, [31]=true, [33]=true, [34]=true}
+    
+
 	for k,v in pairs(jugadores) do
 		local x,y,z = getPedBonePosition(k,3)
 		local rot = math.rad(90-getPedRotation(k))
@@ -116,9 +120,9 @@ addEventHandler("onClientPreRender",root,function()
 		if info[k][1] and not info[k][2] then
 			for i=1,7 do
 				local arma = getPedWeapon(k,i)
-				if arma~=wep and arma>0 and not jugadores[k][i] then
-					crearArma(k,arma)
-				end
+				if arma~=wep and arma>0 and not jugadores[k][i] and allowedWeapons[arma] then
+                    crearArma(k,arma)
+                end
 			end
 		end
 	end
