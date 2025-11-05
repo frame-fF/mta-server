@@ -20,12 +20,19 @@ function destruirArma(jug,slot)
 	jugadores[jug][slot] = nil
 end
 
-addEventHandler("onClientResourceStart",getResourceRootElement(),function()
+addEventHandler("onClientResourceStart",resourceRoot,function()
+	-- Initialize local player first
+	jugadores[lplayer] = {}
+	info[lplayer] = {true,isPedInVehicle(lplayer)}
+	
+	-- Then initialize other players
 	for k,v in ipairs(getElementsByType("player",root,true)) do
-		jugadores[v] = {}
-		info[v] = {true,isPedInVehicle(v)}
+		if v ~= lplayer then
+			jugadores[v] = {}
+			info[v] = {true,isPedInVehicle(v)}
+		end
 	end
-end,false)
+end)
 
 addEventHandler("onClientPlayerQuit",root,function()
 	if jugadores[source] and source ~= lplayer then

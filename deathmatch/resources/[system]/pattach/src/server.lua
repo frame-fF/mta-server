@@ -187,11 +187,19 @@ addEventHandler("onElementDestroy", root, function()
     end
 end)
 
+local playerBackpacks = {}
 
 local function attachItems(player)
     -- ลบ attachments เก่าก่อน
     detachAll(player)
+
+    -- ทำลาย backpack เก่าถ้ามี
+    if playerBackpacks[player] and isElement(playerBackpacks[player]) then
+        destroyElement(playerBackpacks[player])
+    end
+
     local backpack = createObject(371, 0, 0, 0)
+    playerBackpacks[player] = backpack
     exports.pAttach:attach(backpack, player, "backpack", 0, -0.15, 0, 0, 90, 0)
 end
 
@@ -208,5 +216,12 @@ end)
 addEventHandler("onResourceStart", resourceRoot, function()
     for _, player in ipairs(getElementsByType("player")) do
         attachItems(player)
+    end
+end)
+
+addEventHandler("onPlayerQuit", root, function()
+    if playerBackpacks[source] and isElement(playerBackpacks[source]) then
+        destroyElement(playerBackpacks[source])
+        playerBackpacks[source] = nil
     end
 end)
