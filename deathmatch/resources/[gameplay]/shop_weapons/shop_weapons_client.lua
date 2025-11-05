@@ -224,8 +224,8 @@ function createWeaponShopGUI()
     -- แสดงเคอร์เซอร์เมาส์
     showCursor(true)
     
-    -- อนุญาตให้ผู้เล่นเดินได้ขณะเปิด GUI
-    guiSetInputEnabled(false)
+    -- ปิดการควบคุมเกมเพื่อโฟกัสที่ GUI
+    guiSetInputEnabled(true)
 end
 
 -- ========================================
@@ -288,8 +288,8 @@ function hideGUI()
         selectedWeapon = nil
         weaponButtons = {}
         
-        -- คืนค่าการควบคุมคีย์บอร์ดกลับมาเป็นปกติ
-        guiSetInputEnabled(true)
+        -- คืนค่าการควบคุมเกมกลับมาเป็นปกติ
+        guiSetInputEnabled(false)
         
         -- ซ่อนเคอร์เซอร์เมาส์
         showCursor(false)
