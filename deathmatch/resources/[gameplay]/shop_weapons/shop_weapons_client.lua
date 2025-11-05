@@ -117,6 +117,13 @@ local weaponCategories = {
             { 18, "Molotov", 50 },              -- ขวดเพลิง
             { 39, "Satchel Charge", 50 }       -- ระเบิดชนิดวางกับพื้น
         }
+    },
+    -- เกราะ (Armor) - ใช้ "armor"แทน
+    {
+        name = "Armor",
+        weapons = {
+            { "armor", "Body Armor", 1000}           -- เสื้อเกราะ
+        }
     }
 }
 

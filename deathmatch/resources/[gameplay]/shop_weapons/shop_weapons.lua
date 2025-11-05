@@ -53,6 +53,8 @@ local weaponData = {
     [17] = { price = 50, ammo = 20 },-- Tear Gas
     [18] = { price = 50, ammo = 20 },-- Molotov
     [39] = { price = 50, ammo = 20 },-- Satchel
+    -- Armor
+    ["armor"] = { price = 1000, ammo = 100 } -- Body Armor
 }
 
 function buyWeapon(weaponID)
