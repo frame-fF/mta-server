@@ -194,7 +194,9 @@ function onBuyButtonClick()
     if selectedWeapon and selectedWeapon.id then
         -- ส่งข้อมูลไปให้ server ทำการซื้อ
         triggerServerEvent("shop_weapons:buyWeapon", localPlayer, selectedWeapon.id)
-        hideGUI()
+        -- ไม่ปิด GUI แล้ว เพื่อให้ซื้อได้ต่อเนื่อง
+        -- แสดงข้อความแจ้งเตือนการซื้อสำเร็จ
+        outputChatBox("Purchasing " .. selectedWeapon.name .. " for $" .. selectedWeapon.price, 0, 255, 0)
     end
 end
 
