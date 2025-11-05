@@ -8,6 +8,7 @@ function activeMarkers(hitElement, matchingDimension)
     if getElementType(hitElement) == "player" and matchingDimension then
         local player = hitElement
         setMarkerColor(source, 0, 255, 0, 255)
+        triggerClientEvent(hitElement, "shop_weapons:showGUI", hitElement)
     end
 end
 
@@ -15,13 +16,39 @@ function disabledMarkers(hitElement, matchingDimension)
     if getElementType(hitElement) == "player" and matchingDimension then
         local player = hitElement
         setMarkerColor(source, 255, 255, 0, 255)
+         triggerClientEvent(hitElement, "shop_weapons:hideGUI", hitElement)
     end
 end
 
 addEventHandler("onMarkerHit", b, activeMarkers)
 addEventHandler("onMarkerLeave", b, disabledMarkers)
 
+-- ตารางราคาปืนฝั่ง server
+local weaponPrices = {
+    [22] = 200,         -- Colt 45
+    [24] = 500,         -- Desert Eagle
+    [29] = 1500,        -- SMG
+    [31] = 3000,        -- M4
+    [34] = 5000         -- Sniper Rifle
+}
 
+function buyWeapon(weaponID)
+    -- client คือผู้เล่นที่ส่ง event มา
+    local player = client
+    local price = weaponPrices[tonumber(weaponID)]
+
+    if not price then return end
+
+    if getPlayerMoney(player) >= price then
+        takePlayerMoney(player, price)
+        giveWeapon(player, weaponID, 300, true) -- ให้ปืนพร้อมกระสุน 300 นัด
+        outputChatBox("You have purchased a weapon.", player, 0, 255, 0)
+    else
+        outputChatBox("You don't have enough money.", player, 255, 0, 0)
+    end
+end
+addEvent("shop_weapons:buyWeapon", true)
+addEventHandler("shop_weapons:buyWeapon", root, buyWeapon)
 
 -- Marker1 = createMarker(-2034.8935546875, 148.5478515625, 28.8359375 + 1.5, "arrow", 2, 255, 255, 0, 255)
 -- pickup1 = createPickup(291.8271484375, -83.0009765625, 1001.515625, 0, 10, 5000)

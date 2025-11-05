@@ -1,4 +1,7 @@
 <meta>
     <info name="shop_weapons" version="1.0" description="shop weapons" type="script"/>
     <script src="shop_weapons.lua" type="server"/>
+    <script src="shop_weapons_client.lua" type="client" />
 </meta>
+
+
