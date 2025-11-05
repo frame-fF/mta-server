@@ -10,11 +10,29 @@ local closeButton = nil
 
 -- รายการปืนที่จะขาย (id, ชื่อ, ราคา)
 local weaponsForSale = {
-    { 22, "Colt 45", 200 },
-    { 24, "Desert Eagle", 500 },
-    { 29, "SMG", 1500 },
-    { 31, "M4", 3000 },
-    { 34, "Sniper Rifle", 5000 }
+    -- Handguns
+    { 22, "Colt 45", 100 },
+    { 23, "Silenced Colt 45", 100 },
+    { 24, "Desert Eagle", 100 },
+    -- Shotguns
+    { 25, "Shotgun", 100 },
+    { 26, "Sawed-off Shotgun", 100 },
+    { 27, "Combat Shotgun", 100 },
+    -- Sub-Machine Guns
+    { 28, "Uzi", 100 },
+    { 29, "MP5", 100 },
+    { 32, "Tec-9", 100 },
+    -- Assault Rifles
+    { 30, "AK-47", 100 },
+    { 31, "M4", 100 },
+    -- Rifles
+    { 33, "Rifle", 100 },
+    { 34, "Sniper Rifle", 100 },
+    -- Heavy Weapons
+    { 35, "Rocket Launcher", 1000 },
+    { 36, "HS Rocket Launcher", 1000 },
+    { 37, "Flamethrower", 1000 },
+    { 38, "Minigun", 1000 }
 }
 
 function createWeaponShopGUI()

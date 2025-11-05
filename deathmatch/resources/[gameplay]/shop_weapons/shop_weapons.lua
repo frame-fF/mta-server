@@ -32,11 +32,11 @@ local weaponData = {
     -- Shotguns 
     [25] = { price = 100, ammo = 30 },-- Shotgun
     [26] = { price = 100, ammo = 30 },-- Sawed-off
-    [27] = { price = 100, ammo = 30 }  -- Combat Shotgun
+    [27] = { price = 100, ammo = 30 },  -- Combat Shotgun
     -- Sub-Machine Guns
     [28] = { price = 100, ammo = 60 },-- Uzi
     [29] = { price = 100, ammo = 60 },-- MP5
-    [32] = { price = 100, ammo = 60 }  -- Tec-9
+    [32] = { price = 100, ammo = 60 },  -- Tec-9
     -- Assault Rifles 
     [30] = { price = 100, ammo = 90 },-- Ak47
     [31] = { price = 100, ammo = 90 },-- M4
@@ -45,9 +45,9 @@ local weaponData = {
     [34] = { price = 100, ammo = 20 },-- Sniper Rifle
     --Heavy Weapons
     [35] = { price = 1000, ammo = 500 },-- Rocket Launcher
-    [36] = { price = 1000, ammo = 500 } -- Rocket Launcher HS
+    [36] = { price = 1000, ammo = 500 }, -- Rocket Launcher HS
     [37] = { price = 1000, ammo = 500 },-- Flame
-    [38] = { price = 1000, ammo = 500 } -- Minigun
+    [38] = { price = 1000, ammo = 500 },-- Minigun
 }
 
 function buyWeapon(weaponID)
