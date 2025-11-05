@@ -1,16 +1,34 @@
-local buildingEntranceX, buildingEntranceY, buildingEntranceZ = -2034.8935546875, 148.5478515625, 28.8359375 -- Exterior entrance coordinates
-local interiorSpawnX, interiorSpawnY, interiorSpawnZ = -27.31, -31.38, 1002.55 -- Interior spawn coordinates
-local interiorDimension = 4 -- A unique dimension for the interior
+Marker1 = createMarker(-2034.8935546875, 148.5478515625, 28.8359375 + 1.5, "arrow", 2, 255, 255, 0, 255)
+pickup1 = createPickup(291.8271484375, -83.0009765625, 1001.515625, 0, 10, 5000)
 
--- Create a colshape at the entrance
-local entranceColshape = createColSphere(buildingEntranceX, buildingEntranceY, buildingEntranceZ, 2)
+local x,y,z,int,dim = 285.8000, -84.5470, 1001.5390, 4, 1
+setElementInterior(pickup1, int)
+setElementDimension(pickup1, dim )
 
--- Handle player entering the colshape
-addEventHandler("onColShapeHit", entranceColshape, function(player)
-    if getElementType(player) == "player" then
-        -- Teleport player to interior
-        setElementPosition(player, interiorSpawnX, interiorSpawnY, interiorSpawnZ)
-        setElementInterior(player, 4) -- Set interior ID if necessary
-        setElementDimension(player, interiorDimension)
+function activeMarkers(hitElement, matchingDimension)
+    if getElementType(hitElement) == "player" and matchingDimension then
+        local player = hitElement
+        setElementPosition(player, 285.8000, -84.5470, 1001.5390)
+        setElementInterior(player, 4)
+        setElementDimension(player, 1)
     end
-end)
+end
+
+addEventHandler("onMarkerHit", Marker1, activeMarkers)
+
+
+local ExitMarker = createMarker(285.8466796875, -86.7822265625, 1001.5228881836 + 1.5, "arrow", 2, 255, 0, 0, 255)
+setElementInterior(ExitMarker, 4)
+setElementDimension(ExitMarker, 1)
+
+function exitInterior(hitElement, matchingDimension)
+    if getElementType(hitElement) == "player" and matchingDimension then
+        local player = hitElement
+        -- ส่งผู้เล่นกลับไปยังตำแหน่งเริ่มต้น
+        setElementPosition(player, -2027.3447265625, 148.8935546875, 28.8359375)
+        setElementInterior(player, 0)
+        setElementDimension(player, 0)
+    end
+end
+
+addEventHandler("onMarkerHit", ExitMarker, exitInterior)
