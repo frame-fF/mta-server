@@ -1,0 +1,58 @@
+-- HUD System for displaying hunger and thirst
+local screenW, screenH = guiGetScreenSize()
+
+-- ตำแหน่งและขนาดของ HUD
+local hudX = screenW - 220  -- ตำแหน่ง X (มุมขวาล่าง)
+local hudY = screenH - 120  -- ตำแหน่ง Y (ด้านล่าง)
+local barWidth = 200
+local barHeight = 25
+local barSpacing = 10
+
+-- สีของแถบ
+local colors = {
+    hunger = {r = 255, g = 140, g = 0},  -- สีส้ม
+    thirst = {r = 0, g = 150, b = 255}   -- สีฟ้า
+}
+
+-- ฟังก์ชันวาด HUD
+function drawHUD()
+    local player = getLocalPlayer()
+    
+    -- ดึงค่า hunger และ thirst จาก element data
+    local hunger = getElementData(player, "hunger") or 100
+    local thirst = getElementData(player, "thirst") or 100
+    
+    -- จำกัดค่าให้อยู่ระหว่าง 0-100
+    hunger = math.max(0, math.min(100, hunger))
+    thirst = math.max(0, math.min(100, thirst))
+    
+    -- คำนวณความกว้างของแถบตามเปอร์เซ็นต์
+    local hungerBarWidth = (hunger / 100) * barWidth
+    local thirstBarWidth = (thirst / 100) * barWidth
+    
+    -- วาดพื้นหลังแถบ Hunger
+    dxDrawRectangle(hudX, hudY, barWidth, barHeight, tocolor(0, 0, 0, 150))
+    -- วาดแถบ Hunger
+    dxDrawRectangle(hudX, hudY, hungerBarWidth, barHeight, tocolor(255, 140, 0, 200))
+    -- วาดข้อความ Hunger
+    dxDrawText("Hunger: " .. math.floor(hunger) .. "%", hudX, hudY, hudX + barWidth, hudY + barHeight, tocolor(255, 255, 255, 255), 1, "default-bold", "center", "center")
+    
+    -- วาดพื้นหลังแถบ Thirst
+    local thirstY = hudY + barHeight + barSpacing
+    dxDrawRectangle(hudX, thirstY, barWidth, barHeight, tocolor(0, 0, 0, 150))
+    -- วาดแถบ Thirst
+    dxDrawRectangle(hudX, thirstY, thirstBarWidth, barHeight, tocolor(0, 150, 255, 200))
+    -- วาดข้อความ Thirst
+    dxDrawText("Thirst: " .. math.floor(thirst) .. "%", hudX, thirstY, hudX + barWidth, thirstY + barHeight, tocolor(255, 255, 255, 255), 1, "default-bold", "center", "center")
+end
+
+-- เริ่มวาด HUD เมื่อ resource เริ่มทำงาน
+addEventHandler("onClientResourceStart", resourceRoot, function()
+    addEventHandler("onClientRender", root, drawHUD)
+    outputChatBox("HUD System loaded!", 0, 255, 0)
+end)
+
+-- หยุดวาด HUD เมื่อ resource หยุดทำงาน
+addEventHandler("onClientResourceStop", resourceRoot, function()
+    removeEventHandler("onClientRender", root, drawHUD)
+end)
