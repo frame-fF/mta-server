@@ -92,9 +92,9 @@ addEventHandler("onClientPreRender",root,function()
 	for k,v in pairs(jugadores) do
 		local x,y,z = getPedBonePosition(k,3)
 		local rot = math.rad(90-getPedRotation(k))
-		local i = 15
+		local i = 30
 		local wep = getPedWeaponSlot(k)
-		local ox,oy = math.cos(rot)*0.22,-math.sin(rot)*0.22
+		local ox,oy = math.cos(rot)*0.08,-math.sin(rot)*0.08
 		local alpha = getElementAlpha(k)
 		for q,w in pairs(v) do
 			if q == wep then
@@ -111,8 +111,13 @@ addEventHandler("onClientPreRender",root,function()
 					local qx,qy = math.sin(rot)*0.06,math.cos(rot)*0.06
 					setElementPosition(w,px-qx,py-qy,pz)
 				else
-					setElementPosition(w,x+ox,y+oy,z-0.2)
-					setElementRotation(w,-17,-(50+i),getPedRotation(k))
+					 -- คำนวณตำแหน่งด้านซ้าย-ขวาสำหรับอาวุธแต่ละชิ้น
+                    local sideOffset = (i % 2 == 0) and 0.15 or -0.20  -- สลับซ้าย-ขวา
+                    local sideX = math.sin(rot) * sideOffset
+                    local sideY = math.cos(rot) * sideOffset
+
+					setElementPosition(w, x + ox + sideX, y + oy + sideY, z + 0.3)
+					setElementRotation(w,176,-(90),getPedRotation(k)+90)
 					i=i+15
 				end
 			end
