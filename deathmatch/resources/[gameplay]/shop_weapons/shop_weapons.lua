@@ -1,5 +1,5 @@
-a = createBlip(-2625.85, 208.345, 3.98935, 6, 2, 255, 0, 0, 255, 0, 300)
-b = createMarker(295.626953125, -37.5712890625, 1001.515625, "cylinder", 2, 255, 255, 0, 255)
+local a = createBlip(-2625.85, 208.345, 3.98935, 6, 2, 255, 0, 0, 255, 0, 300)
+local b = createMarker(295.626953125, -37.5712890625, 1000.5, "cylinder", 2, 255, 255, 0, 255)
 setElementInterior(b, 1)
 setElementDimension(b, 1)
 
