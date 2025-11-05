@@ -1,0 +1,25 @@
+<meta>
+    <info author="MTA:SA" version="1.0" name="Hunger & Thirst System" description="ระบบ Hunger/Thirst ที่จะลดลงเรื่อยๆ" />
+    
+    <!-- Server Side Script -->
+    <script src="server.lua" type="server" />
+    
+    <!-- Settings -->
+    <settings>
+        <!-- ความเร็วในการลดค่า (วินาทีต่อครั้ง) -->
+        <setting name="*decrease_interval" value="1000" />
+        
+        <!-- จำนวนที่จะลดในแต่ละครั้ง -->
+        <setting name="*hunger_decrease_amount" value="0.1" />
+        <setting name="*thirst_decrease_amount" value="0.15" />
+        
+        <!-- ค่าเริ่มต้น -->
+        <setting name="*default_hunger" value="100" />
+        <setting name="*default_thirst" value="100" />
+        
+        <!-- ความเสียหายเมื่อค่าต่ำกว่า 0 -->
+        <setting name="*damage_when_low" value="true" />
+        <setting name="*damage_amount" value="1" />
+        <setting name="*damage_interval" value="5000" />
+    </settings>
+</meta>
