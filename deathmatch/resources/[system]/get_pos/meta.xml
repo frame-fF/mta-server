@@ -1,4 +1,0 @@
-<meta>
-    <info name="get_pos" version="1.0" description="get pos" type="script"/>
-    <script src="get_pos.lua" type="server"/>
-</meta>

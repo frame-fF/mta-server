@@ -1,4 +1,0 @@
-<meta>
-    <info author="YourName" version="1.0" name="HUD System" description="Display hunger and thirst on screen" />
-    <script src="client.lua" type="client" />
-</meta>

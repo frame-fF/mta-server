@@ -1,4 +1,0 @@
-<meta>
-    <info name="on_player_quit" version="1.0" description="on player quit" type="script"/>
-    <script src="on_player_quit.lua" type="server"/>
-</meta>

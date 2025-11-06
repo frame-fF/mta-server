@@ -1,6 +1,0 @@
-<meta>
-    <info author="clothing_models" type="script" name="clothing_models" description="clothing_models" />
-    <script src="client.lua" type="client" />
-    <file src="files/hockey.txd" cache="false" />
-    <file src="files/hockeymask.dff" cache="false" />
-</meta>

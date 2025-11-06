@@ -22,11 +22,6 @@
         <acl name="RPC"></acl>
         <object name="resource.admin"></object>
         <object name="resource.acpanel"></object>
-        <object name="resource.webadmin"></object>
-        <object name="resource.modloader_reborn"></object>
-        <object name="user.fF"></object>
-        <object name="resource.api_player"></object>
-        <object name="resource.pattach"></object>
     </group>
     <group name="Console">
         <acl name="Moderator"></acl>

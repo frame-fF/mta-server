@@ -1,5 +1,0 @@
-<meta>
-    <info name="register_player" version="1.0" description="register player" type="script"/>
-    <script src="register_player.lua" type="server"/>
-    <export function="register_player" type="server"/>
-</meta>

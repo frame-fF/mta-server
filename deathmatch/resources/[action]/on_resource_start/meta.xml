@@ -1,4 +1,0 @@
-<meta>
-    <info name="on_resource_start" version="1.0" description="on resource start" type="script"/>
-    <script src="on_resource_start.lua" type="server"/>
-</meta>
