@@ -11,7 +11,7 @@ local function playerLogin(source, username, password)
     }
     fetchRemote(url, sendOptions, function(data, info)
         if info.statusCode == 200 then
-            -- Parse JSON data
+            -- เก็บค่า JSON data
             local result = fromJSON(data)
             -- setElementData
             setElementData(source, "results", result)
@@ -30,15 +30,16 @@ local function playerLogin(source, username, password)
                 logIn(source, new_account, password)
             end
         else
-            outputChatBox('Error: ' .. data, source, 255, 255, 0)
+            outputChatBox('Error: ' .. data, source)
         end
     end)
 end
 
-local function onPlayerLogin(source)
-    local username = getPlayerName(source)
+local function onPlayerLogin()
+    local player = source  -- เก็บค่า source ไว้ใน local variable
+    local username = getPlayerName(player)
     local url = exports.settings:baseUrl() .. '/api/player/me/'
-    local key = getElementData(source, "results").key
+    local key = getElementData(player, "results").key
 
     local sendOptions = {
         connectionAttempts = 3,
@@ -53,7 +54,7 @@ local function onPlayerLogin(source)
             local result = fromJSON(data)
             local player_data = result.data
             -- Set player name
-            setPlayerName(source, result.username)
+            setPlayerName(player, result.username)
 
             -- Set player positiona
             local x, y, z = unpack(player_data.position[1])
@@ -61,8 +62,9 @@ local function onPlayerLogin(source)
             -- Set player team
             team = player_data.team and getTeamFromName(player_data.team)
 
+            -- Spawn player with saved datas
             spawnPlayer(
-                source,
+                player,
                 x, y, z,
                 player_data.rotation,
                 player_data.skin,
@@ -70,26 +72,26 @@ local function onPlayerLogin(source)
                 player_data.dimension,
                 team
             )
-
+            -- Give weapons
             local weapons = unpack(player_data.weapons)
             for weapon, ammo in pairs(weapons) do
-                giveWeapon(source, weapon, ammo)
+                giveWeapon(player, weapon, ammo)
             end
-
-            setElementHealth(source, player_data.health)
-            setPedArmor(source, player_data.armor)
-            setPlayerMoney(source, player_data.money)
-            setPlayerWantedLevel(source, player_data.wantedlevel)
-
+            -- Set Health Armor Money Wantedlevel
+            setElementHealth(player, player_data.health)
+            setPedArmor(player, player_data.armor)
+            setPlayerMoney(player, player_data.money)
+            setPlayerWantedLevel(player, player_data.wantedlevel)
+            -- Set clothes
             clothes = unpack(player_data.clothes)
             for _, cloth in ipairs(clothes) do
-                addPedClothes(source, cloth[1], cloth[2], cloth[3])
+                addPedClothes(player, cloth[1], cloth[2], cloth[3])
             end
-
-            fadeCamera(source, true)
-            setCameraTarget(source, source)
+            -- Set Camera
+            fadeCamera(player, true)
+            setCameraTarget(player, player)
         else
-            outputChatBox('Error: ' .. data, source, 255, 255, 0)
+            outputChatBox('Error: ' .. data, player)
         end
     end)
 end
