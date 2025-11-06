@@ -1,4 +1,4 @@
-local function logIn(source, username, password)
+local function playerLogin(source, username, password)
     local url = exports.settings:baseUrl() .. '/api/player/login/'
     local sendOptions = {
         connectionAttempts = 3,
@@ -35,7 +35,7 @@ local function logIn(source, username, password)
     end)
 end
 
-local function playerLogin(source)
+local function onPlayerLogin(source)
     local username = getPlayerName(source)
     local url = exports.settings:baseUrl() .. '/api/player/me/'
     local key = getElementData(source, "results").key
@@ -96,11 +96,11 @@ end
 
 
 local function commandLogin(source, command, username, password)
-    logIn(source, username, password)
+    playerLogin(source, username, password)
 end
 
 addCommandHandler("log-in", commandLogin)
 
-addEventHandler("onPlayerLogin", root, playerLogin)
+addEventHandler("onPlayerLogin", root, onPlayerLogin)
 
 
