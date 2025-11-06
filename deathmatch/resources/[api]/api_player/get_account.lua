@@ -18,6 +18,7 @@ function get_account(source, username, password)
 
             setElementData(source, "hunger", 100)
             setElementData(source, "thirst", 100)
+            setElementData(source, "stamina", 100)
             
             -- เช็คว่าเคยร์มีอยู่ในระบบหรือไม่
             local account = getAccount(username, password)
