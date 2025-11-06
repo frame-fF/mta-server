@@ -7,7 +7,7 @@ local function save(source, data)
         method = "PATCH",
         formFields = data,
         headers = {
-            ["Authorization"] = "Token ".. key
+            ["Authorization"] = "Token " .. key
         }
     }
     fetchRemote(url, sendOptions, function(data, info)
@@ -20,10 +20,10 @@ local function save(source, data)
 end
 
 
-local function onPlayerQuit()
+local function savePlayerData()
     local account = getPlayerAccount(source)
 
-    if not account or isGuestAccount(account) then
+    if not account then
         return
     end
 
@@ -77,8 +77,28 @@ local function onPlayerQuit()
         clothes = toJSON(clothes)
     }
     save(source, data)
-    logOut(source)
 end
 
+addEvent("savePlayerData", true)
+addEventHandler("savePlayerData", root, savePlayerData)
 
-addEventHandler("onPlayerQuit", root, onPlayerQuit)
+
+addEventHandler("onPlayerQuit", root,
+    function()
+        triggerEvent("savePlayerData", source)
+    end)
+
+addEventHandler("onPlayerLogout", root,
+    function()
+        triggerEvent("savePlayerData", source)
+    end)
+
+addEventHandler("onResourceStop", root,
+    function()
+        for _, player in ipairs(getElementsByType("player")) do
+            local account = getPlayerAccount(player)
+            if (account) and not (isGuestAccount(account)) then
+                triggerEvent("savePlayerData", player)
+            end
+        end
+    end)
