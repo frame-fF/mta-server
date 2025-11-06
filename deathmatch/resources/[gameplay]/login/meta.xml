@@ -1,4 +1,5 @@
 <meta>
     <info name="login" version="1.0" description="" type="script"/>
+    <min_mta_version server="1.6" />
     <script src="server.lua" type="server"/>
 </meta>
