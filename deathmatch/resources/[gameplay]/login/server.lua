@@ -53,8 +53,6 @@ local function onPlayerLogin()
         if info.statusCode == 200 then
             local result = fromJSON(data)
             local player_data = result.data
-            -- Set player name
-            setPlayerName(player, result.username)
 
             -- Set player positiona
             local x, y, z = unpack(player_data.position[1])
@@ -72,6 +70,10 @@ local function onPlayerLogin()
                 player_data.dimension,
                 team
             )
+
+            -- Set player name
+            setPlayerName(player, result.username)
+            
             -- Give weapons
             local weapons = unpack(player_data.weapons)
             for weapon, ammo in pairs(weapons) do

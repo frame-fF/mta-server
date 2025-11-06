@@ -93,6 +93,11 @@ addEventHandler("onPlayerLogout", root,
         triggerEvent("savePlayerData", source)
     end)
 
+addEventHandler("onPlayerSpawn", root,
+    function()
+        triggerEvent("savePlayerData", source)
+    end)
+
 addEventHandler("onResourceStop", root,
     function()
         for _, player in ipairs(getElementsByType("player")) do
