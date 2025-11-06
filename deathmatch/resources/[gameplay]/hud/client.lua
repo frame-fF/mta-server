@@ -10,7 +10,7 @@ local barSpacing = 10
 
 -- สีของแถบ
 local colors = {
-    hunger = {r = 255, g = 140, g = 0},  -- สีส้ม
+    hunger = {r = 255, g = 140, b = 0},  -- สีส้ม
     thirst = {r = 0, g = 150, b = 255},  -- สีฟ้า
     stamina = {r = 128, g = 128, b = 128}    -- สีเทา
 }
