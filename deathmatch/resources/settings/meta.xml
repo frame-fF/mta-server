@@ -1,0 +1,4 @@
+<meta>
+    <info name="settings" version="1.0" description="" type="script"/>
+    <export function="baseUrl" type="server"/>
+</meta>
