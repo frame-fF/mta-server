@@ -200,7 +200,7 @@ local function attachItems(player)
 
     local backpack = createObject(371, 0, 0, 0)
     playerBackpacks[player] = backpack
-    exports.pAttach:attach(backpack, player, "backpack", 0, -0.15, 0, 0, 90, 0)
+    exports.pAttach:attach(backpack, player, "backpack", 0.1, -0.15, 0, 0, 90, 0)
 end
 
 addEventHandler("onPlayerJoin", root, function()
