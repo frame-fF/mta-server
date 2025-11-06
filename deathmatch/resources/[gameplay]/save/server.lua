@@ -76,7 +76,7 @@ local function onPlayerQuit()
         wantedlevel = wantedlevel,
         clothes = toJSON(clothes)
     }
-    result = exports.api_player:save_player_account(source, data)
+    save(source, data)
     logOut(source)
 end
 

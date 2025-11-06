@@ -25,6 +25,7 @@
         <object name="resource.modloader_reborn"></object>
         <object name="resource.pAttach"></object>
         <object name="resource.login"></object>
+        <object name="resource.save"></object>
         <object name="user.fF"></object>
     </group>
     <group name="Console">
