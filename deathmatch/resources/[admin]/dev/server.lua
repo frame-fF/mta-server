@@ -26,3 +26,5 @@ addEventHandler("onPlayerInteriorWarped", root,
 -- สร้าง Zombie
 local zombie = exports.zombies:createZombie(-1990.48828125, 181.16796875, 27.5390625)
 
+
+------------------------------------- TEST bandit ----------------------------------------------
