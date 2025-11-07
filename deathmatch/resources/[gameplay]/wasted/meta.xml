@@ -1,4 +1,8 @@
 <meta>
+    <settings>
+		<setting name="*take_player_money_value" value="[1000]" /> <!--maximum allowed zombies -->
+	</settings>
+
     <info name="wasted" version="1.0" description="" type="script"/>
     <min_mta_version server="1.6" />
     <script src="client.lua" type="client"/>

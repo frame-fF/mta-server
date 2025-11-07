@@ -14,7 +14,7 @@ function onPlayerWasted()
     -- Set Health Armor Money Wantedlevel
     setElementHealth(player, 100)
     setPedArmor(player, 0)
-    takePlayerMoney(player, 1000)  -- ลดเงินผู้เล่น 1000
+    takePlayerMoney(player, get("wasted.take_player_money_value"))  -- ลดเงินผู้เล่น 1000
     setPlayerWantedLevel(player, wantedlevel)
     -- Set clothes
     local clothes = {}
