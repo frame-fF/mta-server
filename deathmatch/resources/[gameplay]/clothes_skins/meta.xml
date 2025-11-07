@@ -1,5 +1,5 @@
 <meta>
-    <info name="clothes_skin" version="1.0" description="" type="script" />
+    <info name="clothes skins" version="1.0" description="" type="script" />
     <script src="client.lua" type="client" />
     
     <file src="files/hockey.txd" cache="false" />

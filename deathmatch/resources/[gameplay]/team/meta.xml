@@ -1,4 +1,0 @@
-<meta>
-    <info name="team" version="1.0" description="" type="script"/>
-    <script src="server.lua" type="server"/>
-</meta>
