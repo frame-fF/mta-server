@@ -1,4 +1,4 @@
-local function save(source, data)
+local function savePlayer(source, data)
     local url = exports.settings:baseUrl() .. '/api/player/me/data/update/'
     local key = getElementData(source, "results").key
     local sendOptions = {
@@ -73,7 +73,7 @@ local function savePlayerData()
         thirst = getElementData(player, "thirst") or 100,
         stamina = getElementData(player, "stamina") or 100
     }
-    save(player, data)
+    savePlayer(player, data)
 end
 
 addEvent("savePlayerData", true)
