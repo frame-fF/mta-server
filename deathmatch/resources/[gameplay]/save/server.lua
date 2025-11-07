@@ -79,7 +79,11 @@ local function savePlayerData()
         armor = armor,
         money = money,
         wantedlevel = wantedlevel,
-        clothes = toJSON(clothes)
+        clothes = toJSON(clothes),
+        -- Additional Status
+        hunger = hunger,
+        thirst = thirst,
+        stamina = stamina
     }
     save(player, data)
 end
