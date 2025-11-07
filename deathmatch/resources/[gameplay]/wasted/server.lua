@@ -1,21 +1,18 @@
 function onPlayerWasted()
-    local player = source  -- เก็บค่า source ไว้ใน local variable
+    local player = source -- เก็บค่า source ไว้ใน local variable
 
     -- Load or Set ElementData
-    local hunger = setElementData(player, "hunger", 100)
-    local thirst = setElementData(player, "thirst", 100)
-    local stamina = setElementData(player, "stamina", 100)
-
+    setElementData(player, "hunger", 100)
+    setElementData(player, "thirst", 100)
+    setElementData(player, "stamina", 100)
+    -- get team name
     local team = getPlayerTeam(player)
     local team = team and getTeamName(team)
-    local skin = getElementModel(player)
-    local wantedlevel = getPlayerWantedLevel(player)
-
     -- Set Health Armor Money Wantedlevel
     setElementHealth(player, 100)
     setPedArmor(player, 0)
-    takePlayerMoney(player, get("wasted.take_player_money_value"))  -- ลดเงินผู้เล่น 1000
-    setPlayerWantedLevel(player, wantedlevel)
+    takePlayerMoney(player, get("wasted.take_player_money_value")) -- ลดเงินผู้เล่น 1000
+    setPlayerWantedLevel(player, getPlayerWantedLevel(player))
     -- Set clothes
     local clothes = {}
     for type = 0, 17 do
@@ -34,7 +31,7 @@ function onPlayerWasted()
             player,
             -1969.4, 137.85, 27.69,
             0,
-            skin,
+            getElementModel(player),
             0,
             0,
             team

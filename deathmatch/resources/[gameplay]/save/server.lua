@@ -27,29 +27,17 @@ local function savePlayerData()
     if not account then
         return
     end
-
+    -- get username
     local username = getAccountName(account)
-    -- Save ElementData
-    local hunger = getElementData(player, "hunger") or 100
-    local thirst = getElementData(player, "thirst") or 100
-    local stamina = getElementData(player, "stamina") or 100
-
-    local x, y, z = getElementPosition(player)
-    local rotation = getPedRotation(player)
-    local skin = getElementModel(player)
-    local interior = getElementInterior(player)
-    local dimension = getElementDimension(player)
+    -- get team name
     local team = getPlayerTeam(player)
-
+    local team = team and getTeamName(team)
+    -- get position
+    local x, y, z = getElementPosition(player)
+    local position = toJSON({ x, y, z })
+    -- get weapons
     local weapon = getPedWeapon(player)
     local ammo = getPedTotalAmmo(player)
-    local health = getElementHealth(player)
-    local armor = getPedArmor(player)
-    local money = getPlayerMoney(player)
-    local wantedlevel = getPlayerWantedLevel(player)
-
-    local position = toJSON({ x, y, z })
-    local team = team and getTeamName(team)
     local weapons = {}
     for slot = 0, 12 do
         local weapon = getPedWeapon(player, slot)
@@ -58,7 +46,7 @@ local function savePlayerData()
             weapons[weapon] = ammo
         end
     end
-
+    -- get clothes
     local clothes = {}
     for type = 0, 17 do
         local texture, model = getPedClothes(player, type)
@@ -69,21 +57,21 @@ local function savePlayerData()
 
     local data = {
         position = position,
-        rotation = rotation,
-        skin = skin,
-        interior = interior,
-        dimension = dimension,
+        rotation = getPedRotation(player),
+        skin = getElementModel(player),
+        interior = getElementInterior(player),
+        dimension = getElementDimension(player),
         team = team,
         weapons = toJSON(weapons),
-        health = health,
-        armor = armor,
-        money = money,
-        wantedlevel = wantedlevel,
+        health = getElementHealth(player),
+        armor = getPedArmor(player),
+        money = getPlayerMoney(player),
+        wantedlevel = getPlayerWantedLevel(player),
         clothes = toJSON(clothes),
         -- Additional Status
-        hunger = hunger,
-        thirst = thirst,
-        stamina = stamina
+        hunger = getElementData(player, "hunger") or 100,
+        thirst = getElementData(player, "thirst") or 100,
+        stamina = getElementData(player, "stamina") or 100
     }
     save(player, data)
 end
