@@ -9,7 +9,6 @@ function onPlayerWasted()
     local team = getPlayerTeam(player)
     local team = team and getTeamName(team)
     local skin = getElementModel(player)
-    --local money = getPlayerMoney(player)
     local wantedlevel = getPlayerWantedLevel(player)
 
     -- Set Health Armor Money Wantedlevel
