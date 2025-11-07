@@ -28,7 +28,7 @@ local function savePlayerData()
         return
     end
 
-    local username = getAccountName(player)
+    local username = getAccountName(account)
     -- Save ElementData
     local hunger = getElementData(player, "hunger") or 100
     local thirst = getElementData(player, "thirst") or 100
