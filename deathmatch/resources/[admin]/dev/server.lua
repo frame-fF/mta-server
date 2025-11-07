@@ -19,3 +19,6 @@ addEventHandler("onPlayerInteriorWarped", root,
         outputChatBox("Dimension ID: " .. dimension, source, 255, 255, 0)
     end
 )
+
+
+------------------------------------- TEST ----------------------------------------------
