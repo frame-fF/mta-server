@@ -21,34 +21,35 @@ end
 
 
 local function savePlayerData()
-    local account = getPlayerAccount(source)
+    local player = source
+    local account = getPlayerAccount(player)
 
     if not account then
         return
     end
 
-    local username = getAccountName(account)
+    local username = getAccountName(player)
 
-    local x, y, z = getElementPosition(source)
-    local rotation = getPedRotation(source)
-    local skin = getElementModel(source)
-    local interior = getElementInterior(source)
-    local dimension = getElementDimension(source)
-    local team = getPlayerTeam(source)
+    local x, y, z = getElementPosition(player)
+    local rotation = getPedRotation(player)
+    local skin = getElementModel(player)
+    local interior = getElementInterior(player)
+    local dimension = getElementDimension(player)
+    local team = getPlayerTeam(player)
 
-    local weapon = getPedWeapon(source)
-    local ammo = getPedTotalAmmo(source)
-    local health = getElementHealth(source)
-    local armor = getPedArmor(source)
-    local money = getPlayerMoney(source)
-    local wantedlevel = getPlayerWantedLevel(source)
+    local weapon = getPedWeapon(player)
+    local ammo = getPedTotalAmmo(player)
+    local health = getElementHealth(player)
+    local armor = getPedArmor(player)
+    local money = getPlayerMoney(player)
+    local wantedlevel = getPlayerWantedLevel(player)
 
     local position = toJSON({ x, y, z })
     local team = team and getTeamName(team)
     local weapons = {}
     for slot = 1, 12 do
-        local weapon = getPedWeapon(source, slot)
-        local ammo = getPedTotalAmmo(source, slot)
+        local weapon = getPedWeapon(player, slot)
+        local ammo = getPedTotalAmmo(player, slot)
         if (weapon > 0) and (ammo > 0) then
             weapons[weapon] = ammo
         end
@@ -56,7 +57,7 @@ local function savePlayerData()
 
     local clothes = {}
     for type = 0, 17 do
-        local texture, model = getPedClothes(source, type)
+        local texture, model = getPedClothes(player, type)
         if (texture) and (model) then
             table.insert(clothes, { texture, model, type })
         end
@@ -76,7 +77,7 @@ local function savePlayerData()
         wantedlevel = wantedlevel,
         clothes = toJSON(clothes)
     }
-    save(source, data)
+    save(player, data)
 end
 
 addEvent("savePlayerData", true)
