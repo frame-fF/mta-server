@@ -104,3 +104,12 @@ addEventHandler("onResourceStop", root,
             end
         end
     end)
+
+
+----------------------------------------- syatem -----------------------------------------
+local function saveSystemData()
+    
+end
+
+addEvent("saveSystemData", true)
+addEventHandler("saveSystemData", root, saveSystemData)
