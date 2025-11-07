@@ -29,6 +29,10 @@ local function savePlayerData()
     end
 
     local username = getAccountName(player)
+    -- Save ElementData
+    local hunger = getElementData(player, "hunger") or 100
+    local thirst = getElementData(player, "thirst") or 100
+    local stamina = getElementData(player, "stamina") or 100
 
     local x, y, z = getElementPosition(player)
     local rotation = getPedRotation(player)
