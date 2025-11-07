@@ -1,4 +1,5 @@
 local function playerLogin(source, username, password)
+    local player = source
     local url = exports.settings:baseUrl() .. '/api/player/login/'
     local sendOptions = {
         connectionAttempts = 3,
@@ -13,24 +14,22 @@ local function playerLogin(source, username, password)
         if info.statusCode == 200 then
             -- เก็บค่า JSON data
             local result = fromJSON(data)
-            -- setElementData
-            setElementData(source, "results", result)
-            setElementData(source, "hunger", 100)
-            setElementData(source, "thirst", 100)
-            setElementData(source, "stamina", 100)
+
+            -- setElementData results
+            setElementData(player, "results", result)
 
             -- เช็คว่าเคยร์มีอยู่ในระบบหรือไม่
             local account = getAccount(username, password)
             if (account ~= false) then
                 -- ถ้ามีแล้วให้ทำการล็อกอิน
-                logIn(source, account, password)
+                logIn(player, account, password)
             else
                 -- ถ้าไม่มีให้สร้างบัญชีใหม่แล้วทำการล็อกอิน
                 local new_account = addAccount(username, password)
-                logIn(source, new_account, password)
+                logIn(player, new_account, password)
             end
         else
-            outputChatBox('Error: ' .. data, source)
+            outputChatBox('Error: ' .. data, player)
         end
     end)
 end
@@ -53,6 +52,10 @@ local function onPlayerLogin()
         if info.statusCode == 200 then
             local result = fromJSON(data)
             local player_data = result.data
+
+            setElementData(player, "hunger", 100)
+            setElementData(player, "thirst", 100)
+            setElementData(player, "stamina", 100)
 
             -- Set player positiona
             local x, y, z = unpack(player_data.position[1])

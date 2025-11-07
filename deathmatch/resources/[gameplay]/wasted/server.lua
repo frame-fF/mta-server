@@ -6,6 +6,11 @@ function onPlayerWasted()
     local money = getPlayerMoney(player)
     local wantedlevel = getPlayerWantedLevel(player)
 
+    -- Set Health Armor
+    setElementHealth(player, 100)
+    setPedArmor(player, 0)
+
+    -- Set clothes
     local clothes = {}
     for type = 0, 17 do
         local texture, model = getPedClothes(player, type)
@@ -13,9 +18,6 @@ function onPlayerWasted()
             table.insert(clothes, { texture, model, type })
         end
     end
-
-    setElementHealth(player, 100)
-    setPedArmor(player, 0)
     for _, cloth in ipairs(clothes) do
         addPedClothes(player, cloth[1], cloth[2], cloth[3])
     end
