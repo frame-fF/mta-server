@@ -1,5 +1,11 @@
 function onPlayerWasted()
     local player = source  -- เก็บค่า source ไว้ใน local variable
+
+    -- Load or Set ElementData
+    local hunger = setElementData(player, "hunger", 100)
+    local thirst = setElementData(player, "thirst", 100)
+    local stamina = setElementData(player, "stamina", 100)
+
     local team = getPlayerTeam(player)
     local team = team and getTeamName(team)
     local skin = getElementModel(player)
