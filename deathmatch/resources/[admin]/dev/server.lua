@@ -28,3 +28,5 @@ local zombie = exports.zombies:createZombie(-1990.48828125, 181.16796875, 27.539
 
 
 ------------------------------------- TEST bandit ----------------------------------------------
+
+local bandit = exports.slothbot:spawnBot(-1990.48828125, 181.16796875, 27.5390625, 0)
