@@ -4,3 +4,4 @@ logs/
 resource-cache/
 internal.db
 registry.db
+settings.xml
