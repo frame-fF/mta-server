@@ -1,9 +1,9 @@
 -- ตารางราคาปืนฝั่ง server
 local weaponData = {
     -- Handguns 
-    [22] = { price = 200, ammo = 34 }, -- Colt 45
-    [23] = { price = 600, ammo = 34 }, -- Silenced
-    [24] = { price = 1200, ammo = 14 },  -- Desert Eagle
+    [22] = { price = 200, ammo = 30 }, -- Colt 45
+    [23] = { price = 600, ammo = 30 }, -- Silenced
+    [24] = { price = 1200, ammo = 30 },  -- Desert Eagle
     -- Shotguns 
     [25] = { price = 600, ammo = 30 },-- Shotgun
     [26] = { price = 800, ammo = 30 },-- Sawed-off
