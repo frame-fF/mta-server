@@ -1,0 +1,28 @@
+<meta>
+    <info name="inventories" version="1.0" description="" type="script"/>
+    <script src="server.lua" type="server"/>
+    <script src="client.lua" type="client" />
+    <file src="images/default.png" />
+    <file src="images/16.png" />
+    <file src="images/17.png" />
+    <file src="images/18.png" />
+    <file src="images/22.png" />
+    <file src="images/23.png" />
+    <file src="images/24.png" />
+    <file src="images/25.png" />
+    <file src="images/26.png" />
+    <file src="images/27.png" />
+    <file src="images/28.png" />
+    <file src="images/29.png" />
+    <file src="images/30.png" />
+    <file src="images/31.png" />
+    <file src="images/32.png" />
+    <file src="images/33.png" />
+    <file src="images/34.png" />
+    <file src="images/35.png" />
+    <file src="images/36.png" />
+    <file src="images/37.png" />
+    <file src="images/38.png" />
+    <file src="images/39.png" />
+    <file src="images/armor.png" />
+</meta>
