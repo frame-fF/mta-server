@@ -9,14 +9,14 @@ setElementDimension(npc_1, 1)
 function markerHit_1(hitElement, matchingDimension)
     if getElementType(hitElement) == "player" and matchingDimension then
         local player = hitElement
-        triggerClientEvent(player, "weapon_shops_open", player)
+        triggerClientEvent(player, "weapon_shop_open", player)
     end
 end
 
 function markerLeave_1(hitElement, matchingDimension)
     if getElementType(hitElement) == "player" and matchingDimension then
         local player = hitElement
-        triggerClientEvent(player, "weapon_shops_close", player)
+        triggerClientEvent(player, "weapon_shop_close", player)
     end
 end
 
