@@ -71,23 +71,22 @@ local weaponCategories = {
     }
 }
 
-local weaponShopWindow = nil -- หน้าต่างหลักของร้านค้า
-local tabPanel = nil -- แท็บแยกหมวดหมู่อาวุธ
-local tabs = {} -- เก็บแท็บแต่ละหมวดหมู่
-local selectedWeapon = nil -- เก็บข้อมูลอาวุธที่เลือกในขณะนั้น (id, name, price)
-local weaponButtons = {} -- เก็บปุ่มรูปปืนทั้งหมดเพื่อใช้ลบ Event Handler ตอนปิด GUI
-local buyButton = nil -- ปุ่มซื้ออาวุธ
-local closeButton = nil -- ปุ่มปิดหน้าต่างร้านค้า
-local selectedWeaponLabel = nil -- ป้ายแสดงอาวุธที่เลือก
-local selectedWeaponImage = nil -- รูปอาวุธที่เลือก
+local weaponShopWindow = nil                -- หน้าต่างหลักของร้านค้า
+local tabPanel = nil                        -- แท็บแยกหมวดหมู่อาวุธ
+local tabs = {}                             -- เก็บแท็บแต่ละหมวดหมู่
+local selectedWeapon = nil                  -- เก็บข้อมูลอาวุธที่เลือกในขณะนั้น (id, name, price)
+local weaponButtons = {}                    -- เก็บปุ่มรูปปืนทั้งหมดเพื่อใช้ลบ Event Handler ตอนปิด GUI
+local buyButton = nil                       -- ปุ่มซื้ออาวุธ
+local closeButton = nil                     -- ปุ่มปิดหน้าต่างร้านค้า
+local selectedWeaponLabel = nil             -- ป้ายแสดงอาวุธที่เลือก
+local selectedWeaponImage = nil             -- รูปอาวุธที่เลือก
 
 local screenW, screenH = guiGetScreenSize() -- ดึงขนาดหน้าจอของผู้เล่น
-local windowWidth, windowHeight = 900, 500 -- กำหนดขนาดหน้าต่างร้านค้า
-local x = (screenW - windowWidth) / 2 -- คำนวณตำแหน่งกึ่งกลางหน้าจอ
-local y = (screenH - windowHeight) / 2 -- คำนวณตำแหน่งกึ่งกลางหน้าจอ
+local windowWidth, windowHeight = 900, 500  -- กำหนดขนาดหน้าต่างร้านค้า
+local x = (screenW - windowWidth) / 2       -- คำนวณตำแหน่งกึ่งกลางหน้าจอ
+local y = (screenH - windowHeight) / 2      -- คำนวณตำแหน่งกึ่งกลางหน้าจอ
 
 function createWeaponShopGUI()
-    outputChatBox("open", player)
     -- ป้องกันการสร้าง GUI ซ้ำถ้ามีอยู่แล้ว
     if weaponShopWindow and isElement(weaponShopWindow) then return end
     -- สร้างหน้าต่างหลัก
@@ -101,26 +100,28 @@ function createWeaponShopGUI()
         -- สร้าง Tab ใหม่ตามชื่อหมวดหมู่
         local tab = guiCreateTab(category.name, tabPanel)
         tabs[categoryIndex] = tab
-        local col = 0        -- คอลัมน์ปัจจุบัน (0-3)
-        local row = 0        -- แถวปัจจุบัน
-        local buttonSize = 100   -- ขนาดรูปอาวุธ 100x100 pixels
-        local spacing = 20       -- ระยะห่างระหว่างรูป
-        local startX = 20        -- ตำแหน่งเริ่มต้น X
-        local startY = 20        -- ตำแหน่งเริ่มต้น Y
+        local col = 0                         -- คอลัมน์ปัจจุบัน (0-3)
+        local row = 0                         -- แถวปัจจุบัน
+        local buttonSize = 100                -- ขนาดรูปอาวุธ 100x100 pixels
+        local spacing = 20                    -- ระยะห่างระหว่างรูป
+        local startX = 20                     -- ตำแหน่งเริ่มต้น X
+        local startY = 20                     -- ตำแหน่งเริ่มต้น Y
         for weaponIndex, weaponData in ipairs(category.weapons) do
-            local weaponID = weaponData[1]      -- ID อาวุธ (ใช้โหลดรูป)
-            local weaponName = weaponData[2]    -- ชื่ออาวุธ
-            local weaponPrice = weaponData[3]   -- ราคาอาวุธ
+            local weaponID = weaponData[1]    -- ID อาวุธ (ใช้โหลดรูป)
+            local weaponName = weaponData[2]  -- ชื่ออาวุธ
+            local weaponPrice = weaponData[3] -- ราคาอาวุธ
             -- คำนวณตำแหน่งของรูปอาวุธ (แบบ Grid 4 คอลัมน์)
             local btnX = startX + (col * (buttonSize + spacing))
             local btnY = startY + (row * (buttonSize + spacing + 30)) -- +30 สำหรับ Label
-             -- สร้าง StaticImage แสดงรูปอาวุธ (โหลดจากไฟล์ images/weapons/{id}.png)
-            local weaponImg = guiCreateStaticImage(btnX, btnY, buttonSize, buttonSize, "images/" .. weaponID .. ".png", false, tab)
+            -- สร้าง StaticImage แสดงรูปอาวุธ (โหลดจากไฟล์ images/weapons/{id}.png)
+            local weaponImg = guiCreateStaticImage(btnX, btnY, buttonSize, buttonSize, "images/" .. weaponID .. ".png",
+                false, tab)
             -- สร้าง Label แสดงชื่อและราคาอาวุธใต้รูป
-            local label = guiCreateLabel(btnX, btnY + buttonSize + 2, buttonSize, 25, weaponName .. "\n$" .. weaponPrice, false, tab)
-            guiSetFont(label, "default-small")                    -- ตั้งฟอนต์เล็ก
-            guiLabelSetHorizontalAlign(label, "center", false)    -- จัดกึ่งกลางแนวนอน
-            guiLabelSetVerticalAlign(label, "top")                -- จัดด้านบน
+            local label = guiCreateLabel(btnX, btnY + buttonSize + 2, buttonSize, 25, weaponName .. "\n$" .. weaponPrice,
+                false, tab)
+            guiSetFont(label, "default-small")                 -- ตั้งฟอนต์เล็ก
+            guiLabelSetHorizontalAlign(label, "center", false) -- จัดกึ่งกลางแนวนอน
+            guiLabelSetVerticalAlign(label, "top")             -- จัดด้านบน
             -- เก็บข้อมูลอาวุธไว้ใน Element Data เพื่อใช้ตอนคลิก
             setElementData(weaponImg, "weaponID", weaponID)
             setElementData(weaponImg, "weaponName", weaponName)
@@ -141,24 +142,25 @@ function createWeaponShopGUI()
     -- ========================================
     -- สร้างพื้นที่แสดงอาวุธที่เลือก (ด้านขวาของหน้าต่าง)
     -- ========================================
-    local infoX = 700  -- ตำแหน่ง X เริ่มต้น
-    local infoY = 30   -- ตำแหน่ง Y เริ่มต้น
+    local infoX = 700 -- ตำแหน่ง X เริ่มต้น
+    local infoY = 30  -- ตำแหน่ง Y เริ่มต้น
     -- Label หัวข้อ "Selected Weapon:"
     guiCreateLabel(infoX, infoY, 180, 25, "Selected Weapon:", false, weaponShopWindow)
     guiSetFont(guiGetScreenSize() > 1024 and "default-bold-small" or "default-small")
     -- รูปอาวุธที่เลือกขนาดใหญ่ (เริ่มต้นเป็นพื้นหลัง)
-    selectedWeaponImage = guiCreateStaticImage(infoX + 40, infoY + 30, 100, 100, "images/item_bg.jpg", false, weaponShopWindow)
+    selectedWeaponImage = guiCreateStaticImage(infoX + 40, infoY + 30, 100, 100, "images/item_bg.jpg", false,
+        weaponShopWindow)
     -- Label แสดงชื่อและราคาอาวุธที่เลือก
     selectedWeaponLabel = guiCreateLabel(infoX, infoY + 140, 180, 60, "Please select\na weapon", false, weaponShopWindow)
     guiSetFont(selectedWeaponLabel, "default-bold-small")
     guiLabelSetHorizontalAlign(selectedWeaponLabel, "center", false)
     -- ปุ่มซื้ออาวุธ (เริ่มต้นปิดการใช้งาน จนกว่าจะเลือกอาวุธ)
     buyButton = guiCreateButton(infoX + 10, infoY + 220, 160, 35, "Buy Weapon", false, weaponShopWindow)
-    guiSetEnabled(buyButton, false)  -- ปิดปุ่มไว้ก่อนจนกว่าจะเลือกอาวุธ
-    guiSetProperty(buyButton, "NormalTextColour", "FF90EE90")  -- สีเขียวอ่อน
+    guiSetEnabled(buyButton, false)                           -- ปิดปุ่มไว้ก่อนจนกว่าจะเลือกอาวุธ
+    guiSetProperty(buyButton, "NormalTextColour", "FF90EE90") -- สีเขียวอ่อน
     -- ปุ่มปิด GUI
     closeButton = guiCreateButton(infoX + 10, infoY + 265, 160, 35, "Close", false, weaponShopWindow)
-    guiSetProperty(closeButton, "NormalTextColour", "FFFF6B6B")  -- สีแดงอ่อน
+    guiSetProperty(closeButton, "NormalTextColour", "FFFF6B6B") -- สีแดงอ่อน
     -- ========================================
     -- ผูก Event Handlers กับปุ่ม
     -- ========================================
@@ -170,12 +172,50 @@ function createWeaponShopGUI()
     guiSetInputEnabled(true)
 end
 
+-- ========================================
+-- ฟังก์ชันจัดการการคลิกบนรูปอาวุธ
+-- ========================================
+-- เมื่อผู้เล่นคลิกที่รูปอาวุธ จะแสดงข้อมูลอาวุธนั้นด้านขวา
+-- และเปิดใช้งานปุ่ม Buy
+function onWeaponImageClick(button)
+    if button == "left" then
+        -- ดึงข้อมูลอาวุธจาก Element Data
+        local weaponID = getElementData(source, "weaponID")
+        local weaponName = getElementData(source, "weaponName")
+        local weaponPrice = getElementData(source, "weaponPrice")
+        outputChatBox("Selected Weapon: " .. weaponName .. " ($" .. weaponPrice .. ")", 0, 255, 0)
+        selectedWeapon = {
+            id = weaponID,
+            name = weaponName,
+            price = weaponPrice
+        }
+        -- อัพเดตรูปอาวุธด้านขวา (โหลดรูปใหม่)
+        guiStaticImageLoadImage(selectedWeaponImage, "images/" .. weaponID .. ".png")
+        -- อัพเดต Label แสดงชื่อและราคาอาวุธที่เลือก
+        guiSetText(selectedWeaponLabel, weaponName .. "\n$" .. weaponPrice)
+        -- เปิดใช้งานปุ่ม Buy
+        guiSetEnabled(buyButton, true)
+    end
+end
+
 function hideGUI()
-    outputChatBox("close", player)
     -- GUI hiding code here
     if weaponShopWindow and isElement(weaponShopWindow) then
+        -- ลบ Event Handlers จากปุ่ม Buy และ Close
+        removeEventHandler("onClientGUIClick", buyButton, onBuyButtonClick, false)
+        removeEventHandler("onClientGUIClick", closeButton, hideGUI, false)
+        -- วนลูปลบ Event Handlers จากทุกปุ่มรูปอาวุธ
+        for _, btn in ipairs(weaponButtons) do
+            if isElement(btn) then
+                removeEventHandler("onClientGUIClick", btn, onWeaponImageClick, false)
+            end
+        end
+        -- ทำลายหน้าต่างร้านค้า
         destroyElement(weaponShopWindow)
+        -- รีเซ็ตตัวแปรทั้งหมด
         weaponShopWindow = nil
+        selectedWeapon = nil
+        weaponButtons = {}
         -- ซ่อนเคอร์เซอร์เมาส์
         showCursor(false)
         -- เปิดการควบคุมเกมกลับมา
