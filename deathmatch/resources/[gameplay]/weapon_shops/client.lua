@@ -73,6 +73,7 @@ local weaponCategories = {
 
 local weaponShopWindow = nil -- หน้าต่างหลักของร้านค้า
 local tabPanel = nil -- แท็บแยกหมวดหมู่อาวุธ
+local tabs = {} -- เก็บแท็บแต่ละหมวดหมู่
 local selectedWeapon = nil -- เก็บข้อมูลอาวุธที่เลือกในขณะนั้น (id, name, price)
 local weaponButtons = {} -- เก็บปุ่มรูปปืนทั้งหมดเพื่อใช้ลบ Event Handler ตอนปิด GUI
 local buyButton = nil -- ปุ่มซื้ออาวุธ
@@ -140,6 +141,33 @@ function createWeaponShopGUI()
     -- ========================================
     -- สร้างพื้นที่แสดงอาวุธที่เลือก (ด้านขวาของหน้าต่าง)
     -- ========================================
+    local infoX = 700  -- ตำแหน่ง X เริ่มต้น
+    local infoY = 30   -- ตำแหน่ง Y เริ่มต้น
+    -- Label หัวข้อ "Selected Weapon:"
+    guiCreateLabel(infoX, infoY, 180, 25, "Selected Weapon:", false, weaponShopWindow)
+    guiSetFont(guiGetScreenSize() > 1024 and "default-bold-small" or "default-small")
+    -- รูปอาวุธที่เลือกขนาดใหญ่ (เริ่มต้นเป็นพื้นหลัง)
+    selectedWeaponImage = guiCreateStaticImage(infoX + 40, infoY + 30, 100, 100, "images/item_bg.jpg", false, weaponShopWindow)
+    -- Label แสดงชื่อและราคาอาวุธที่เลือก
+    selectedWeaponLabel = guiCreateLabel(infoX, infoY + 140, 180, 60, "Please select\na weapon", false, weaponShopWindow)
+    guiSetFont(selectedWeaponLabel, "default-bold-small")
+    guiLabelSetHorizontalAlign(selectedWeaponLabel, "center", false)
+    -- ปุ่มซื้ออาวุธ (เริ่มต้นปิดการใช้งาน จนกว่าจะเลือกอาวุธ)
+    buyButton = guiCreateButton(infoX + 10, infoY + 220, 160, 35, "Buy Weapon", false, weaponShopWindow)
+    guiSetEnabled(buyButton, false)  -- ปิดปุ่มไว้ก่อนจนกว่าจะเลือกอาวุธ
+    guiSetProperty(buyButton, "NormalTextColour", "FF90EE90")  -- สีเขียวอ่อน
+    -- ปุ่มปิด GUI
+    closeButton = guiCreateButton(infoX + 10, infoY + 265, 160, 35, "Close", false, weaponShopWindow)
+    guiSetProperty(closeButton, "NormalTextColour", "FFFF6B6B")  -- สีแดงอ่อน
+    -- ========================================
+    -- ผูก Event Handlers กับปุ่ม
+    -- ========================================
+    addEventHandler("onClientGUIClick", buyButton, onBuyButtonClick, false)
+    addEventHandler("onClientGUIClick", closeButton, hideGUI, false)
+    -- แสดงเคอร์เซอร์เมาส์
+    showCursor(true)
+    -- ปิดการควบคุมเกมเพื่อโฟกัสที่ GUI
+    guiSetInputEnabled(true)
 end
 
 function hideGUI()
@@ -148,6 +176,10 @@ function hideGUI()
     if weaponShopWindow and isElement(weaponShopWindow) then
         destroyElement(weaponShopWindow)
         weaponShopWindow = nil
+        -- ซ่อนเคอร์เซอร์เมาส์
+        showCursor(false)
+        -- เปิดการควบคุมเกมกลับมา
+        guiSetInputEnabled(false)
     end
 end
 
