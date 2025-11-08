@@ -5,3 +5,20 @@ setElementInterior(mark_1, 1)
 setElementDimension(mark_1, 1)
 setElementInterior(npc_1, 1)
 setElementDimension(npc_1, 1)
+
+function markerHit_1(hitElement, matchingDimension)
+    if getElementType(hitElement) == "player" and matchingDimension then
+        local player = hitElement
+        triggerClientEvent(player, "weapon_shops_open", player)
+    end
+end
+
+function markerLeave_1(hitElement, matchingDimension)
+    if getElementType(hitElement) == "player" and matchingDimension then
+        local player = hitElement
+        triggerClientEvent(player, "weapon_shops_close", player)
+    end
+end
+
+addEventHandler("onMarkerHit", mark_1, markerHit_1)
+addEventHandler("onMarkerLeave", mark_1, markerLeave_1)
