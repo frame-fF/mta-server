@@ -231,8 +231,6 @@ function onBuyButtonClick()
     if selectedWeapon then
         -- ส่งคำขอซื้ออาวุธไปยัง Server
         triggerServerEvent("weapon_shop_buy", localPlayer, selectedWeapon.id)      
-    else
-        outputChatBox("No weapon selected!", 255, 0, 0)
     end
 end
 

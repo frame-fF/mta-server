@@ -33,15 +33,38 @@ local weaponData = {
 }
 
 -- ฟังก์ชันจัดการการซื้ออาวุธ
-function buyWeapon(weaponID)
-    
-else
+local function buyWeapon(weaponID)
+    local player = client
+    if weaponID == "armor" then
+        local armorInfo = weaponData["armor"]
+        if not armorInfo then return end
+        local price = armorInfo.price
+        local armorAmount = armorInfo.ammo
+        if getPlayerMoney(player) >= price then
+            takePlayerMoney(player, price)
+            setPedArmor(player, armorAmount)
+            outputChatBox("You have purchased Body Armor.", player, 0, 255, 0)
+        else
+            outputChatBox("You don't have enough money.", player, 255, 0, 0)
+        end
+        return
+    end
+    local weaponInfo = weaponData[weaponID]
+    if not weaponInfo then return end
+    local price = weaponInfo.price
+    local ammo = weaponInfo.ammo
+    if getPlayerMoney(player) >= price then
+        takePlayerMoney(player, price)
+        giveWeapon(player, weaponID, ammo, true) -- ให้ปืนพร้อมกระสุนตามที่กำหนด
+        outputChatBox("You have purchased a weapon.", player, 0, 255, 0)
+    else
+        outputChatBox("You don't have enough money.", player, 255, 0, 0)
+    end
+end
 
 
 addEvent("weapon_shop_buy", true)
 addEventHandler("weapon_shop_buy", root, buyWeapon)
-
-
 
 
 local blip_1 = createBlip(-2625.85, 208.345, 3.98935, 6, 2, 255, 0, 0, 255, 0, 300)
