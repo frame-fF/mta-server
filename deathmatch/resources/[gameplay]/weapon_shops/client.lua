@@ -183,7 +183,6 @@ function onWeaponImageClick(button)
         local weaponID = getElementData(source, "weaponID")
         local weaponName = getElementData(source, "weaponName")
         local weaponPrice = getElementData(source, "weaponPrice")
-        outputChatBox("Selected Weapon: " .. weaponName .. " ($" .. weaponPrice .. ")", 0, 255, 0)
         selectedWeapon = {
             id = weaponID,
             name = weaponName,
@@ -220,6 +219,20 @@ function hideGUI()
         showCursor(false)
         -- เปิดการควบคุมเกมกลับมา
         guiSetInputEnabled(false)
+    end
+end
+
+-- ========================================
+-- ฟังก์ชันจัดการการกดปุ่มซื้ออาวุธ
+-- ========================================
+-- ส่งคำขอซื้ออาวุธไปยัง Server และแสดงข้อความยืนยัน
+-- GUI จะไม่ปิด เพื่อให้สามารถซื้ออาวุธต่อได้
+function onBuyButtonClick()
+    if selectedWeapon then
+        -- ส่งคำขอซื้ออาวุธไปยัง Server
+        triggerServerEvent("weapon_shop_buy", localPlayer, selectedWeapon.id)      
+    else
+        outputChatBox("No weapon selected!", 255, 0, 0)
     end
 end
 
