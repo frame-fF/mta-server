@@ -1,33 +1,33 @@
 -- ตารางราคาปืนฝั่ง server
 local weaponData = {
     -- Handguns 
-    [22] = { price = 200, ammo = 30 }, -- Colt 45
-    [23] = { price = 600, ammo = 30 }, -- Silenced
-    [24] = { price = 1200, ammo = 30 },  -- Desert Eagle
+    [22] = { price = 200 }, -- Colt 45
+    [23] = { price = 600 }, -- Silenced
+    [24] = { price = 1200 },  -- Desert Eagle
     -- Shotguns 
-    [25] = { price = 600, ammo = 30 },-- Shotgun
-    [26] = { price = 800, ammo = 30 },-- Sawed-off
-    [27] = { price = 1000, ammo = 30 },  -- Combat Shotgun
+    [25] = { price = 600 },-- Shotgun
+    [26] = { price = 800 },-- Sawed-off
+    [27] = { price = 1000 },  -- Combat Shotgun
     -- Sub-Machine Guns
-    [28] = { price = 500, ammo = 30 },-- Uzi
-    [29] = { price = 2000, ammo = 30 },-- MP5
-    [32] = { price = 300, ammo = 30 },  -- Tec-9
+    [28] = { price = 500 },-- Uzi
+    [29] = { price = 2000 },-- MP5
+    [32] = { price = 300 },  -- Tec-9
     -- Assault Rifles 
-    [30] = { price = 3500, ammo = 30 },-- Ak47
-    [31] = { price = 4500, ammo = 30 },-- M4
+    [30] = { price = 3500 },-- Ak47
+    [31] = { price = 4500 },-- M4
     -- Rifles
-    [33] = { price = 1000, ammo = 20 },-- Rifle
-    [34] = { price = 5000, ammo = 20 },-- Sniper Rifle
+    [33] = { price = 1000 },-- Rifle
+    [34] = { price = 5000 },-- Sniper Rifle
     --Heavy Weapons
-    [35] = { price = 6000, ammo = 10 },-- Rocket Launcher
-    [36] = { price = 6000, ammo = 10 }, -- Rocket Launcher HS
-    [37] = { price = 6000, ammo = 500 },-- Flame
-    [38] = { price = 6000, ammo = 500 },-- Minigun
+    [35] = { price = 6000 },-- Rocket Launcher
+    [36] = { price = 6000 }, -- Rocket Launcher HS
+    [37] = { price = 6000 },-- Flame
+    [38] = { price = 6000 },-- Minigun
     --Projectiles 
-    [16] = { price = 300, ammo = 1 },-- Grenade
-    [17] = { price = 300, ammo = 1 },-- Tear Gas
-    [18] = { price = 300, ammo = 1 },-- Molotov
-    [39] = { price = 2000, ammo = 1 },-- Satchel
+    [16] = { price = 300 },-- Grenade
+    [17] = { price = 300 },-- Tear Gas
+    [18] = { price = 300 },-- Molotov
+    [39] = { price = 2000 },-- Satchel
     -- Armor
     ["armor"] = { price = 5000, amount = 100 } -- Body Armor
 }
@@ -35,6 +35,7 @@ local weaponData = {
 -- ฟังก์ชันจัดการการซื้ออาวุธ
 local function buyWeapon(weaponID)
     local player = client
+    local player_weapons = getElementData(player, "weapons") or {}
     if weaponID == "armor" then
         local armorInfo = weaponData["armor"]
         if not armorInfo then return end
@@ -51,10 +52,12 @@ local function buyWeapon(weaponID)
     local weaponInfo = weaponData[weaponID]
     if not weaponInfo then return end
     local price = weaponInfo.price
-    local ammo = weaponInfo.ammo
     if getPlayerMoney(player) >= price then
         takePlayerMoney(player, price)
-        giveWeapon(player, weaponID, ammo, true) -- ให้ปืนพร้อมกระสุนตามที่กำหนด
+        local key = tostring(weaponID)
+        player_weapons[key] = (player_weapons[key] or 0) + 1
+        iprint(toJSON(player_weapons))
+        setElementData(player, "weapons", player_weapons)
     else
         outputChatBox("You don't have enough money.", player, 255, 0, 0)
     end
