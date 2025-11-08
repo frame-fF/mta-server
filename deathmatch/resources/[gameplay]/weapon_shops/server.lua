@@ -1,35 +1,35 @@
 -- ตารางราคาปืนฝั่ง server
 local weaponData = {
     -- Handguns 
-    [22] = { price = 100, ammo = 50 }, -- Colt 45
-    [23] = { price = 100, ammo = 50 }, -- Silenced
-    [24] = { price = 100, ammo = 50 },  -- Desert Eagle
+    [22] = { price = 200, ammo = 34 }, -- Colt 45
+    [23] = { price = 600, ammo = 34 }, -- Silenced
+    [24] = { price = 1200, ammo = 14 },  -- Desert Eagle
     -- Shotguns 
-    [25] = { price = 100, ammo = 30 },-- Shotgun
-    [26] = { price = 100, ammo = 30 },-- Sawed-off
-    [27] = { price = 100, ammo = 30 },  -- Combat Shotgun
+    [25] = { price = 600, ammo = 30 },-- Shotgun
+    [26] = { price = 800, ammo = 30 },-- Sawed-off
+    [27] = { price = 1000, ammo = 30 },  -- Combat Shotgun
     -- Sub-Machine Guns
-    [28] = { price = 100, ammo = 60 },-- Uzi
-    [29] = { price = 100, ammo = 60 },-- MP5
-    [32] = { price = 100, ammo = 60 },  -- Tec-9
+    [28] = { price = 500, ammo = 30 },-- Uzi
+    [29] = { price = 2000, ammo = 30 },-- MP5
+    [32] = { price = 300, ammo = 30 },  -- Tec-9
     -- Assault Rifles 
-    [30] = { price = 100, ammo = 90 },-- Ak47
-    [31] = { price = 100, ammo = 90 },-- M4
+    [30] = { price = 3500, ammo = 30 },-- Ak47
+    [31] = { price = 4500, ammo = 30 },-- M4
     -- Rifles
-    [33] = { price = 100, ammo = 20 },-- Rifle
-    [34] = { price = 100, ammo = 20 },-- Sniper Rifle
+    [33] = { price = 1000, ammo = 20 },-- Rifle
+    [34] = { price = 5000, ammo = 20 },-- Sniper Rifle
     --Heavy Weapons
-    [35] = { price = 1000, ammo = 500 },-- Rocket Launcher
-    [36] = { price = 1000, ammo = 500 }, -- Rocket Launcher HS
-    [37] = { price = 1000, ammo = 500 },-- Flame
-    [38] = { price = 1000, ammo = 500 },-- Minigun
+    [35] = { price = 6000, ammo = 10 },-- Rocket Launcher
+    [36] = { price = 6000, ammo = 10 }, -- Rocket Launcher HS
+    [37] = { price = 6000, ammo = 500 },-- Flame
+    [38] = { price = 6000, ammo = 500 },-- Minigun
     --Projectiles 
-    [16] = { price = 50, ammo = 20 },-- Grenade
-    [17] = { price = 50, ammo = 20 },-- Tear Gas
-    [18] = { price = 50, ammo = 20 },-- Molotov
-    [39] = { price = 50, ammo = 20 },-- Satchel
+    [16] = { price = 300, ammo = 1 },-- Grenade
+    [17] = { price = 300, ammo = 1 },-- Tear Gas
+    [18] = { price = 300, ammo = 1 },-- Molotov
+    [39] = { price = 2000, ammo = 1 },-- Satchel
     -- Armor
-    ["armor"] = { price = 1000, ammo = 100 } -- Body Armor
+    ["armor"] = { price = 5000, ammo = 100 } -- Body Armor
 }
 
 -- ฟังก์ชันจัดการการซื้ออาวุธ
