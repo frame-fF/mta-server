@@ -2,7 +2,7 @@
     <info name="weapon shops" version="1.0" description="" type="script"/>
     <script src="server.lua" type="server"/>
     <script src="client.lua" type="client" />
-    <file src="images/item_bg.jpg" />
+    <file src="images/default.png" />
     <file src="images/16.png" />
     <file src="images/17.png" />
     <file src="images/18.png" />

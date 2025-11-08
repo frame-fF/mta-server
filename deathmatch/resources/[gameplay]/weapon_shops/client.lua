@@ -148,7 +148,7 @@ function createWeaponShopGUI()
     guiCreateLabel(infoX, infoY, 180, 25, "Selected Weapon:", false, weaponShopWindow)
     guiSetFont(guiGetScreenSize() > 1024 and "default-bold-small" or "default-small")
     -- รูปอาวุธที่เลือกขนาดใหญ่ (เริ่มต้นเป็นพื้นหลัง)
-    selectedWeaponImage = guiCreateStaticImage(infoX + 40, infoY + 30, 100, 100, "images/item_bg.jpg", false,
+    selectedWeaponImage = guiCreateStaticImage(infoX + 40, infoY + 30, 100, 100, "images/default.png", false,
         weaponShopWindow)
     -- Label แสดงชื่อและราคาอาวุธที่เลือก
     selectedWeaponLabel = guiCreateLabel(infoX, infoY + 140, 180, 60, "Please select\na weapon", false, weaponShopWindow)
