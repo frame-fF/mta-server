@@ -29,7 +29,7 @@ local weaponData = {
     [18] = { price = 300, ammo = 1 },-- Molotov
     [39] = { price = 2000, ammo = 1 },-- Satchel
     -- Armor
-    ["armor"] = { price = 5000, ammo = 100 } -- Body Armor
+    ["armor"] = { price = 5000, amount = 100 } -- Body Armor
 }
 
 -- ฟังก์ชันจัดการการซื้ออาวุธ
@@ -39,7 +39,7 @@ local function buyWeapon(weaponID)
         local armorInfo = weaponData["armor"]
         if not armorInfo then return end
         local price = armorInfo.price
-        local armorAmount = armorInfo.ammo
+        local armorAmount = armorInfo.amount
         if getPlayerMoney(player) >= price then
             takePlayerMoney(player, price)
             setPedArmor(player, armorAmount)
