@@ -66,7 +66,7 @@ local function buyWeapon(weaponID)
     if getPlayerMoney(player) >= price then
         takePlayerMoney(player, price)
         local key = tostring(weaponID)
-        player_weapons[key] = (player_weapons[key] or 0) + 1
+        player_weapons[key] = (player_weapons[key] or 0) + weaponInfo.amount
         iprint(toJSON(player_weapons))
         setElementData(player, "weapons", player_weapons)
     else
