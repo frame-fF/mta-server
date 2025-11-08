@@ -43,7 +43,6 @@ local function buyWeapon(weaponID)
         if getPlayerMoney(player) >= price then
             takePlayerMoney(player, price)
             setPedArmor(player, armorAmount)
-            outputChatBox("You have purchased Body Armor.", player, 0, 255, 0)
         else
             outputChatBox("You don't have enough money.", player, 255, 0, 0)
         end
@@ -56,7 +55,6 @@ local function buyWeapon(weaponID)
     if getPlayerMoney(player) >= price then
         takePlayerMoney(player, price)
         giveWeapon(player, weaponID, ammo, true) -- ให้ปืนพร้อมกระสุนตามที่กำหนด
-        outputChatBox("You have purchased a weapon.", player, 0, 255, 0)
     else
         outputChatBox("You don't have enough money.", player, 255, 0, 0)
     end
