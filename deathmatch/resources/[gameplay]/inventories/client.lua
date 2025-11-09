@@ -35,7 +35,18 @@ function createInventoriesGUI()
     for _, category in ipairs(categories) do
         local tab = guiCreateTab(category:gsub("^%l", string.upper), tabPanel)
         tabs[category] = tab
-        -- ที่นี่สามารถเพิ่มโค้ดเพื่อเติมปุ่มรูปอาวุธในแต่ละแท็บได้
+        local col = 0                         -- คอลัมน์ปัจจุบัน (0-3)
+        local row = 0                         -- แถวปัจจุบัน
+        local buttonSize = 100                -- ขนาดรูปอาวุธ 100x100 pixels
+        local spacing = 20                    -- ระยะห่างระหว่างรูป
+        local startX = 20                     -- ตำแหน่งเริ่มต้น X
+        local startY = 20                     -- ตำแหน่งเริ่มต้น Y
+        if category == "weapon" then
+            -- วนลูปสร้างปุ่มรูปอาวุธจาก DATA_WEAPON
+            for slot, weapons in pairs(DATA_WEAPON) do
+                
+            end
+        end
     end
 
     -- แสดงเคอร์เซอร์เมาส์
