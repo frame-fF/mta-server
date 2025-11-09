@@ -34,11 +34,9 @@ function createInventoryGUI()
         if tabName == "weapon" then
             -- สร้าง Grid List สำหรับแสดงรายการอาวุธ
             local weaponGrid = guiCreateGridList(10, 10, 650, 350, false, tab)
-            guiGridListAddColumn(weaponGrid, "Weapon Name", 0.5)
-            guiGridListAddColumn(weaponGrid, "Count", 0.3)
-            guiGridListAddColumn(weaponGrid, "Ammo", 0.2)
-
-            
+            guiGridListAddColumn(weaponGrid, "Name", 0.5)
+            guiGridListAddColumn(weaponGrid, "Count", 0.5)
+        
             local player_weapons = getElementData(localPlayer, "weapons") or {}
             local player_ammo = getElementData(localPlayer, "ammo") or {}
             
@@ -49,7 +47,15 @@ function createInventoryGUI()
                     local row = guiGridListAddRow(weaponGrid)
                     guiGridListSetItemText(weaponGrid, row, 1, weaponInfo.name or "Unknown", false, false)
                     guiGridListSetItemText(weaponGrid, row, 2, tostring(count), false, false)
-                    guiGridListSetItemText(weaponGrid, row, 3, tostring(ammo), false, false)
+                end
+            end
+
+            for ammoID, ammoInfo in pairs(DATA_AMMO) do
+                local ammoCount = player_ammo[tostring(ammoID)] or 0
+                if ammoCount > 0 then
+                    local row = guiGridListAddRow(weaponGrid)
+                    guiGridListSetItemText(weaponGrid, row, 1, ammoInfo.name or "Unknown Ammo", false, false)
+                    guiGridListSetItemText(weaponGrid, row, 2, tostring(ammoCount), false, false)
                 end
             end
             -- เก็บ reference ของ grid ไว้ใน weaponGrids ถ้าต้องการใช้ภายหลัง

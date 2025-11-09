@@ -23,6 +23,20 @@ DATA_WEAPON = {
     [38] = { slot = 7, ammo_id = 60, name = "Minigun" },
 }
 
+DATA_AMMO = {
+    [50] = { name = "9mm Ammo" },
+    [51] = { name = ".50 AE Ammo" },
+    [52] = { name = "Shotgun Ammo" },
+    [53] = { name = "SMG Ammo" },
+    [54] = { name = "Assault Rifle Ammo" },
+    [55] = { name = "Rifle Ammo" },
+    [56] = { name = "Sniper Ammo" },
+    [57] = { name = "Rocket Ammo" },
+    [58] = { name = "HS Rocket Ammo" },
+    [59] = { name = "Flame Ammo" },
+    [60] = { name = "Minigun Ammo" },
+}
+
 MAP_AMMO = {
     [50] = {22, 23},
     [51] = {24},
