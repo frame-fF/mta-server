@@ -68,14 +68,49 @@ function createInventoryGUI()
                     guiGridListSetItemText(ammoGrid, row, 2, tostring(ammoCount), false, false)
                 end
             end
-            -- เก็บ reference ของ grids
             weaponGrids[tabName] = weaponGrid
             weaponGrids["ammo"] = ammoGrid
+            addEventHandler("onClientGUIClick", weaponGrid, onGridClick)
+            addEventHandler("onClientGUIClick", ammoGrid, onGridClick)
         end
     end
 
     -- แสดงเคอร์เซอร์เมาส์
     showCursor(true)
+end
+
+
+
+function onGridClick(button, state, absoluteX, absoluteY)
+    if button == "right" and state == "up" then
+        if source == weaponGrids["weapon"] then
+            local row, col = guiGridListGetSelectedItem(source)
+            if row ~= -1 then
+                local weaponName = guiGridListGetItemText(source, row, 1)
+                for id, info in pairs(DATA_WEAPON) do
+                    if info.name == weaponName then
+                        selectedItem = {type="weapon", id=id}
+                        outputChatBox("Selected weapon ID: "..id)
+                        -- createContextMenu("weapon")
+                        break
+                    end
+                end
+            end
+        elseif source == weaponGrids["ammo"] then
+            local row, col = guiGridListGetSelectedItem(source)
+            if row ~= -1 then
+                local ammoName = guiGridListGetItemText(source, row, 1)
+                for id, info in pairs(DATA_AMMO) do
+                    if info.name == ammoName then
+                        selectedItem = {type="ammo", id=id}
+                        outputChatBox("Selected ammo ID: "..id)
+                        -- createContextMenu("ammo")
+                        break
+                    end
+                end
+            end
+        end
+    end
 end
 
 function hideGUI()
