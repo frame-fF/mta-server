@@ -171,7 +171,9 @@ function onClientPlayerWeaponFireFunc(weapon, ammo, ammoInClip, hitX, hitY, hitZ
     local weapons = getElementData(player, "weapons") or {}
     local ammo = getElementData(player, "ammo") or {}
     local ammoID = DATA_WEAPON[weapon] and DATA_WEAPON[weapon].ammo_id
-    outputChatBox("Fired weapon: "..weapon.." AmmoID: "..tostring(ammoID), player)
+    -- outputChatBox("Fired weapon: "..weapon.." AmmoID: "..tostring(ammoID))
+    -- test = getPedTotalAmmo(player)
+    -- outputChatBox("Ammo in clip: "..tostring(test))
     if ammoID then
         local ammoCount = ammo[tostring(ammoID)] or 0
         if ammoCount > 0 then
