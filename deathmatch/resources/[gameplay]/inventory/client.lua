@@ -171,9 +171,9 @@ function onClientPlayerWeaponFireFunc(weapon, ammo, ammoInClip, hitX, hitY, hitZ
     local weapons = getElementData(player, "weapons") or {}
     local ammo = getElementData(player, "ammo") or {}
     local ammoID = DATA_WEAPON[weapon] and DATA_WEAPON[weapon].ammo_id
-    -- outputChatBox("Fired weapon: "..weapon.." AmmoID: "..tostring(ammoID))
-    -- test = getPedTotalAmmo(player)
-    -- outputChatBox("Ammo in clip: "..tostring(test))
+    outputChatBox(" Client Fired weapon: "..weapon.." AmmoID: "..tostring(ammoID))
+    test = getPedTotalAmmo(player)
+    outputChatBox(" Client Ammo in clip: "..tostring(test))
     if ammoID then
         local ammoCount = ammo[tostring(ammoID)] or 0
         if ammoCount > 0 then
@@ -187,3 +187,22 @@ function onClientPlayerWeaponFireFunc(weapon, ammo, ammoInClip, hitX, hitY, hitZ
 end
 -- Add this as a handler so that the function will be triggered every time a player fires.
 addEventHandler("onClientPlayerWeaponFire", root, onClientPlayerWeaponFireFunc)
+
+
+
+addEventHandler("onClientProjectileCreation", root, function(creator)
+    local projectiles = {[16]=true, [17]=true, [18]=true, [39]=true} 
+    local player = creator
+    local projectileType = getProjectileType(source)
+    local weapons = getElementData(player, "weapons") or {}
+    test = getPedTotalAmmo(player)
+    outputChatBox(" Client Ammo in clip: "..tostring(test))
+    if projectiles[projectileType] then
+        local weaponCount = weapons[tostring(projectileType)] or 0
+        if weaponCount > 0 then
+            weapons[tostring(projectileType)] = weaponCount - 1
+            if weapons[tostring(projectileType)] == 0 then weapons[tostring(projectileType)] = nil end
+            setElementData(player, "weapons", weapons)
+        end
+    end
+end)

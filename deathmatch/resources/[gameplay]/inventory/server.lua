@@ -1,9 +1,19 @@
 addEvent("useWeapon", true)
 addEventHandler("useWeapon", root, function(weaponID)
+    local projectiles = {[16]=true, [17]=true, [18]=true, [39]=true} -- IDs of throwable weapons
     local player = client
     local weapons = getElementData(player, "weapons") or {}
     local ammo = getElementData(player, "ammo") or {}
     local weaponCount = weapons[tostring(weaponID)] or 0
+    if projectiles[weaponID] then
+        if weaponCount > 0 then
+            giveWeapon(player, weaponID, 1, true)
+            setWeaponAmmo(player, weaponID, weaponCount)
+        else
+            outputChatBox("You don't have this item!", player)
+        end
+        return
+    end
     if weaponCount > 0 then
         local ammoID = DATA_WEAPON[weaponID].ammo_id
         local ammoCount = ammo[tostring(ammoID)] or 0
@@ -59,9 +69,9 @@ addEventHandler ("onPlayerWeaponFire", root,
         local weapons = getElementData(player, "weapons") or {}
         local ammo = getElementData(player, "ammo")
         local ammoID = DATA_WEAPON[weapon] and DATA_WEAPON[weapon].ammo_id
-        -- outputChatBox("Fired weapon: "..weapon.." AmmoID: "..tostring(ammoID), player)
-        -- test = getPedTotalAmmo(player)
-        -- outputChatBox("Ammo in clip: "..tostring(test), player)
+        outputChatBox(" server Fired weapon: "..weapon.." AmmoID: "..tostring(ammoID), player)
+        test = getPedTotalAmmo(player)
+        outputChatBox("server Ammo in clip: "..tostring(test), player)
         if ammoID then
             local ammoCount = ammo[tostring(ammoID)] or 0
             if ammoCount > 0 then

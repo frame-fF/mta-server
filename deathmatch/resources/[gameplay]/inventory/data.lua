@@ -21,6 +21,11 @@ DATA_WEAPON = {
     [36] = { slot = 6, ammo_id = 58, name = "Heat-Seeking Rocket Launcher" },
     [37] = { slot = 7, ammo_id = 59, name = "Flamethrower" },
     [38] = { slot = 7, ammo_id = 60, name = "Minigun" },
+
+    [16] = { slot = 8, name = "Grenade" },
+    [17] = { slot = 8, name = "Tear Gas" },
+    [18] = { slot = 8, name = "Molotov Cocktail" },
+    [39] = { slot = 8, name = "Satchel Charge" },
 }
 
 DATA_AMMO = {
