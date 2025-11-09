@@ -63,7 +63,7 @@ local function buyWeapon(weaponID)
     local player = client
     local player_weapons = getElementData(player, "weapons")
     local player_ammo = getElementData(player, "ammo")
-    
+    -- Handle armor purchase
     if weaponID == "armor" then
         local armorInfo = weaponData["armor"]
         if not armorInfo then return end
@@ -77,6 +77,7 @@ local function buyWeapon(weaponID)
         end
         return
     end
+    -- Handle weapon and ammo purchase
     local weaponInfo = weaponData[weaponID]
     if not weaponInfo then return end
     local price = weaponInfo.price
@@ -99,8 +100,6 @@ local function buyWeapon(weaponID)
                 for _, wID in ipairs(MAP_AMMO[idNum]) do
                     if weapon == wID then
                         ammo = getElementData(player, "ammo")[tostring(idNum)]
-                        outputChatBox(weapon)
-                        outputChatBox(ammo)
                         giveWeapon(player, weapon, ammo, false)
                         setWeaponAmmo(player, weapon, ammo)
                     end
