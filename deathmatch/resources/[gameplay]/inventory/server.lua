@@ -69,9 +69,9 @@ addEventHandler ("onPlayerWeaponFire", root,
         local weapons = getElementData(player, "weapons") or {}
         local ammo = getElementData(player, "ammo")
         local ammoID = DATA_WEAPON[weapon] and DATA_WEAPON[weapon].ammo_id
-        outputChatBox(" server Fired weapon: "..weapon.." AmmoID: "..tostring(ammoID), player)
-        test = getPedTotalAmmo(player)
-        outputChatBox("server Ammo in clip: "..tostring(test), player)
+        -- outputChatBox(" server Fired weapon: "..weapon.." AmmoID: "..tostring(ammoID), player)
+        -- test = getPedTotalAmmo(player)
+        -- outputChatBox("server Ammo in clip: "..tostring(test), player)
         if ammoID then
             local ammoCount = ammo[tostring(ammoID)] or 0
             if ammoCount > 0 then
