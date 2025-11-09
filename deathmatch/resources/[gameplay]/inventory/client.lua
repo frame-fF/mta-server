@@ -160,3 +160,28 @@ function hideGUI()
 end
 
 bindKey("i", "down", createInventoryGUI)
+
+
+
+function onClientPlayerWeaponFireFunc(weapon, ammo, ammoInClip, hitX, hitY, hitZ, hitElement)
+    if weapon ~= 35 and weapon ~= 36 and weapon ~= 37 and weapon ~= 38 then 
+        return 
+    end
+    local player = localPlayer
+    local weapons = getElementData(player, "weapons") or {}
+    local ammo = getElementData(player, "ammo") or {}
+    local ammoID = DATA_WEAPON[weapon] and DATA_WEAPON[weapon].ammo_id
+    outputChatBox("Fired weapon: "..weapon.." AmmoID: "..tostring(ammoID), player)
+    if ammoID then
+        local ammoCount = ammo[tostring(ammoID)] or 0
+        if ammoCount > 0 then
+            ammo[tostring(ammoID)] = ammoCount - 1
+            if ammo[tostring(ammoID)] == 0 then ammo[tostring(ammoID)] = nil end
+            setElementData(player, "ammo", ammo)
+        else
+            removeWeapon(player, weapon)
+        end
+    end
+end
+-- Add this as a handler so that the function will be triggered every time a player fires.
+addEventHandler("onClientPlayerWeaponFire", root, onClientPlayerWeaponFireFunc)

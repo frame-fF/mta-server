@@ -43,6 +43,21 @@ local weaponData = {
     ["armor"] = { price = 5000, amount = 100 } -- Body Armor
 }
 
+
+MAP_AMMO = {
+    [50] = {22, 23},
+    [51] = {24},
+    [52] = {25, 26, 27},
+    [53] = {28, 29, 32},
+    [54] = {30, 31},
+    [55] = {33},
+    [56] = {34},
+    [57] = {35},
+    [58] = {36},
+    [59] = {37},
+    [60] = {38},
+}
+
 -- ฟังก์ชันจัดการการซื้ออาวุธ
 local function buyWeapon(weaponID)
     local player = client
@@ -79,6 +94,20 @@ local function buyWeapon(weaponID)
         player_ammo[key] = (player_ammo[key] or 0) + weaponInfo.amount
         iprint("ammo:", toJSON(player_ammo))
         setElementData(player, "ammo", player_ammo)
+        if MAP_AMMO[idNum] then
+            for slot = 0, 12 do
+                local weapon = getPedWeapon(player, slot)
+                for _, wID in ipairs(MAP_AMMO[idNum]) do
+                    if weapon == wID then
+                        ammo = getElementData(player, "ammo")[tostring(idNum)]
+                        outputChatBox(weapon)
+                        outputChatBox(ammo)
+                        giveWeapon(player, weapon, ammo, false)
+                        setWeaponAmmo(player, weapon, ammo)
+                    end
+                end
+            end
+        end
     else
         local key = tostring(weaponID)
         player_weapons[key] = (player_weapons[key] or 0) + weaponInfo.amount

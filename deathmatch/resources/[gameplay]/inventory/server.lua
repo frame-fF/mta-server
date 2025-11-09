@@ -59,6 +59,7 @@ addEventHandler ("onPlayerWeaponFire", root,
         local weapons = getElementData(player, "weapons") or {}
         local ammo = getElementData(player, "ammo")
         local ammoID = DATA_WEAPON[weapon] and DATA_WEAPON[weapon].ammo_id
+        outputChatBox("Fired weapon: "..weapon.." AmmoID: "..tostring(ammoID), player)
         if ammoID then
             local ammoCount = ammo[tostring(ammoID)] or 0
             if ammoCount > 0 then
