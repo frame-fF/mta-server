@@ -43,8 +43,40 @@ function createInventoriesGUI()
         local startY = 20                     -- ตำแหน่งเริ่มต้น Y
         if category == "weapon" then
             -- วนลูปสร้างปุ่มรูปอาวุธจาก DATA_WEAPON
+            -- ดึงข้อมูลอาวุธที่ผู้เล่นมีจาก Element Data
+            local owned = getElementData(localPlayer, "weapons") or {}
+            -- DATA_WEAPON เก็บเป็นตารางตาม slot -> { id = { name=.. } }
             for slot, weapons in pairs(DATA_WEAPON) do
-                
+                for weaponID, info in pairs(weapons) do
+                    local key = tostring(weaponID)
+                    local count = tonumber(owned[key]) or 0
+                    -- แสดงเฉพาะถ้ามีจำนวนมากกว่า 0
+                    if count > 0 then
+                        local weaponName = info.name or ("weapon_" .. weaponID)
+                        local btnX = startX + (col * (buttonSize + spacing))
+                        local btnY = startY + (row * (buttonSize + spacing + 30))
+                        -- สร้าง StaticImage แสดงรูปอาวุธ (ถ้ามีไฟล์รูป)
+                        local imagePath = "images/" .. weaponID .. ".png"
+                        local weaponImg = guiCreateStaticImage(btnX, btnY, buttonSize, buttonSize, imagePath, false, tab)
+                        -- สร้าง Label แสดงชื่อและจำนวนใต้รูป
+                        local label = guiCreateLabel(btnX, btnY + buttonSize + 2, buttonSize, 30, weaponName .. "\nQty: " .. tostring(count), false, tab)
+                        guiSetFont(label, "default-small")
+                        guiLabelSetHorizontalAlign(label, "center", false)
+                        guiLabelSetVerticalAlign(label, "top")
+                        -- เก็บข้อมูลไว้ใน element เพื่อใช้คลิก
+                        setElementData(weaponImg, "weaponID", weaponID)
+                        setElementData(weaponImg, "weaponName", weaponName)
+                        setElementData(weaponImg, "weaponCount", count)
+                        -- ให้สามารถคลิกเพื่อเลือกได้
+                        addEventHandler("onClientGUIClick", weaponImg, onWeaponImageClick, false)
+                        table.insert(weaponButtons, weaponImg)
+                        col = col + 1
+                        if col >= 4 then
+                            col = 0
+                            row = row + 1
+                        end
+                    end
+                end
             end
         end
     end
