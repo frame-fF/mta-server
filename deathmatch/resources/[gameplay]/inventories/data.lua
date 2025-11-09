@@ -1,6 +1,6 @@
 DATA_WEAPON = {
     -- Handguns 
-    [2] = {
+    [2] = { --slot 2
         [22] = { name = "Colt 45", description="" }, -- Colt 45
         [23] = { name = "Silenced", description="" }, -- Silenced
         [50] = { name = "9mm Ammo for Colt 45", description="" }, -- 9mm Ammo for Colt 45
@@ -8,7 +8,7 @@ DATA_WEAPON = {
         [51] = { name = "Desert Eagle Ammo", description="" },  -- Desert Eagle Ammo
     },
     -- Shotguns 
-    [3] = {
+    [3] = { --slot 3
         [25] = { name = "Shotgun", description="" },-- Shotgun
         [26] = { name = "Sawed-off", description="" },-- Sawed-off
         [27] = { name = "Combat Shotgun", description="" },  -- Combat Shotgun
@@ -52,4 +52,24 @@ DATA_WEAPON = {
         [18] = { name = "Molotov", description="" },-- Molotov
         [39] = { name = "Satchel", description="" },-- Satchel
     },
+}
+
+AMMO_MAP = {
+    [22] = 50,
+    [23] = 50,
+    [24] = 51,
+    [25] = 52,
+    [26] = 52,
+    [27] = 52,
+    [28] = 53,
+    [29] = 53,
+    [32] = 53,
+    [30] = 54,
+    [31] = 54,
+    [33] = 55,
+    [34] = 56,
+    [35] = 57,
+    [36] = 58,
+    [37] = 59,
+    [38] = 60,
 }

@@ -2,6 +2,7 @@
     <info name="inventories" version="1.0" description="" type="script"/>
     <script src="server.lua" type="server"/>
     <script src="client.lua" type="client" />
+    <script src="data.lua" type="client" />
     <file src="images/default.png" />
     <file src="images/16.png" />
     <file src="images/17.png" />
