@@ -55,6 +55,7 @@ local function onPlayerLogin()
 
             -- Set ElementData
             setElementData(player, "weapons", {})
+            setElementData(player, "ammo", {})
             setElementData(player, "hunger", 100)
             setElementData(player, "thirst", 100)
             setElementData(player, "stamina", 100)

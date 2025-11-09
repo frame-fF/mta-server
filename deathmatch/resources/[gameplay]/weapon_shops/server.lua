@@ -47,6 +47,8 @@ local weaponData = {
 local function buyWeapon(weaponID)
     local player = client
     local player_weapons = getElementData(player, "weapons") or {}
+    local player_ammo = getElementData(player, "ammo") or {}
+
     if weaponID == "armor" then
         local armorInfo = weaponData["armor"]
         if not armorInfo then return end
