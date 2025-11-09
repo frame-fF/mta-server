@@ -1,5 +1,10 @@
 local inventoriesWindow = nil                -- หน้าต่างหลักของร้านค้า
 local tabPanel = nil                        -- แท็บแยกหมวดหมู่อาวุธ
+local categories = {
+    "general",    -- หมวดทั่วไป
+    "drugs",      -- หมวดยาเสพติด
+    "weapon",    -- หมวดอาวุธ
+}
 local tabs = {}                             -- เก็บแท็บแต่ละหมวดหมู่
 local selectedWeapon = nil                  -- เก็บข้อมูลอาวุธที่เลือกในขณะนั้น (id, name, price)
 local weaponButtons = {}                    -- เก็บปุ่มรูปปืนทั้งหมดเพื่อใช้ลบ Event Handler ตอนปิด GUI
@@ -15,20 +20,26 @@ local y = (screenH - windowHeight) / 2      -- คำนวณตำแหน่
 
 
 function createInventoriesGUI()
-    -- ป้องกันการสร้าง GUI ซ้ำถ้ามีอยู่แล้ว
-    if inventoriesWindow and isElement(inventoriesWindow) then return end
+    -- ถ้ากดอีกครั้งให้ปิด GUI (toggle)
+    if inventoriesWindow and isElement(inventoriesWindow) then
+        hideGUI()
+        return
+    end
     -- สร้างหน้าต่างหลัก
     inventoriesWindow = guiCreateWindow(x, y, windowWidth, windowHeight, "Weapon Shop", false)
     guiWindowSetSizable(inventoriesWindow, false) -- ไม่ให้ปรับขนาดหน้าต่างได้
     -- สร้าง TabPanel สำหรับแยกหมวดหมู่อาวุธ
     -- ตำแหน่ง X=10, Y=30, กว้าง=680, สูง=420
     tabPanel = guiCreateTabPanel(10, 30, 680, 420, false, inventoriesWindow)
-
+    -- วนลูปสร้าง Tab สำหรับแต่ละหมวด
+    for _, category in ipairs(categories) do
+        local tab = guiCreateTab(category:gsub("^%l", string.upper), tabPanel)
+        tabs[category] = tab
+        -- ที่นี่สามารถเพิ่มโค้ดเพื่อเติมปุ่มรูปอาวุธในแต่ละแท็บได้
+    end
 
     -- แสดงเคอร์เซอร์เมาส์
     showCursor(true)
-    -- ปิดการควบคุมเกมเพื่อโฟกัสที่ GUI
-    guiSetInputEnabled(true)
 end
 
 
@@ -52,9 +63,8 @@ function hideGUI()
         weaponButtons = {}
         -- ซ่อนเคอร์เซอร์เมาส์
         showCursor(false)
-        -- เปิดการควบคุมเกมกลับมา
-        guiSetInputEnabled(false)
     end
 end
 
+-- ผูกปุ่ม 'i' ให้เป็น toggle: เปิดถ้าไม่มี, ปิดถ้ามี
 bindKey("i", "down", createInventoriesGUI)

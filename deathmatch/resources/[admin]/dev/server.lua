@@ -21,6 +21,12 @@ addEventHandler("onPlayerInteriorWarped", root,
 )
 
 
+
+function takeweapon(source)
+    takeAllWeapons(root)
+end
+
+addCommandHandler("takeweapon", takeweapon)
 ------------------------------------- TEST ----------------------------------------------
 
 -- สร้าง Zombie
