@@ -1,12 +1,13 @@
 local inventoryWindow = nil                -- หน้าต่างหลักของร้านค้า
 local tabPanel = nil                        -- แท็บแยกหมวดหมู่อาวุธ
 local tabs = {}  
+local weaponGrids = {}
+local ammoGrid = nil
 local tab_menu={
     "general",
     "medicine",
     "weapon",
 }                           -- เก็บแท็บแต่ละหมวดหมู่
-
 
 local screenW, screenH = guiGetScreenSize() -- ดึงขนาดหน้าจอของผู้เล่น
 local windowWidth, windowHeight = 900, 500  -- กำหนดขนาดหน้าต่างร้านค้า
@@ -30,8 +31,30 @@ function createInventoryGUI()
     for _, tabName in ipairs(tab_menu) do
         local tab = guiCreateTab(tabName:gsub("^%l", string.upper), tabPanel)
         tabs[tabName] = tab
-        -- เพิ่มโค้ดสำหรับเพิ่มรายการอาวุธในแต่ละแท็บที่นี่
-        
+        if tabName == "weapon" then
+            -- สร้าง Grid List สำหรับแสดงรายการอาวุธ
+            local weaponGrid = guiCreateGridList(10, 10, 650, 350, false, tab)
+            guiGridListAddColumn(weaponGrid, "Weapon Name", 0.5)
+            guiGridListAddColumn(weaponGrid, "Count", 0.3)
+            guiGridListAddColumn(weaponGrid, "Ammo", 0.2)
+
+            
+            local player_weapons = getElementData(localPlayer, "weapons") or {}
+            local player_ammo = getElementData(localPlayer, "ammo") or {}
+            
+            for weaponID, weaponInfo in pairs(DATA_WEAPON) do
+                local count = player_weapons[tostring(weaponID)] or 0
+                local ammo = player_ammo[tostring(weaponInfo.ammo_id)] or 0
+                if count > 0 then  -- แสดงเฉพาะอาวุธที่มีกระสุน
+                    local row = guiGridListAddRow(weaponGrid)
+                    guiGridListSetItemText(weaponGrid, row, 1, weaponInfo.name or "Unknown", false, false)
+                    guiGridListSetItemText(weaponGrid, row, 2, tostring(count), false, false)
+                    guiGridListSetItemText(weaponGrid, row, 3, tostring(ammo), false, false)
+                end
+            end
+            -- เก็บ reference ของ grid ไว้ใน weaponGrids ถ้าต้องการใช้ภายหลัง
+            weaponGrids[tabName] = weaponGrid
+        end
     end
 
     -- แสดงเคอร์เซอร์เมาส์
