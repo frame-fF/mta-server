@@ -1,0 +1,7 @@
+
+
+
+
+
+
+bindKey("i", "down", toggleInventory)
