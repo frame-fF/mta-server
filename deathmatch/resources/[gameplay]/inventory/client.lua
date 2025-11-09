@@ -31,6 +31,7 @@ function createInventoryGUI()
         local tab = guiCreateTab(tabName:gsub("^%l", string.upper), tabPanel)
         tabs[tabName] = tab
         -- เพิ่มโค้ดสำหรับเพิ่มรายการอาวุธในแต่ละแท็บที่นี่
+        
     end
 
     -- แสดงเคอร์เซอร์เมาส์
