@@ -1,12 +1,12 @@
 local inventoryWindow = nil                -- หน้าต่างหลักของร้านค้า
 local tabPanel = nil                        -- แท็บแยกหมวดหมู่อาวุธ
-local tabs = {}                             -- เก็บแท็บแต่ละหมวดหมู่
-local selectedWeapon = nil                  -- เก็บข้อมูลอาวุธที่เลือกในขณะนั้น (id, name, price)
-local weaponButtons = {}                    -- เก็บปุ่มรูปปืนทั้งหมดเพื่อใช้ลบ Event Handler ตอนปิด GUI
-local buyButton = nil                       -- ปุ่มซื้ออาวุธ
-local closeButton = nil                     -- ปุ่มปิดหน้าต่างร้านค้า
-local selectedWeaponLabel = nil             -- ป้ายแสดงอาวุธที่เลือก
-local selectedWeaponImage = nil             -- รูปอาวุธที่เลือก
+local tabs = {}  
+local tab_menu={
+    "general",
+    "medicine",
+    "weapon",
+}                           -- เก็บแท็บแต่ละหมวดหมู่
+
 
 local screenW, screenH = guiGetScreenSize() -- ดึงขนาดหน้าจอของผู้เล่น
 local windowWidth, windowHeight = 900, 500  -- กำหนดขนาดหน้าต่างร้านค้า
@@ -26,6 +26,12 @@ function createInventoryGUI()
     -- สร้าง TabPanel สำหรับแยกหมวดหมู่อาวุธ
     -- ตำแหน่ง X=10, Y=30, กว้าง=680, สูง=420
     tabPanel = guiCreateTabPanel(10, 30, 680, 420, false, inventoryWindow)
+    -- สร้างแท็บแต่ละหมวดหมู่
+    for _, tabName in ipairs(tab_menu) do
+        local tab = guiCreateTab(tabName:gsub("^%l", string.upper), tabPanel)
+        tabs[tabName] = tab
+        -- เพิ่มโค้ดสำหรับเพิ่มรายการอาวุธในแต่ละแท็บที่นี่
+    end
 
     -- แสดงเคอร์เซอร์เมาส์
     showCursor(true)
