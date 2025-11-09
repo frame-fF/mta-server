@@ -65,14 +65,25 @@ local function buyWeapon(weaponID)
     local weaponInfo = weaponData[weaponID]
     if not weaponInfo then return end
     local price = weaponInfo.price
-    if getPlayerMoney(player) >= price then
-        takePlayerMoney(player, price)
+
+    if getPlayerMoney(player) < price then
+        outputChatBox("You don't have enough money.", player, 255, 0, 0)
+        return
+    end
+
+    takePlayerMoney(player, price)
+
+    local idNum = tonumber(weaponID)
+    if idNum and idNum >= 50 and idNum <= 60 then
+        local key = tostring(idNum)
+        player_ammo[key] = (player_ammo[key] or 0) + weaponInfo.amount
+        iprint("ammo:", toJSON(player_ammo))
+        setElementData(player, "ammo", player_ammo)
+    else
         local key = tostring(weaponID)
         player_weapons[key] = (player_weapons[key] or 0) + weaponInfo.amount
-        iprint(toJSON(player_weapons))
+        iprint("weapon:", toJSON(player_weapons))
         setElementData(player, "weapons", player_weapons)
-    else
-        outputChatBox("You don't have enough money.", player, 255, 0, 0)
     end
 end
 
