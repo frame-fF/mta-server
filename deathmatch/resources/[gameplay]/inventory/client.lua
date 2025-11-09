@@ -32,34 +32,45 @@ function createInventoryGUI()
         local tab = guiCreateTab(tabName:gsub("^%l", string.upper), tabPanel)
         tabs[tabName] = tab
         if tabName == "weapon" then
-            -- สร้าง Grid List สำหรับแสดงรายการอาวุธ
-            local weaponGrid = guiCreateGridList(10, 10, 650, 350, false, tab)
-            guiGridListAddColumn(weaponGrid, "Name", 0.5)
-            guiGridListAddColumn(weaponGrid, "Count", 0.5)
+            -- สร้าง Label และ Grid สำหรับอาวุธ
+            local weaponLabel = guiCreateLabel(10, 10, 650, 20, "Weapons", false, tab)
+            local weaponGrid = guiCreateGridList(10, 30, 650, 150, false, tab)
+            guiGridListAddColumn(weaponGrid, "Name", 0.4)
+            guiGridListAddColumn(weaponGrid, "Count", 0.3)
+            guiGridListAddColumn(weaponGrid, "Slot", 0.3)
+            
+            -- สร้าง Label และ Grid สำหรับกระสุน
+            local ammoLabel = guiCreateLabel(10, 190, 650, 20, "Ammo", false, tab)
+            local ammoGrid = guiCreateGridList(10, 210, 650, 140, false, tab)
+            guiGridListAddColumn(ammoGrid, "Name", 0.5)
+            guiGridListAddColumn(ammoGrid, "Count", 0.5)
         
             local player_weapons = getElementData(localPlayer, "weapons") or {}
             local player_ammo = getElementData(localPlayer, "ammo") or {}
             
+            -- เพิ่มอาวุธเข้า Grid
             for weaponID, weaponInfo in pairs(DATA_WEAPON) do
                 local count = player_weapons[tostring(weaponID)] or 0
-                local ammo = player_ammo[tostring(weaponInfo.ammo_id)] or 0
-                if count > 0 then  -- แสดงเฉพาะอาวุธที่มีกระสุน
+                if count > 0 then
                     local row = guiGridListAddRow(weaponGrid)
                     guiGridListSetItemText(weaponGrid, row, 1, weaponInfo.name or "Unknown", false, false)
                     guiGridListSetItemText(weaponGrid, row, 2, tostring(count), false, false)
+                    guiGridListSetItemText(weaponGrid, row, 3, tostring(weaponInfo.slot or "N/A"), false, false)
                 end
             end
-
+            
+            -- เพิ่มกระสุนเข้า Grid
             for ammoID, ammoInfo in pairs(DATA_AMMO) do
                 local ammoCount = player_ammo[tostring(ammoID)] or 0
                 if ammoCount > 0 then
-                    local row = guiGridListAddRow(weaponGrid)
-                    guiGridListSetItemText(weaponGrid, row, 1, ammoInfo.name or "Unknown Ammo", false, false)
-                    guiGridListSetItemText(weaponGrid, row, 2, tostring(ammoCount), false, false)
+                    local row = guiGridListAddRow(ammoGrid)
+                    guiGridListSetItemText(ammoGrid, row, 1, ammoInfo.name or "Unknown Ammo", false, false)
+                    guiGridListSetItemText(ammoGrid, row, 2, tostring(ammoCount), false, false)
                 end
             end
-            -- เก็บ reference ของ grid ไว้ใน weaponGrids ถ้าต้องการใช้ภายหลัง
+            -- เก็บ reference ของ grids
             weaponGrids[tabName] = weaponGrid
+            weaponGrids["ammo"] = ammoGrid
         end
     end
 
