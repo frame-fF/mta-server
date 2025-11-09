@@ -54,12 +54,11 @@ local function onPlayerLogin()
             local player_data = result.data
 
             -- Set ElementData
-            setElementData(player, "weapons", {})
-            setElementData(player, "ammo", {})
+            setElementData(player, "weapons", player_data.weapons[1])
+            setElementData(player, "ammo", player_data.ammo[1])
             setElementData(player, "hunger", 100)
             setElementData(player, "thirst", 100)
             setElementData(player, "stamina", 100)
-
             -- Set player positiona
             local x, y, z = unpack(player_data.position[1])
 
@@ -81,10 +80,10 @@ local function onPlayerLogin()
             setPlayerName(player, result.username)
             
             -- Give weapons
-            local weapons = unpack(player_data.weapons)
-            for weapon, ammo in pairs(weapons) do
-                giveWeapon(player, weapon, ammo)
-            end
+            -- local weapons = unpack(player_data.weapons)
+            -- for weapon, ammo in pairs(weapons) do
+            --     giveWeapon(player, weapon, ammo)
+            -- end
             -- Set Health Armor Money Wantedlevel
             setElementHealth(player, player_data.health)
             setPedArmor(player, player_data.armor)

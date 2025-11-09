@@ -62,7 +62,7 @@ local function savePlayerData()
         interior = getElementInterior(player),
         dimension = getElementDimension(player),
         team = team,
-        weapons = toJSON(weapons),
+        -- weapons = toJSON(weapons),
         health = getElementHealth(player),
         armor = getPedArmor(player),
         money = getPlayerMoney(player),
@@ -71,7 +71,9 @@ local function savePlayerData()
         -- Additional Status
         hunger = getElementData(player, "hunger") or 100,
         thirst = getElementData(player, "thirst") or 100,
-        stamina = getElementData(player, "stamina") or 100
+        stamina = getElementData(player, "stamina") or 100,
+        weapons = toJSON(getElementData(player, "weapons")),
+        ammo = toJSON(getElementData(player, "ammo"))
     }
     save(player, data)
 end
@@ -90,10 +92,10 @@ addEventHandler("onPlayerLogout", root,
         triggerEvent("savePlayerData", source)
     end)
 
-addEventHandler("onPlayerSpawn", root,
-    function()
-        triggerEvent("savePlayerData", source)
-    end)
+-- addEventHandler("onPlayerSpawn", root,
+--     function()
+--         triggerEvent("savePlayerData", source)
+--     end)
 
 addEventHandler("onResourceStop", root,
     function()

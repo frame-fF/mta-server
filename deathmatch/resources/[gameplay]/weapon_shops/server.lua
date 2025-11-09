@@ -61,9 +61,9 @@ MAP_AMMO = {
 -- ฟังก์ชันจัดการการซื้ออาวุธ
 local function buyWeapon(weaponID)
     local player = client
-    local player_weapons = getElementData(player, "weapons") or {}
-    local player_ammo = getElementData(player, "ammo") or {}
-
+    local player_weapons = getElementData(player, "weapons")
+    local player_ammo = getElementData(player, "ammo")
+    
     if weaponID == "armor" then
         local armorInfo = weaponData["armor"]
         if not armorInfo then return end
@@ -91,9 +91,10 @@ local function buyWeapon(weaponID)
     local idNum = tonumber(weaponID)
     if idNum and idNum >= 50 and idNum <= 60 then
         local key = tostring(idNum)
+        iprint("ammo_1:", player_ammo)
         player_ammo[key] = (player_ammo[key] or 0) + weaponInfo.amount
-        iprint("ammo:", toJSON(player_ammo))
         setElementData(player, "ammo", player_ammo)
+        iprint("ammo_2:", player_ammo)
         if MAP_AMMO[idNum] then
             for slot = 0, 12 do
                 local weapon = getPedWeapon(player, slot)
@@ -110,9 +111,10 @@ local function buyWeapon(weaponID)
         end
     else
         local key = tostring(weaponID)
+        iprint("weapon_1:", player_weapons)
         player_weapons[key] = (player_weapons[key] or 0) + weaponInfo.amount
-        iprint("weapon:", toJSON(player_weapons))
         setElementData(player, "weapons", player_weapons)
+        iprint("weapon_2:", player_weapons)
     end
 end
 
