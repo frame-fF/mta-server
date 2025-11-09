@@ -8,7 +8,7 @@ addEventHandler("useWeapon", root, function(weaponID)
         local ammoID = DATA_WEAPON[weaponID].ammo_id
         local ammoCount = ammo[tostring(ammoID)] or 0
         if ammoCount > 0 then
-            giveWeapon(player, weaponID, 1, true)
+            giveWeapon(player, weaponID, 999, true)
             setWeaponAmmo(player, weaponID, ammoCount)
         else
             outputChatBox("No ammo for this weapon!", player)
@@ -49,3 +49,25 @@ addEventHandler("dropItem", root, function(itemType, itemID)
         -- end
     end
 end)
+
+
+
+
+addEventHandler ("onPlayerWeaponFire", root, 
+   function (weapon, endX, endY, endZ, hitElement, startX, startY, startZ)
+        local player = source
+        local weapons = getElementData(player, "weapons") or {}
+        local ammo = getElementData(player, "ammo")
+        local ammoID = DATA_WEAPON[weapon] and DATA_WEAPON[weapon].ammo_id
+        if ammoID then
+            local ammoCount = ammo[tostring(ammoID)] or 0
+            if ammoCount > 0 then
+                ammo[tostring(ammoID)] = ammoCount - 1
+                if ammo[tostring(ammoID)] == 0 then ammo[tostring(ammoID)] = nil end
+                setElementData(player, "ammo", ammo)
+            else
+                removeWeapon(player, weapon)
+            end
+        end
+   end
+)
