@@ -91,7 +91,7 @@ function onGridClick(button, state, absoluteX, absoluteY)
                     if info.name == weaponName then
                         selectedItem = {type="weapon", id=id}
                         outputChatBox("Selected weapon ID: "..id)
-                        -- createContextMenu("weapon")
+                        createContextMenu("weapon")
                         break
                     end
                 end
@@ -104,12 +104,46 @@ function onGridClick(button, state, absoluteX, absoluteY)
                     if info.name == ammoName then
                         selectedItem = {type="ammo", id=id}
                         outputChatBox("Selected ammo ID: "..id)
-                        -- createContextMenu("ammo")
+                        createContextMenu("ammo")
                         break
                     end
                 end
             end
         end
+    end
+end
+
+function createContextMenu(itemType)
+    if contextMenu then destroyElement(contextMenu) end
+    local cursorX, cursorY = getCursorPosition()
+    cursorX, cursorY = cursorX * screenW, cursorY * screenH
+    contextMenu = guiCreateWindow(cursorX, cursorY, 100, itemType == "weapon" and 80 or 40, "", false)
+    guiWindowSetSizable(contextMenu, false)
+    if itemType == "weapon" then
+        local useBtn = guiCreateButton(10, 10, 80, 25, "ใช้", false, contextMenu)
+        addEventHandler("onClientGUIClick", useBtn, function() 
+            triggerServerEvent("useWeapon", localPlayer, selectedItem.id)
+            hideContextMenu()
+        end, false)
+        local dropBtn = guiCreateButton(10, 40, 80, 25, "ทิ้ง", false, contextMenu)
+        addEventHandler("onClientGUIClick", dropBtn, function() 
+            triggerServerEvent("dropItem", localPlayer, selectedItem.type, selectedItem.id)
+            hideContextMenu()
+        end, false)
+    else
+        local dropBtn = guiCreateButton(10, 10, 80, 25, "ทิ้ง", false, contextMenu)
+        addEventHandler("onClientGUIClick", dropBtn, function() 
+            triggerServerEvent("dropItem", localPlayer, selectedItem.type, selectedItem.id)
+            hideContextMenu()
+        end, false)
+    end
+end
+
+function hideContextMenu()
+    if contextMenu and isElement(contextMenu) then
+        destroyElement(contextMenu)
+        contextMenu = nil
+        selectedItem = nil
     end
 end
 
