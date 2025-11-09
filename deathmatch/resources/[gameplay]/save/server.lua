@@ -38,12 +38,12 @@ local function savePlayerData()
     -- get weapons
     local weapon = getPedWeapon(player)
     local ammo = getPedTotalAmmo(player)
-    local weapons = {}
+    local weapons_in_hand = {}
     for slot = 0, 12 do
         local weapon = getPedWeapon(player, slot)
         local ammo = getPedTotalAmmo(player, slot)
         if (weapon > 0) and (ammo > 0) then
-            weapons[weapon] = ammo
+            weapons_in_hand[weapon] = ammo
         end
     end
     -- get clothes
@@ -62,7 +62,7 @@ local function savePlayerData()
         interior = getElementInterior(player),
         dimension = getElementDimension(player),
         team = team,
-        -- weapons = toJSON(weapons),
+        weapons_in_hand = toJSON(weapons_in_hand),
         health = getElementHealth(player),
         armor = getPedArmor(player),
         money = getPlayerMoney(player),
@@ -92,10 +92,10 @@ addEventHandler("onPlayerLogout", root,
         triggerEvent("savePlayerData", source)
     end)
 
--- addEventHandler("onPlayerSpawn", root,
---     function()
---         triggerEvent("savePlayerData", source)
---     end)
+addEventHandler("onPlayerSpawn", root,
+    function()
+        triggerEvent("savePlayerData", source)
+    end)
 
 addEventHandler("onResourceStop", root,
     function()

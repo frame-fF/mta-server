@@ -80,10 +80,10 @@ local function onPlayerLogin()
             setPlayerName(player, result.username)
             
             -- Give weapons
-            -- local weapons = unpack(player_data.weapons)
-            -- for weapon, ammo in pairs(weapons) do
-            --     giveWeapon(player, weapon, ammo)
-            -- end
+            local weapons_in_hand = unpack(player_data.weapons_in_hand)
+            for weapon, ammo in pairs(weapons_in_hand) do
+                giveWeapon(player, weapon, ammo)
+            end
             -- Set Health Armor Money Wantedlevel
             setElementHealth(player, player_data.health)
             setPedArmor(player, player_data.armor)
