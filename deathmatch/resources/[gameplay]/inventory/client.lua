@@ -9,6 +9,9 @@ local tab_menu = {
     "medicine",
     "weapon",
 }                                           -- เก็บแท็บแต่ละหมวดหมู่
+local selectedItemImage = nil  
+local selectedItemLabel = nil
+
 
 local screenW, screenH = guiGetScreenSize() -- ดึงขนาดหน้าจอของผู้เล่น
 local windowWidth, windowHeight = 900, 500  -- กำหนดขนาดหน้าต่างร้านค้า
@@ -172,10 +175,16 @@ function createInventoryGUI()
     -- ========================================
     local infoX = 700 -- ตำแหน่ง X เริ่มต้น
     local infoY = 30  -- ตำแหน่ง Y เริ่มต้น
-    -- Label หัวข้อ "Selected Weapon:"
+    -- Label หัวข้อ "Selected:"
     guiCreateLabel(infoX, infoY, 180, 25, "Selected Item:", false, inventoryWindow)
     guiSetFont(guiGetScreenSize() > 1024 and "default-bold-small" or "default-small")
-
+    -- รูปอาวุธที่เลือกขนาดใหญ่ (เริ่มต้นเป็นพื้นหลัง)
+    selectedItemImage = guiCreateStaticImage(infoX + 40, infoY + 30, 100, 100, "images/default.png", false,
+    inventoryWindow)
+    -- Label แสดงชื่อและราคาอาวุธที่เลือก
+    selectedItemLabel = guiCreateLabel(infoX, infoY + 140, 180, 60, "Please select\na item", false, inventoryWindow)
+    guiSetFont(selectedItemLabel, "default-bold-small")
+    guiLabelSetHorizontalAlign(selectedItemLabel, "center", false)
     -- แสดงเคอร์เซอร์เมาส์
     showCursor(true)
 end
