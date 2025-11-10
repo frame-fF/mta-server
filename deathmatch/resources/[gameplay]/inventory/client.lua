@@ -11,6 +11,7 @@ local tab_menu = {
 local selectedItemImage = nil
 local selectedItemLabel = nil
 local useButton = nil
+local removeButton = nil
 local closeButton = nil
 local dropButton = nil
 local selectedItem = nil
@@ -196,6 +197,12 @@ function createInventoryGUI()
     useButton = guiCreateButton(infoX + 10, infoY + 220, 160, 35, "Use", false, inventoryWindow)
     guiSetEnabled(useButton, false)                           -- ปิดปุ่มไว้ก่อนจนกว่าจะเลือกอาวุธ
     guiSetProperty(useButton, "NormalTextColour", "FF90EE90") -- สีเขียวอ่อน
+    guiSetVisible(useButton, true)
+    -- ปุ่มถอด
+    removeButton = guiCreateButton(infoX + 10, infoY + 220, 160, 35, "Remove", false, inventoryWindow)
+    guiSetEnabled(removeButton, true)
+    guiSetProperty(removeButton, "NormalTextColour", "FFFFFF00") -- สีเหลืองอ
+    guiSetVisible(removeButton, false)
     -- ปุ่มทิ้ง
     dropButton = guiCreateButton(infoX + 10, infoY + 265, 160, 35, "Drop", false, inventoryWindow)
     guiSetEnabled(dropButton, false)
@@ -207,6 +214,7 @@ function createInventoryGUI()
     -- ผูก Event Handlers กับปุ่ม
     -- ========================================
     addEventHandler("onClientGUIClick", useButton, onUseButtonClick, false)
+    addEventHandler("onClientGUIClick", removeButton, onRemoveButtonClick, false)
     addEventHandler("onClientGUIClick", dropButton, onDropButtonClick, false)
     addEventHandler("onClientGUIClick", closeButton, hideGUI, false)
     -- แสดงเคอร์เซอร์เมาส์
@@ -219,10 +227,26 @@ function onWeaponImageClick(button)
         local weaponID = getElementData(source, "weaponID")
         local weaponName = getElementData(source, "weaponName")
         local weaponDiscription = getElementData(source, "weaponDiscription")
+        local player = localPlayer
+        local weapons_in_hand = {}
+        -- เก็บอาวุธที่ถืออยู่
+        for slot = 0, 12 do
+            local weapon = getPedWeapon(player, slot)
+            if weapon > 0 then
+                weapons_in_hand[tostring(weapon)] = true
+            end
+        end
         selectedItem = {
             type = "weapon",
             id = weaponID,
         }
+        if weapons_in_hand[tostring(weaponID)] then
+            guiSetVisible(useButton, false)
+            guiSetVisible(removeButton, true)
+        else
+            guiSetVisible(useButton, true)
+            guiSetVisible(removeButton, false)
+        end
         guiStaticImageLoadImage(selectedItemImage, "images/" .. weaponID .. ".png")
         guiSetText(selectedItemLabel, weaponName .. "\n:" .. weaponDiscription)
         -- เปิดใช้งานปุ่ม Buy
@@ -257,12 +281,21 @@ function onUseButtonClick()
     end
 end
 
+function onRemoveButtonClick()
+
+end
+
+function onDropButtonClick()
+
+end
+
 function hideGUI()
     -- GUI hiding code here
     if inventoryWindow and isElement(inventoryWindow) then
         destroyElement(inventoryWindow)
         -- ลบ Event Handlers
         removeEventHandler("onClientGUIClick", useButton, onUseButtonClick, false)
+        removeEventHandler("onClientGUIClick", removeButton, onRemoveButtonClick, false)
         removeEventHandler("onClientGUIClick", dropButton, onDropButtonClick, false)
         removeEventHandler("onClientGUIClick", closeButton, hideGUI, false)
         -- วนลูปลบ Event Handlers
@@ -287,7 +320,7 @@ function hideGUI()
 end
 
 -- ฟังก์ชันอัปเดตสีของอาวุธทั้งหมดตามสถานะ
-function updateWeaponColors()
+function updateUserWeapon()
     local player = localPlayer
     local weapons_in_hand = {}
 
@@ -312,6 +345,8 @@ function updateWeaponColors()
             end
         end
     end
+    guiSetVisible(useButton, false)
+    guiSetVisible(removeButton, true)
 end
 
 -- รับการตอบกลับจาก server ว่าใช้ไอเทมสำเร็จหรือไม่
@@ -326,7 +361,7 @@ end
 
 function UseItemResponse(success)
     if success then
-        updateWeaponColors()
+        updateUserWeapon()
     end
 end
 
