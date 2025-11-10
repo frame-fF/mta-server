@@ -1,32 +1,47 @@
-addEvent("useWeapon", true)
-addEventHandler("useWeapon", root, function(weaponID)
-    local projectiles = {[16]=true, [17]=true, [18]=true, [39]=true} -- IDs of throwable weapons
+local function useItem(data)
     local player = client
-    local weapons = getElementData(player, "weapons") or {}
-    local ammo = getElementData(player, "ammo") or {}
-    local weaponCount = weapons[tostring(weaponID)] or 0
-    if projectiles[weaponID] then
+    if data.type == "weapon" then
+        local projectiles = { [16] = true, [17] = true, [18] = true, [39] = true } -- IDs of throwable weapons
+        local weapons = getElementData(player, "weapons") or {}
+        local ammo = getElementData(player, "ammo") or {}
+        local weaponCount = weapons[tostring(data.id)]
+        if projectiles[data.id] then
+            if weaponCount > 0 then
+                giveWeapon(player, data.id, 1, true)
+                setWeaponAmmo(player, data.id, weaponCount)
+                -- ส่งสัญญาณกลับไปว่าสำเร็จ
+                triggerClientEvent(player, "onUseItemResponse", player, true)
+            else
+                outputChatBox("You don't have this item!", player)
+                -- ส่งสัญญาณกลับไปว่าไม่สำเร็จ
+                triggerClientEvent(player, "onUseItemResponse", player, false)
+            end
+            return
+        end
         if weaponCount > 0 then
-            giveWeapon(player, weaponID, 1, true)
-            setWeaponAmmo(player, weaponID, weaponCount)
+            local ammoID = DATA_WEAPON[data.id].ammo_id
+            local ammoCount = ammo[tostring(ammoID)] or 0
+            if ammoCount > 0 then
+                giveWeapon(player, data.id, 999, true)
+                setWeaponAmmo(player, data.id, ammoCount)
+                -- ส่งสัญญาณกลับไปว่าสำเร็จ
+                triggerClientEvent(player, "onUseItemResponse", player, true)
+            else
+                outputChatBox("No ammo for this weapon!", player)
+                -- ส่งสัญญาณกลับไปว่าไม่สำเร็จ
+                triggerClientEvent(player, "onUseItemResponse", player, false)
+            end
         else
-            outputChatBox("You don't have this item!", player)
+            outputChatBox("You don't have this weapon!", player)
         end
-        return
+    elseif data.type == "ammo" then
+
     end
-    if weaponCount > 0 then
-        local ammoID = DATA_WEAPON[weaponID].ammo_id
-        local ammoCount = ammo[tostring(ammoID)] or 0
-        if ammoCount > 0 then
-            giveWeapon(player, weaponID, 999, true)
-            setWeaponAmmo(player, weaponID, ammoCount)
-        else
-            outputChatBox("No ammo for this weapon!", player)
-        end
-    else
-        outputChatBox("You don't have this weapon!", player)
-    end
-end)
+end
+
+
+addEvent("use_item", true)
+addEventHandler("use_item", root, useItem)
 
 addEvent("dropItem", true)
 addEventHandler("dropItem", root, function(itemType, itemID)
@@ -63,8 +78,8 @@ end)
 
 
 
-addEventHandler ("onPlayerWeaponFire", root, 
-   function (weapon, endX, endY, endZ, hitElement, startX, startY, startZ)
+addEventHandler("onPlayerWeaponFire", root,
+    function(weapon, endX, endY, endZ, hitElement, startX, startY, startZ)
         local player = source
         local weapons = getElementData(player, "weapons") or {}
         local ammo = getElementData(player, "ammo")
@@ -82,5 +97,5 @@ addEventHandler ("onPlayerWeaponFire", root,
                 removeWeapon(player, weapon)
             end
         end
-   end
+    end
 )
