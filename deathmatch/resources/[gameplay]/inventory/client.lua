@@ -55,6 +55,13 @@ function createInventoryGUI()
                             weapons[key] = true
                         end
                     end
+                    local weapons_in_hand = {}
+                    for slot = 0, 12 do
+                        local weapon = getPedWeapon(player, slot)
+                        if weapon > 0 then
+                            weapons_in_hand[tostring(weapon)] = true
+                        end
+                    end
                     local slotWeapon={
                         {slot = 2, name = "Pistols"},
                         {slot = 3, name = "Shotguns"},
@@ -77,6 +84,9 @@ function createInventoryGUI()
                                     local btnY = startY + (row * (buttonSize + spacing + 30)) -- +30 สำหรับ Label
                                     local weaponImg = guiCreateStaticImage(btnX, btnY, buttonSize, buttonSize, "images/" .. weaponID .. ".png",
                                         false, scrollPane)
+                                    if weapons_in_hand[tostring(weaponID)] then
+                                        guiSetProperty(weaponImg, "ImageColours", "tl:FF00FF00 tr:FF00FF00 bl:FF00FF00 br:FF00FF00")
+                                    end
                                     -- สร้าง Label แสดงชื่อและราคาอาวุธใต้รูป
                                     local label = guiCreateLabel(btnX, btnY + buttonSize + 2, buttonSize, 25, weaponName .. "\nx" .. weaponCount,
                                         false, scrollPane)
