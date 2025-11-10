@@ -49,7 +49,12 @@ function createInventoryGUI()
                     local startX = 20                     -- ตำแหน่งเริ่มต้น X
                     local startY = 20                     -- ตำแหน่งเริ่มต้น Y
                     local player = localPlayer
-                    local weapons = getElementData(player, "weapons") or {}
+                    local weapons = {}
+                    for key, value  in pairs(getElementData(player, "weapons")) do
+                        if value > 0 then
+                            weapons[key] = true
+                        end
+                    end
                     local slotWeapon={
                         {slot = 2, name = "Pistols"},
                         {slot = 3, name = "Shotguns"},
@@ -62,40 +67,90 @@ function createInventoryGUI()
                     for slot, slotName in ipairs(slotWeapon) do
                         for id, info in pairs(DATA_WEAPON) do
                             if info.slot == slot then
-                                local weaponID = id    -- ID อาวุธ (ใช้โหลดรูป)
-                                local weaponName = info.name   -- ชื่ออาวุธ
-                                local weaponDiscription = info.weaponDiscription -- ราคาอาวุธ
-                                -- คำนวณตำแหน่งของรูปอาวุธ (แบบ Grid 4 คอลัมน์)
-                                local btnX = startX + (col * (buttonSize + spacing))
-                                local btnY = startY + (row * (buttonSize + spacing + 30)) -- +30 สำหรับ Label
-                                local weaponImg = guiCreateStaticImage(btnX, btnY, buttonSize, buttonSize, "images/" .. weaponID .. ".png",
-                                    false, scrollPane)
-                                -- สร้าง Label แสดงชื่อและราคาอาวุธใต้รูป
-                                local label = guiCreateLabel(btnX, btnY + buttonSize + 2, buttonSize, 25, weaponName,
-                                    false, scrollPane)
-                                guiSetFont(label, "default-small")                 -- ตั้งฟอนต์เล็ก
-                                guiLabelSetHorizontalAlign(label, "center", false) -- จัดกึ่งกลางแนวนอน
-                                guiLabelSetVerticalAlign(label, "top")             -- จัดด้านบน
-                                -- เก็บข้อมูลอาวุธไว้ใน Element Data เพื่อใช้ตอนคลิก
-                                setElementData(weaponImg, "weaponID", weaponID)
-                                setElementData(weaponImg, "weaponName", weaponName)
-                                setElementData(weaponImg, "weaponDiscription", weaponDiscription)
-                                -- เพิ่ม Event Handler เพื่อรับการคลิกบนรูปอาวุธ
-                                addEventHandler("onClientGUIClick", weaponImg, onWeaponImageClick, false)
-                                -- เก็บปุ่มไว้ใน table เพื่อลบ Event Handler ตอนปิด GUI
-                                table.insert(weaponButtons, weaponImg)
-                                -- เลื่อนไปคอลัมน์ถัดไป
-                                col = col + 1
-                                -- ถ้าครบ 4 คอลัมน์ ให้ขึ้นแถวใหม่
-                                if col >= 5 then
-                                    col = 0
-                                    row = row + 1
+                                if weapons[tostring(id)] then                   
+                                    local weaponID = id    -- ID อาวุธ (ใช้โหลดรูป)
+                                    local weaponName = info.name   -- ชื่ออาวุธ
+                                    local weaponDiscription = info.weaponDiscription -- ราคาอาวุธ
+                                    -- คำนวณตำแหน่งของรูปอาวุธ (แบบ Grid 4 คอลัมน์)
+                                    local btnX = startX + (col * (buttonSize + spacing))
+                                    local btnY = startY + (row * (buttonSize + spacing + 30)) -- +30 สำหรับ Label
+                                    local weaponImg = guiCreateStaticImage(btnX, btnY, buttonSize, buttonSize, "images/" .. weaponID .. ".png",
+                                        false, scrollPane)
+                                    -- สร้าง Label แสดงชื่อและราคาอาวุธใต้รูป
+                                    local label = guiCreateLabel(btnX, btnY + buttonSize + 2, buttonSize, 25, weaponName,
+                                        false, scrollPane)
+                                    guiSetFont(label, "default-small")                 -- ตั้งฟอนต์เล็ก
+                                    guiLabelSetHorizontalAlign(label, "center", false) -- จัดกึ่งกลางแนวนอน
+                                    guiLabelSetVerticalAlign(label, "top")             -- จัดด้านบน
+                                    -- เก็บข้อมูลอาวุธไว้ใน Element Data เพื่อใช้ตอนคลิก
+                                    setElementData(weaponImg, "weaponID", weaponID)
+                                    setElementData(weaponImg, "weaponName", weaponName)
+                                    setElementData(weaponImg, "weaponDiscription", weaponDiscription)
+                                    -- เพิ่ม Event Handler เพื่อรับการคลิกบนรูปอาวุธ
+                                    addEventHandler("onClientGUIClick", weaponImg, onWeaponImageClick, false)
+                                    -- เก็บปุ่มไว้ใน table เพื่อลบ Event Handler ตอนปิด GUI
+                                    table.insert(weaponButtons, weaponImg)
+                                    -- เลื่อนไปคอลัมน์ถัดไป
+                                    col = col + 1
+                                    -- ถ้าครบ 4 คอลัมน์ ให้ขึ้นแถวใหม่
+                                    if col >= 5 then
+                                        col = 0
+                                        row = row + 1
+                                    end
                                 end
                             end
                         end
                     end
                 else
-                    
+                    tabs[name] = tabSub
+                    -- สร้าง Scroll Pane เพื่อให้เลื่อนได้เมื่อมีข้อมูลเยอะ
+                    local scrollPane = guiCreateScrollPane(0, 0, 660, 380, false, tabSub)
+                    local col = 0                         -- คอลัมน์ปัจจุบัน (0-3)
+                    local row = 0                         -- แถวปัจจุบัน
+                    local buttonSize = 100                -- ขนาดรูปอาวุธ 100x100 pixels
+                    local spacing = 20                    -- ระยะห่างระหว่างรูป
+                    local startX = 20                     -- ตำแหน่งเริ่มต้น X
+                    local startY = 20                     -- ตำแหน่งเริ่มต้น Y
+                    local player = localPlayer
+                    local ammo = {}
+                    for key, value  in pairs(getElementData(player, "ammo")) do
+                        if value > 0 then
+                            ammo[key] = true
+                        end
+                    end
+                    for id, info in pairs(DATA_AMMO) do
+                        if ammo[tostring(id)] then                   
+                            local ammoID = id    -- ID กระสุน (ใช้โหลดรูป)
+                            local ammoName = info.name   -- ชื่อกระสุน
+                            local ammoDiscription = info.discription -- ราคาอาวุธ
+                            -- คำนวณตำแหน่งของรูปอาวุธ (แบบ Grid 4 คอลัมน์)
+                            local btnX = startX + (col * (buttonSize + spacing))
+                            local btnY = startY + (row * (buttonSize + spacing + 30)) -- +30 สำหรับ Label
+                            local ammoImg = guiCreateStaticImage(btnX, btnY, buttonSize, buttonSize, "images/" .. ammoID .. ".png",
+                                false, scrollPane)
+                            -- สร้าง Label แสดงชื่อและราคาอาวุธใต้รูป
+                            local label = guiCreateLabel(btnX, btnY + buttonSize + 2, buttonSize, 25, ammoName,
+                                false, scrollPane)
+                            guiSetFont(label, "default-small")                 -- ตั้งฟอนต์เล็ก
+                            guiLabelSetHorizontalAlign(label, "center", false) -- จัดกึ่งกลางแนวนอน
+                            guiLabelSetVerticalAlign(label, "top")             -- จัดด้านบน
+                            -- เก็บข้อมูลอาวุธไว้ใน Element Data เพื่อใช้ตอนคลิก
+                            setElementData(ammoImg, "ammoID", ammoID)
+                            setElementData(ammoImg, "ammoName", ammoName)
+                            setElementData(ammoImg, "ammoDiscription", ammoDiscription)
+                            -- เพิ่ม Event Handler เพื่อรับการคลิกบนรูปอาวุธ
+                            addEventHandler("onClientGUIClick", ammoImg, onAmmoImageClick, false)
+                            -- เก็บปุ่มไว้ใน table เพื่อลบ Event Handler ตอนปิด GUI
+                            table.insert(weaponButtons, ammoImg)
+                            -- เลื่อนไปคอลัมน์ถัดไป
+                            col = col + 1
+                            -- ถ้าครบ 4 คอลัมน์ ให้ขึ้นแถวใหม่
+                            if col >= 5 then
+                                col = 0
+                                row = row + 1
+                            end
+                        end
+                    end    
                 end
             end
         end
