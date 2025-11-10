@@ -2,6 +2,7 @@ local inventoryWindow = nil -- หน้าต่างหลักของร�
 local tabPanel = nil        -- แท็บแยกหมวดหมู่อาวุธ
 local tabs = {}
 local weaponGrids = {}
+local weaponButtons = {} 
 local ammoGrid = nil
 local tab_menu = {
     "general",
@@ -32,46 +33,71 @@ function createInventoryGUI()
         local tab = guiCreateTab(tabName:gsub("^%l", string.upper), tabPanel)
         tabs[tabName] = tab
         if tabName == "weapon" then
-            -- สร้าง Label และ Grid สำหรับอาวุธ
-            local weaponLabel = guiCreateLabel(10, 10, 650, 20, "Weapons", false, tab)
-            local weaponGrid = guiCreateGridList(10, 30, 650, 150, false, tab)
-            guiGridListAddColumn(weaponGrid, "Name", 0.4)
-            guiGridListAddColumn(weaponGrid, "Count", 0.3)
-            guiGridListAddColumn(weaponGrid, "Slot", 0.3)
-
-            -- สร้าง Label และ Grid สำหรับกระสุน
-            local ammoLabel = guiCreateLabel(10, 190, 650, 20, "Ammo", false, tab)
-            local ammoGrid = guiCreateGridList(10, 210, 650, 140, false, tab)
-            guiGridListAddColumn(ammoGrid, "Name", 0.5)
-            guiGridListAddColumn(ammoGrid, "Count", 0.5)
-
-            local player_weapons = getElementData(localPlayer, "weapons") or {}
-            local player_ammo = getElementData(localPlayer, "ammo") or {}
-
-            -- เพิ่มอาวุธเข้า Grid
-            for weaponID, weaponInfo in pairs(DATA_WEAPON) do
-                local count = player_weapons[tostring(weaponID)] or 0
-                if count > 0 then
-                    local row = guiGridListAddRow(weaponGrid)
-                    guiGridListSetItemText(weaponGrid, row, 1, weaponInfo.name or "Unknown", false, false)
-                    guiGridListSetItemText(weaponGrid, row, 2, tostring(count), false, false)
-                    guiGridListSetItemText(weaponGrid, row, 3, tostring(weaponInfo.slot or "N/A"), false, false)
+            -- สร้าง TabPanel ย่อยภายในแท็บ weapon (เต็มพื้นที่ของแท็บ)
+            local subTabPanel = guiCreateTabPanel(0, 0, 1, 1, true, tab)
+            -- สร้างแท็บย่อย Weapon และ Ammo ภายใน subTabPanel
+            for i, name in ipairs({"Weapon", "Ammo"}) do
+                local tabSub = guiCreateTab(name, subTabPanel)
+                if name == "Weapon" then
+                    tabs[name] = tabSub
+                    -- สร้าง Scroll Pane เพื่อให้เลื่อนได้เมื่อมีข้อมูลเยอะ
+                    local scrollPane = guiCreateScrollPane(0, 0, 660, 380, false, tabSub)
+                    local col = 0                         -- คอลัมน์ปัจจุบัน (0-3)
+                    local row = 0                         -- แถวปัจจุบัน
+                    local buttonSize = 100                -- ขนาดรูปอาวุธ 100x100 pixels
+                    local spacing = 20                    -- ระยะห่างระหว่างรูป
+                    local startX = 20                     -- ตำแหน่งเริ่มต้น X
+                    local startY = 20                     -- ตำแหน่งเริ่มต้น Y
+                    local player = localPlayer
+                    local weapons = getElementData(player, "weapons") or {}
+                    local slotWeapon={
+                        {slot = 2, name = "Pistols"},
+                        {slot = 3, name = "Shotguns"},
+                        {slot = 4, name = "SMGs & Assault Rifles"},
+                        {slot = 5, name = "Rifles"},
+                        {slot = 6, name = "Heavy Weapons"},
+                        {slot = 7, name = "Special Weapons"},
+                        {slot = 8, name = "Throwables"},
+                    }   
+                    for slot, slotName in ipairs(slotWeapon) do
+                        for id, info in pairs(DATA_WEAPON) do
+                            if info.slot == slot then
+                                local weaponID = id    -- ID อาวุธ (ใช้โหลดรูป)
+                                local weaponName = info.name   -- ชื่ออาวุธ
+                                local weaponDiscription = info.weaponDiscription -- ราคาอาวุธ
+                                -- คำนวณตำแหน่งของรูปอาวุธ (แบบ Grid 4 คอลัมน์)
+                                local btnX = startX + (col * (buttonSize + spacing))
+                                local btnY = startY + (row * (buttonSize + spacing + 30)) -- +30 สำหรับ Label
+                                local weaponImg = guiCreateStaticImage(btnX, btnY, buttonSize, buttonSize, "images/" .. weaponID .. ".png",
+                                    false, scrollPane)
+                                -- สร้าง Label แสดงชื่อและราคาอาวุธใต้รูป
+                                local label = guiCreateLabel(btnX, btnY + buttonSize + 2, buttonSize, 25, weaponName,
+                                    false, scrollPane)
+                                guiSetFont(label, "default-small")                 -- ตั้งฟอนต์เล็ก
+                                guiLabelSetHorizontalAlign(label, "center", false) -- จัดกึ่งกลางแนวนอน
+                                guiLabelSetVerticalAlign(label, "top")             -- จัดด้านบน
+                                -- เก็บข้อมูลอาวุธไว้ใน Element Data เพื่อใช้ตอนคลิก
+                                setElementData(weaponImg, "weaponID", weaponID)
+                                setElementData(weaponImg, "weaponName", weaponName)
+                                setElementData(weaponImg, "weaponDiscription", weaponDiscription)
+                                -- เพิ่ม Event Handler เพื่อรับการคลิกบนรูปอาวุธ
+                                addEventHandler("onClientGUIClick", weaponImg, onWeaponImageClick, false)
+                                -- เก็บปุ่มไว้ใน table เพื่อลบ Event Handler ตอนปิด GUI
+                                table.insert(weaponButtons, weaponImg)
+                                -- เลื่อนไปคอลัมน์ถัดไป
+                                col = col + 1
+                                -- ถ้าครบ 4 คอลัมน์ ให้ขึ้นแถวใหม่
+                                if col >= 5 then
+                                    col = 0
+                                    row = row + 1
+                                end
+                            end
+                        end
+                    end
+                else
+                    
                 end
             end
-
-            -- เพิ่มกระสุนเข้า Grid
-            for ammoID, ammoInfo in pairs(DATA_AMMO) do
-                local ammoCount = player_ammo[tostring(ammoID)] or 0
-                if ammoCount > 0 then
-                    local row = guiGridListAddRow(ammoGrid)
-                    guiGridListSetItemText(ammoGrid, row, 1, ammoInfo.name or "Unknown Ammo", false, false)
-                    guiGridListSetItemText(ammoGrid, row, 2, tostring(ammoCount), false, false)
-                end
-            end
-            weaponGrids[tabName] = weaponGrid
-            weaponGrids["ammo"] = ammoGrid
-            addEventHandler("onClientGUIClick", weaponGrid, onGridClick)
-            addEventHandler("onClientGUIClick", ammoGrid, onGridClick)
         end
     end
 
