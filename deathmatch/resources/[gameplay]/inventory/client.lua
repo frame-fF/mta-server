@@ -71,13 +71,14 @@ function createInventoryGUI()
                                     local weaponID = id    -- ID อาวุธ (ใช้โหลดรูป)
                                     local weaponName = info.name   -- ชื่ออาวุธ
                                     local weaponDiscription = info.weaponDiscription -- ราคาอาวุธ
+                                    local weaponCount = getElementData(player, "weapons")[tostring(id)] or 0
                                     -- คำนวณตำแหน่งของรูปอาวุธ (แบบ Grid 4 คอลัมน์)
                                     local btnX = startX + (col * (buttonSize + spacing))
                                     local btnY = startY + (row * (buttonSize + spacing + 30)) -- +30 สำหรับ Label
                                     local weaponImg = guiCreateStaticImage(btnX, btnY, buttonSize, buttonSize, "images/" .. weaponID .. ".png",
                                         false, scrollPane)
                                     -- สร้าง Label แสดงชื่อและราคาอาวุธใต้รูป
-                                    local label = guiCreateLabel(btnX, btnY + buttonSize + 2, buttonSize, 25, weaponName,
+                                    local label = guiCreateLabel(btnX, btnY + buttonSize + 2, buttonSize, 25, weaponName .. "\nx" .. weaponCount,
                                         false, scrollPane)
                                     guiSetFont(label, "default-small")                 -- ตั้งฟอนต์เล็ก
                                     guiLabelSetHorizontalAlign(label, "center", false) -- จัดกึ่งกลางแนวนอน
@@ -123,13 +124,14 @@ function createInventoryGUI()
                             local ammoID = id    -- ID กระสุน (ใช้โหลดรูป)
                             local ammoName = info.name   -- ชื่อกระสุน
                             local ammoDiscription = info.discription -- ราคาอาวุธ
+                            local ammoCount = getElementData(player, "ammo")[tostring(id)] or 0
                             -- คำนวณตำแหน่งของรูปอาวุธ (แบบ Grid 4 คอลัมน์)
                             local btnX = startX + (col * (buttonSize + spacing))
                             local btnY = startY + (row * (buttonSize + spacing + 30)) -- +30 สำหรับ Label
                             local ammoImg = guiCreateStaticImage(btnX, btnY, buttonSize, buttonSize, "images/" .. ammoID .. ".png",
                                 false, scrollPane)
                             -- สร้าง Label แสดงชื่อและราคาอาวุธใต้รูป
-                            local label = guiCreateLabel(btnX, btnY + buttonSize + 2, buttonSize, 25, ammoName,
+                            local label = guiCreateLabel(btnX, btnY + buttonSize + 2, buttonSize, 25, ammoName .. "\nx" .. ammoCount,
                                 false, scrollPane)
                             guiSetFont(label, "default-small")                 -- ตั้งฟอนต์เล็ก
                             guiLabelSetHorizontalAlign(label, "center", false) -- จัดกึ่งกลางแนวนอน
@@ -155,6 +157,14 @@ function createInventoryGUI()
             end
         end
     end
+    -- ========================================
+    -- สร้างพื้นที่แสดงอาวุธที่เลือก (ด้านขวาของหน้าต่าง)
+    -- ========================================
+    local infoX = 700 -- ตำแหน่ง X เริ่มต้น
+    local infoY = 30  -- ตำแหน่ง Y เริ่มต้น
+    -- Label หัวข้อ "Selected Weapon:"
+    guiCreateLabel(infoX, infoY, 180, 25, "Selected Item:", false, inventoryWindow)
+    guiSetFont(guiGetScreenSize() > 1024 and "default-bold-small" or "default-small")
 
     -- แสดงเคอร์เซอร์เมาส์
     showCursor(true)
