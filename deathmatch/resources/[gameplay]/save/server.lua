@@ -24,7 +24,7 @@ local function savePlayerData()
     local player = source
     local account = getPlayerAccount(player)
 
-    if not account then
+    if not account or isGuestAccount(account) then
         return
     end
     -- get username
