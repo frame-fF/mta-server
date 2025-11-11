@@ -21,6 +21,12 @@ local windowWidth, windowHeight = 900, 500  -- กำหนดขนาดหน
 local x = (screenW - windowWidth) / 2       -- คำนวณตำแหน่งกึ่งกลางหน้าจอ
 local y = (screenH - windowHeight) / 2      -- คำนวณตำแหน่งกึ่งกลางหน้าจอ
 
+local dropQuantityWindow = nil
+local dropQuantityEdit = nil
+local dropQuantityConfirm = nil
+local dropQuantityCancel = nil
+
+
 
 function createInventoryGUI()
     -- ป้องกันการสร้าง GUI ซ้ำถ้ามีอยู่แล้ว
@@ -229,6 +235,7 @@ function onWeaponImageClick(button)
         local weaponDiscription = getElementData(source, "weaponDiscription")
         local player = localPlayer
         local weapons_in_hand = {}
+        local weaponCount = getElementData(player, "weapons")[tostring(weaponID)] or 0
         -- เก็บอาวุธที่ถืออยู่
         for slot = 0, 12 do
             local weapon = getPedWeapon(player, slot)
@@ -239,6 +246,8 @@ function onWeaponImageClick(button)
         selectedItem = {
             type = "weapon",
             id = weaponID,
+            count = weaponCount,
+            name = weaponName
         }
         if weapons_in_hand[tostring(weaponID)] then
             guiSetVisible(useButton, false)
@@ -261,8 +270,11 @@ function onAmmoImageClick(button)
         local ammoID = getElementData(source, "ammoID")
         local ammoName = getElementData(source, "ammoName")
         local ammoDiscription = getElementData(source, "ammoDiscription")
-        selectedAmmo = {
+        local ammoCount = getElementData(localPlayer, "ammo")[tostring(ammoID)] or 0
+        selectedItem = {
+            type = "ammo",
             id = ammoID,
+            count = ammoCount, -- เก็บจำนวน
             name = ammoName,
             discription = discription
         }
@@ -288,13 +300,77 @@ function onRemoveButtonClick()
     end
 end
 
-function onDropButtonClick()
-    if selectedItem then
-        triggerServerEvent("drop_item", localPlayer, selectedItem)
+function showDropQuantityGUI()
+    if dropQuantityWindow or not selectedItem then return end -- ถ้าหน้าต่างเปิดอยู่ หรือไม่มี item ให้ return
+
+    local itemNameToDrop = selectedItem.name or "Item"
+    local maxQty = selectedItem.count or 0
+
+    -- สร้างหน้าต่าง
+    local qx, qy = (screenW - 300) / 2, (screenH - 150) / 2 -- ตำแหน่งกึ่งกลาง
+    dropQuantityWindow = guiCreateWindow(qx, qy, 300, 150, "Drop Quantity", false)
+    guiWindowSetSizable(dropQuantityWindow, false)
+
+    guiCreateLabel(10, 30, 280, 20, "Enter quantity to drop for " .. itemNameToDrop .. ":", false, dropQuantityWindow)
+    guiCreateLabel(10, 50, 280, 20, "(Max: " .. maxQty .. ")", false, dropQuantityWindow)
+
+    dropQuantityEdit = guiCreateEdit(10, 75, 280, 25, tostring(maxQty), false, dropQuantityWindow)
+    
+    dropQuantityConfirm = guiCreateButton(10, 110, 135, 30, "Confirm", false, dropQuantityWindow)
+    dropQuantityCancel = guiCreateButton(155, 110, 135, 30, "Cancel", false, dropQuantityWindow)
+
+    addEventHandler("onClientGUIClick", dropQuantityConfirm, onDropConfirmClick, false)
+    addEventHandler("onClientGUIClick", dropQuantityCancel, hideDropQuantityGUI, false)
+
+    -- ปิดการใช้งานหน้าต่าง Inventory หลัก
+    guiSetEnabled(inventoryWindow, false)
+end
+
+function hideDropQuantityGUI()
+    if not dropQuantityWindow then return end
+
+    removeEventHandler("onClientGUIClick", dropQuantityConfirm, onDropConfirmClick, false)
+    removeEventHandler("onClientGUIClick", dropQuantityCancel, hideDropQuantityGUI, false)
+
+    destroyElement(dropQuantityWindow)
+    dropQuantityWindow = nil
+    dropQuantityEdit = nil
+    dropQuantityConfirm = nil
+    dropQuantityCancel = nil
+
+    -- เปิดการใช้งานหน้าต่าง Inventory หลัก
+    if inventoryWindow and isElement(inventoryWindow) then
+        guiSetEnabled(inventoryWindow, true)
     end
 end
 
+function onDropConfirmClick()
+    local quantityStr = guiGetText(dropQuantityEdit)
+    local quantity = tonumber(quantityStr)
+    local maxQty = selectedItem.count or 0
+
+    -- ตรวจสอบความถูกต้องของตัวเลข
+    if not quantity or quantity <= 0 or quantity > maxQty or quantity ~= math.floor(quantity) then
+        outputChatBox("Invalid quantity. Please enter a whole number between 1 and " .. maxQty .. ".", 255, 0, 0)
+        return
+    end
+
+    -- ส่งข้อมูลไป Server
+    triggerServerEvent("drop_item", localPlayer, selectedItem, quantity)
+    
+    -- ปิดหน้าต่าง
+    hideDropQuantityGUI()
+end
+
+function onDropButtonClick()
+    if selectedItem then
+        showDropQuantityGUI()
+    end
+end
+
+
 function hideGUI()
+    hideDropQuantityGUI()
     -- GUI hiding code here
     if inventoryWindow and isElement(inventoryWindow) then
         destroyElement(inventoryWindow)
@@ -370,7 +446,21 @@ end
 addEvent("onUseItemResponse", true)
 addEventHandler("onUseItemResponse", localPlayer, UseItemResponse)
 
-
+function onDropItemResponse(success, message)
+    if success then
+        -- ถ้าสำเร็จ, รีเฟรชหน้าต่าง Inventory
+        outputChatBox("Item dropped.", 0, 255, 0)
+        if inventoryWindow and isElement(inventoryWindow) then
+            hideGUI() -- ปิด
+            createInventoryGUI() -- แล้วเปิดใหม่เพื่ออัปเดตข้อมูล
+        end
+    else
+        -- ถ้าไม่สำเร็จ, แสดงข้อความ
+        outputChatBox(message or "Failed to drop item.", 255, 0, 0)
+    end
+end
+addEvent("onDropItemResponse", true)
+addEventHandler("onDropItemResponse", localPlayer, onDropItemResponse)
 
 bindKey("i", "down", createInventoryGUI)
 
