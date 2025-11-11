@@ -289,7 +289,10 @@ function onRemoveButtonClick()
 end
 
 function onDropButtonClick()
-
+    if selectedItem then
+        -- ส่งคำขอซื้ออาวุธไปยัง Server
+        triggerServerEvent("drop_item", localPlayer, selectedItem)
+    end
 end
 
 function hideGUI()

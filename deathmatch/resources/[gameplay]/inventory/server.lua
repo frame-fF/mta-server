@@ -55,42 +55,23 @@ local function removeItem(data)
 end
 
 
-
 addEvent("remove_item", true)
 addEventHandler("remove_item", root, removeItem)
 
-addEvent("dropItem", true)
-addEventHandler("dropItem", root, function(itemType, itemID)
-    local player = client
-    local x, y, z = getElementPosition(player)
-    if itemType == "weapon" then
-        -- local weapons = getElementData(player, "weapons") or {}
-        -- local count = weapons[tostring(itemID)] or 0
-        -- if count > 0 then
-        --     weapons[tostring(itemID)] = count - 1
-        --     if weapons[tostring(itemID)] == 0 then weapons[tostring(itemID)] = nil end
-        --     setElementData(player, "weapons", weapons)
-        --     -- create pickup
-        --     createPickup(x, y, z, 2, itemID, 30000) -- weapon pickup, respawn 30s
-        --     triggerClientEvent(player, "updateInventory", player)
-        -- end
-    elseif itemType == "ammo" then
-        -- local ammo = getElementData(player, "ammo") or {}
-        -- local count = ammo[tostring(itemID)] or 0
-        -- if count > 0 then
-        --     ammo[tostring(itemID)] = count - 1
-        --     if ammo[tostring(itemID)] == 0 then ammo[tostring(itemID)] = nil end
-        --     setElementData(player, "ammo", ammo)
-        --     -- create ammo pickup using first weapon that uses this ammo
-        --     local weaponID = MAP_AMMO[itemID] and MAP_AMMO[itemID][1]
-        --     if weaponID then
-        --         createPickup(x, y, z, 2, weaponID, 1)
-        --     end
-        --     triggerClientEvent(player, "updateInventory", player)
-        -- end
-    end
-end)
 
+local function dropItem(data)
+    local player = client
+    if data.type == "weapon" then
+        takeWeapon( player, data.id )
+        triggerClientEvent(player, "onUseItemResponse", player, true)
+    elseif data.type == "ammo" then
+
+    end
+end
+
+
+addEvent("drop_item", true)
+addEventHandler("drop_item", root, dropItem)
 
 
 
