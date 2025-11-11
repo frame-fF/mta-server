@@ -278,21 +278,18 @@ end
 
 function onUseButtonClick()
     if selectedItem then
-        -- ส่งคำขอซื้ออาวุธไปยัง Server
         triggerServerEvent("use_item", localPlayer, selectedItem)
     end
 end
 
 function onRemoveButtonClick()
     if selectedItem then
-        -- ส่งคำขอซื้ออาวุธไปยัง Server
         triggerServerEvent("remove_item", localPlayer, selectedItem)
     end
 end
 
 function onDropButtonClick()
     if selectedItem then
-        -- ส่งคำขอซื้ออาวุธไปยัง Server
         triggerServerEvent("drop_item", localPlayer, selectedItem)
     end
 end
