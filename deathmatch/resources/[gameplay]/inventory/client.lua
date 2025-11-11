@@ -271,6 +271,8 @@ function onAmmoImageClick(button)
         -- เปิดใช้งานปุ่ม Buy
         guiSetEnabled(useButton, false)
         guiSetEnabled(dropButton, true)
+        guiSetVisible(useButton, false)
+        guiSetVisible(removeButton, false)
     end
 end
 
