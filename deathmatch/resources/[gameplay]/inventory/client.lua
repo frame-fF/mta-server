@@ -77,9 +77,9 @@ function createInventoryGUI()
                         { slot = 7, name = "Special Weapons" },
                         { slot = 8, name = "Throwables" },
                     }
-                    for slot, slotName in ipairs(slotWeapon) do
+                    for slot, data in ipairs(slotWeapon) do
                         for id, info in pairs(DATA_WEAPON) do
-                            if info.slot == slot then
+                            if info.slot == data.slot then
                                 if weapons[tostring(id)] then
                                     local weaponID = id                        -- ID อาวุธ (ใช้โหลดรูป)
                                     local weaponName = info.name               -- ชื่ออาวุธ
