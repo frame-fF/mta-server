@@ -359,16 +359,6 @@ function updateUserWeapon()
     end
 end
 
--- รับการตอบกลับจาก server ว่าใช้ไอเทมสำเร็จหรือไม่
--- addEvent("onUseItemResponse", true)
--- addEventHandler("onUseItemResponse", localPlayer, function(success)
---     outputChatBox("Item used successfully!")
---     if success and inventoryWindow and isElement(inventoryWindow) then
---         -- ถ้าใช้สำเร็จ ให้อัปเดตสีอาวุธ
---         updateWeaponColors()
---     end
--- end)
-
 function UseItemResponse(success)
     if success then
         updateUserWeapon()
