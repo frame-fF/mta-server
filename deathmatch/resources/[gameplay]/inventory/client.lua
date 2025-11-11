@@ -282,7 +282,10 @@ function onUseButtonClick()
 end
 
 function onRemoveButtonClick()
-
+    if selectedItem then
+        -- ส่งคำขอซื้ออาวุธไปยัง Server
+        triggerServerEvent("remove_item", localPlayer, selectedItem)
+    end
 end
 
 function onDropButtonClick()
@@ -345,8 +348,15 @@ function updateUserWeapon()
             end
         end
     end
-    guiSetVisible(useButton, false)
-    guiSetVisible(removeButton, true)
+    if selectedItem and selectedItem.type == "weapon" then
+        if weapons_in_hand[tostring(selectedItem.id)] then
+            guiSetVisible(useButton, false)
+            guiSetVisible(removeButton, true)
+        else
+            guiSetVisible(useButton, true)
+            guiSetVisible(removeButton, false)
+        end
+    end
 end
 
 -- รับการตอบกลับจาก server ว่าใช้ไอเทมสำเร็จหรือไม่

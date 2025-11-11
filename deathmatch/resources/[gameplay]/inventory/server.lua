@@ -43,6 +43,22 @@ end
 addEvent("use_item", true)
 addEventHandler("use_item", root, useItem)
 
+
+local function removeItem(data)
+    local player = client
+    if data.type == "weapon" then
+        takeWeapon( player, data.id )
+        triggerClientEvent(player, "onUseItemResponse", player, true)
+    elseif data.type == "ammo" then
+
+    end
+end
+
+
+
+addEvent("remove_item", true)
+addEventHandler("remove_item", root, removeItem)
+
 addEvent("dropItem", true)
 addEventHandler("dropItem", root, function(itemType, itemID)
     local player = client
