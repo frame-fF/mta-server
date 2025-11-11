@@ -2,7 +2,7 @@
     <info name="inventory" version="1.0" description="" type="script"/>
     <script src="server.lua" type="server"/>
     <script src="client.lua" type="client" />
-    <script src="data.lua" type="shared" />
+    <script src="data.lua" type="shared" cache="false"/>
     <file src="images/default.png" />
     <file src="images/16.png" />
     <file src="images/17.png" />
