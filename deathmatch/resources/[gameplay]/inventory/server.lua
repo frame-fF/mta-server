@@ -106,14 +106,22 @@ local function dropItem(data, quantity)
         setElementData(player, "ammo", ammo)
 
         -- ตรวจสอบ: ถ้า drop กระสุนจนหมด และกระสุนนี้เป็นของปืนที่ถืออยู่ ให้ถอดปืน
-        if newCount == 0 and not weaponTaken then
-            local weaponsUsingThisAmmo = MAP_AMMO[data.id] -- ต้องแน่ใจว่า data.lua ถูกโหลดบน Server
-            if weaponsUsingThisAmmo then
-                for _, weaponID in ipairs(weaponsUsingThisAmmo) do
-                    if currentWeapon == weaponID then
-                        takeWeapon(player, weaponID)
-                        -- weaponTaken = true (ไม่จำเป็นแล้วในส่วนนี้)
-                        break
+        for slot = 0, 12 do
+            local weaponInSlot = getPedWeapon(player, slot)
+            
+            -- ถ้ามีปืนในช่องนี้
+            if weaponInSlot > 0 then
+                -- (สันนิษฐานว่า DATA_WEAPON โหลดอยู่บน server)
+                local ammoID_for_weapon = DATA_WEAPON[weaponInSlot] and DATA_WEAPON[weaponInSlot].ammo_id
+                
+                -- ถ้าปืนในช่องนี้ (weaponInSlot) ใช้กระสุนที่กำลัง drop (data.id)
+                if ammoID_for_weapon and ammoID_for_weapon == data.id then
+                    if newCount == 0 then
+                        -- ถ้ากระสุนหมด, ถอดปืน (ไม่ว่ากระบอกไหนก็ตาม)
+                        takeWeapon(player, weaponInSlot)
+                    else
+                        -- ถ้ากระสุนยังเหลือ, อัปเดตจำนวนกระสุนในปืนนั้นๆ
+                        setWeaponAmmo(player, weaponInSlot, newCount)
                     end
                 end
             end
