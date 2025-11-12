@@ -203,9 +203,28 @@ function onGiftBoxHit(hitPlayer, matchingDimension)
     elseif itemData.type == "ammo" then
         local ammo = getElementData(hitPlayer, "ammo") or {}
         local itemIDStr = tostring(itemData.id)
-        ammo[itemIDStr] = (ammo[itemIDStr] or 0) + itemQty
+        
+        local newCount = (ammo[itemIDStr] or 0) + itemQty
+        ammo[itemIDStr] = newCount
         setElementData(hitPlayer, "ammo", ammo)
         itemName = DATA_AMMO[itemData.id].name
+
+        -- วนลูปอาวุธทั้ง 13 ช่อง (0-12) เพื่ออัปเดตกระสุน
+        for slot = 0, 12 do
+            local weaponInSlot = getPedWeapon(hitPlayer, slot)
+            
+            -- ถ้ามีปืนในช่องนี้
+            if weaponInSlot > 0 then
+                -- (สันนิษฐานว่า DATA_WEAPON โหลดอยู่บน server)
+                local ammoID_for_weapon = DATA_WEAPON[weaponInSlot] and DATA_WEAPON[weaponInSlot].ammo_id
+                
+                -- ถ้าปืนในช่องนี้ (weaponInSlot) ใช้กระสุนที่กำลังเก็บ (itemData.id)
+                if ammoID_for_weapon and ammoID_for_weapon == itemData.id then
+                    -- อัปเดตจำนวนกระสุนในปืนนั้นๆ ให้เป็นจำนวนใหม่
+                    setWeaponAmmo(hitPlayer, weaponInSlot, newCount)
+                end
+            end
+        end
     end
 
     -- แจ้งเตือนผู้เล่นที่เก็บ
