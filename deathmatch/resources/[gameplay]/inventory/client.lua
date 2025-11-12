@@ -464,6 +464,13 @@ addEventHandler("onDropItemResponse", localPlayer, onDropItemResponse)
 
 bindKey("i", "down", createInventoryGUI)
 
+
+function onClientPlayerWasted()
+    -- ปิดหน้าต่าง Inventory ถ้าผู้เล่นตาย
+    hideGUI()
+end
+addEventHandler("onClientPlayerWasted", localPlayer, onClientPlayerWasted)
+
 -- Add this as a handler so that the function will be triggered every time a player fires.
 addEventHandler("onClientPlayerWeaponFire", root,
     function(weapon, ammo, ammoInClip, hitX, hitY, hitZ, hitElement)
