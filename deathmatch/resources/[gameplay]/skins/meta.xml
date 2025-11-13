@@ -3,6 +3,9 @@
     <script src="client.lua" type="client" />
     <script src="server.lua" type="server" />
 
+    <file src="items/backpack_british.dff" cache="false" />
+    <file src="items/backpack_british.txd" cache="false" />
+
     <file src="skins/male01.dff" cache="false" />
     <file src="skins/male01.txd" cache="false" />
     

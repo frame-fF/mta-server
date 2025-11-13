@@ -1,4 +1,10 @@
 local function onClientResourceStart()
+    -- items
+    local dff = engineLoadDFF("items/backpack_british.dff")
+    engineReplaceModel(dff, 371)
+    local txd = engineLoadTXD("items/backpack_british.txd")
+    engineImportTXD(txd, 371)
+
     -- skin skins
     local dff = engineLoadDFF("skins/male01.dff")
     engineReplaceModel(dff, 7)
@@ -13,10 +19,10 @@ local function onClientResourceStart()
 
     -- weapons skins
     -- parachute
-    local dff = engineLoadDFF("weapons/gun_para.dff")
-    engineReplaceModel(dff, 371)
-    local txd = engineLoadTXD("weapons/gun_para.txd")
-    engineImportTXD(txd, 371)
+    -- local dff = engineLoadDFF("weapons/gun_para.dff")
+    -- engineReplaceModel(dff, 371)
+    -- local txd = engineLoadTXD("weapons/gun_para.txd")
+    -- engineImportTXD(txd, 371)
     -- desert eagle
     local dff = engineLoadDFF("weapons/desert_eagle.dff")
     engineReplaceModel(dff, 348)
