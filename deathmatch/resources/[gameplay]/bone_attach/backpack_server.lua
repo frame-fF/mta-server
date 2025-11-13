@@ -10,6 +10,10 @@ local function addBackpack(player)
     local backpack = createObject(1318, x, y, z)
     local sniper = createObject(358, x, y, z)
     local m4 = createObject(356, x, y, z)
+    local interior = getElementInterior(player)
+    local dimension = getElementDimension(player)
+    setElementInterior(backpack, interior)
+    setElementDimension(backpack, dimension)
 
     if isElement(backpack) then
         -- ใช้ฟังก์ชัน attachElementToBone
@@ -33,3 +37,47 @@ addEventHandler("onResourceStart", resourceRoot, function()
         addBackpack(player)
     end
 end)
+
+
+local function addWeaponInblack(player)
+    local x, y, z = getElementPosition(player)
+    local interior = getElementInterior(player)
+    local dimension = getElementDimension(player)
+    local m4 = createObject(356, x, y, z)
+    local svd = createObject(358, x, y, z)
+
+    setElementInterior(m4, interior)
+    setElementDimension(m4, dimension)
+
+    setElementInterior(svd, interior)
+    setElementDimension(svd, dimension)
+
+
+    for slot = 0, 12 do
+        local weaponInSlot = getPedWeapon(player, slot)
+        if weaponInSlot == 31 then -- ตรวจสอบว่าเป็นปืน M4 หรือไม่
+            if isElement(m4) then
+                attachElementToBone(m4, player, 3, -0.19, -0.31, -0.1, 0, 270, -90)
+            end
+        end
+        if weaponInSlot == 34 then -- ตรวจสอบว่าเป็นปืน SVD หรือไม่
+            if isElement(svd) then
+                attachElementToBone(svd, player,  3, 0.19, -0.31, -0.1, 0, 270, -90)
+            end
+        end
+    end
+end
+
+addEventHandler("onResourceStart", root, function()
+    for _, player in ipairs(getElementsByType("player")) do
+        addWeaponInblack(player)
+    end
+end)
+
+
+addEventHandler("onPlayerInteriorWarped", root,
+    function(warpedInterior)
+        addBackpack(source)
+        addWeaponInblack(source)
+    end
+)
