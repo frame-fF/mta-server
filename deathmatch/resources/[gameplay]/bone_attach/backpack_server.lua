@@ -16,8 +16,8 @@ local function addBackpack(player)
         -- attachElementToBone(element, ped, bone, x, y, z, rx, ry, rz)
         -- Bone 3 = Spine (กระดูกสันหลัง)
         attachElementToBone(backpack, player, 3, 0, -0.225, 0.05, 90, 0, 0)
-        attachElementToBone(sniper, player, 3, 0.19, -0.31, -0.1, 0, 270, -90)
-        attachElementToBone(m4, player, 3, -0.19, -0.31, -0.1, 0, 270, -90)
+        -- attachElementToBone(sniper, player, 3, 0.19, -0.31, -0.1, 0, 270, -90)
+        -- attachElementToBone(m4, player, 3, -0.19, -0.31, -0.1, 0, 270, -90)
     end
 end
 
