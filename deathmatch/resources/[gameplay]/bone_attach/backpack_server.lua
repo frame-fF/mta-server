@@ -6,13 +6,16 @@ local function addBackpack(player)
 
     -- สร้างกระเป๋า (Object ID 371)
     -- เราไม่จำเป็นต้องกำหนดตำแหน่งตอนสร้าง เพราะสคริปต์จะย้ายไปที่ผู้เล่นทันที
-    local backpack = createObject(371, 0, 0, 0)
+    local x, y, z = getElementPosition(player)
+    local backpack = createObject(371, x, y, z)
+    local sniper = createObject(358, x, y, z)
 
     if isElement(backpack) then
         -- ใช้ฟังก์ชัน attachElementToBone
         -- attachElementToBone(element, ped, bone, x, y, z, rx, ry, rz)
         -- Bone 3 = Spine (กระดูกสันหลัง)
         attachElementToBone(backpack, player, 3, 0, -0.225, 0.05, 90, 0, 0)
+        attachElementToBone(sniper, player, 3, 0.19, -0.31, -0.1, 0, 270, -90)
     end
 end
 

@@ -1,7 +1,6 @@
 <meta>
     <info name="skins" version="1.0" description="" type="script" />
     <script src="client.lua" type="client" />
-    <script src="server.lua" type="server" />
 
     <file src="items/backpack_british.dff" cache="false" />
     <file src="items/backpack_british.txd" cache="false" />
