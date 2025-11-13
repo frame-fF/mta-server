@@ -16,8 +16,10 @@ function crearArma(jug,arma)
 end
 
 function destruirArma(jug,slot)
-	destroyElement(jugadores[jug][slot])
-	jugadores[jug][slot] = nil
+	if jugadores[jug] and jugadores[jug][slot] then -- เพิ่มการตรวจสอบว่ามีอาวุธอยู่จริงก่อนทำลาย
+		destroyElement(jugadores[jug][slot])
+		jugadores[jug][slot] = nil
+	end
 end
 
 addEventHandler("onClientResourceStart",getResourceRootElement(),function()
@@ -89,12 +91,14 @@ addEventHandler("onClientPreRender",root,function()
 		local x,y,z = getPedBonePosition(k,3)
 		local rot = math.rad(90-getPedRotation(k))
 		local i = 15
-		local wep = getPedWeaponSlot(k)
+		local wep = getPedWeaponSlot(k) -- อาวุธที่กำลังถือ
 		local ox,oy = math.cos(rot)*0.22,-math.sin(rot)*0.22
 		local alpha = getElementAlpha(k)
+
 		for q,w in pairs(v) do
-			if q == wep then
-				destruirArma(k,q)
+			local armaEnSlot = getPedWeapon(k, q) -- ตรวจสอบว่าในช่อง q มีอาวุธอะไร
+			if q == wep or armaEnSlot == 0 then
+				destruirArma(k,q) -- ทำลายโมเดลอาวุธ
 			else
 				setElementRotation(w,0,70,getPedRotation(k)+90)
 				setElementAlpha(w,alpha)
@@ -113,6 +117,8 @@ addEventHandler("onClientPreRender",root,function()
 				end
 			end
 		end
+		
+		-- ส่วนนี้คือการสร้างอาวุธใหม่ (เหมือนเดิม)
 		if info[k][1] and not info[k][2] then
 			for i=1,7 do
 				local arma = getPedWeapon(k,i)
