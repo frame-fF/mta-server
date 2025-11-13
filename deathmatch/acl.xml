@@ -23,7 +23,6 @@
         <object name="resource.admin"></object>
         <object name="resource.acpanel"></object>
         <object name="resource.guieditor"></object>
-        <object name="resource.modloader_reborn"></object>
         <object name="resource.pAttach"></object>
         <object name="resource.login"></object>
         <object name="resource.save"></object>

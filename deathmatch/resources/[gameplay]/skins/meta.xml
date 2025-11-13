@@ -1,0 +1,25 @@
+<meta>
+    <info name="skins" version="1.0" description="" type="script" />
+    <script src="client.lua" type="client" />
+
+    <file src="skins/male01.dff" cache="false" />
+    <file src="skins/male01.txd" cache="false" />
+    
+    <file src="clothes/hockey.txd" cache="false" />
+    <file src="clothes/hockeymask.dff" cache="false" />
+
+    <file src="weapons/desert_eagle.dff" cache="false" />
+    <file src="weapons/desert_eagle.txd" cache="false" />
+    <file src="weapons/ak47.dff" cache="false" />
+    <file src="weapons/ak47.txd" cache="false" />
+    <file src="weapons/m4.dff" cache="false" />
+    <file src="weapons/m4.txd" cache="false" />
+    <file src="weapons/sniper.dff" cache="false" />
+    <file src="weapons/sniper.txd" cache="false" />
+    <file src="weapons/gun_para.dff" cache="false" />
+    <file src="weapons/gun_para.txd" cache="false" />
+
+    <file src="vehicles/buffalo.dff" cache="false" />
+    <file src="vehicles/buffalo.txd" cache="false" />
+    
+</meta>

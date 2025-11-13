@@ -1,7 +1,0 @@
-<meta>
-    <info name="clothes skins" version="1.0" description="" type="script" />
-    <script src="client.lua" type="client" />
-    
-    <file src="files/hockey.txd" cache="false" />
-    <file src="files/hockeymask.dff" cache="false" />
-</meta>
