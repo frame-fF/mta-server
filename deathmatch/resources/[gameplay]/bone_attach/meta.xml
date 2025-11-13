@@ -1,0 +1,19 @@
+<meta>
+    <info type="script" name="Bone Attach System" author="MTA:SA AI" version="1.0.0" />
+
+    <script src="attach_func.lua" type="shared" cache="false" />
+    <script src="bone_pos_rot.lua" type="shared" cache="false" />
+
+    <script src="bone_attach.lua" type="server" />
+    <script src="backpack_server.lua" type="server" />
+
+    <script src="bone_attach_c.lua" type="client" cache="false" />
+
+    <export function="attachElementToBone" type="server" />
+    <export function="detachElementFromBone" type="server" />
+    <export function="isElementAttachedToBone" type="server" />
+    <export function="getElementBoneAttachmentDetails" type="server" />
+    <export function="setElementBonePositionOffset" type="server" />
+    <export function="setElementBoneRotationOffset" type="server" />
+
+</meta>
