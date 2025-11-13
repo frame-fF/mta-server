@@ -22,7 +22,7 @@ end)
 addEventHandler("onResourceStart", root, function()
     -- วนลูปผู้เล่นทั้งหมดที่อยู่ในเกม
     for _, player in ipairs(getElementsByType("player")) do
-        addBackpack(source)
+        addBackpack(player)
     end
 end)
 
