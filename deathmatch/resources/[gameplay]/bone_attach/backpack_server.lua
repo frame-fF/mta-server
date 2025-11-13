@@ -1,5 +1,5 @@
 local function addBackpack(player)
-    
+
     if not isElement(player) or getElementType(player) ~= "player" then
         return
     end
@@ -17,6 +17,10 @@ local function addBackpack(player)
 end
 
 addEventHandler("onPlayerJoin", root, function()
+    addBackpack(source)
+end)
+
+addEventHandler("onPlayerSpawn", root, function()
     addBackpack(source)
 end)
 

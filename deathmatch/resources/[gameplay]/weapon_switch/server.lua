@@ -16,23 +16,23 @@ local function addWeaponInblack(player)
     setElementInterior(svd, interior)
     setElementDimension(svd, dimension)
 
-    for slot = 0, 12 do
-        local weaponInSlot = getPedWeapon(player, slot)
-        if weaponInSlot == 31 then -- ตรวจสอบว่าเป็นปืน M4 หรือไม่
-            if isElement(m4) then
-                exports.bone_attach:attachElementToBone(m4, player, 3, -0.19, -0.31, -0.1, 0, 270, -90)
-            end
-        end
-        if weaponInSlot == 34 then -- ตรวจสอบว่าเป็นปืน SVD หรือไม่
-            if isElement(svd) then
-                exports.bone_attach:attachElementToBone(svd, player,  3, 0.19, -0.31, -0.1, 0, 270, -90)
-            end
-        end
+    if isElement(m4) then
+        exports.bone_attach:attachElementToBone(m4, player,3, -0.19, -0.31, -0.1, 0, 270, -90)
     end
+
+    if isElement(svd) then
+        exports.bone_attach:attachElementToBone(svd, player, 3, 0.19, -0.31, -0.1, 0, 270, -90)
+    end
+
 end
 
 
 addEventHandler("onPlayerJoin", root, function()
+    addWeaponInblack(source)
+end)
+
+
+addEventHandler("onPlayerSpawn", root, function()
     addWeaponInblack(source)
 end)
 
