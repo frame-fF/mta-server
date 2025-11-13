@@ -43,7 +43,6 @@ local function onClientResourceStart()
     engineReplaceModel(dff, 402)
     local txd = engineLoadTXD("vehicles/buffalo.txd")
     engineImportTXD(txd, 402)
-
 end
 
-addEventHandler("onClientResourceStart",  getRootElement(), onClientResourceStart)
+addEventHandler("onClientResourceStart", getRootElement(), onClientResourceStart)

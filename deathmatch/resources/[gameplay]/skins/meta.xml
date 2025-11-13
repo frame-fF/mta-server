@@ -1,6 +1,7 @@
 <meta>
     <info name="skins" version="1.0" description="" type="script" />
     <script src="client.lua" type="client" />
+    <script src="server.lua" type="server" />
 
     <file src="skins/male01.dff" cache="false" />
     <file src="skins/male01.txd" cache="false" />
