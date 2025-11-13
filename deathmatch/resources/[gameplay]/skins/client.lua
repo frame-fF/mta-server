@@ -1,9 +1,13 @@
 local function onClientResourceStart()
     -- items
     local dff = engineLoadDFF("items/backpack_british.dff")
-    engineReplaceModel(dff, 371)
+    engineReplaceModel(dff, 1318)
     local txd = engineLoadTXD("items/backpack_british.txd")
-    engineImportTXD(txd, 371)
+    engineImportTXD(txd, 1318)
+    local dff = engineLoadDFF("items/backpack_patrol.dff")
+    engineReplaceModel(dff, 3026)
+    local txd = engineLoadTXD("items/backpack_patrol.txd")
+    engineImportTXD(txd, 3026)
 
     -- skin skins
     local dff = engineLoadDFF("skins/male01.dff")

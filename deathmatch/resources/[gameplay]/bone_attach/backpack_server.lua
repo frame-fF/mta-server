@@ -7,7 +7,7 @@ local function addBackpack(player)
     -- สร้างกระเป๋า (Object ID 371)
     -- เราไม่จำเป็นต้องกำหนดตำแหน่งตอนสร้าง เพราะสคริปต์จะย้ายไปที่ผู้เล่นทันที
     local x, y, z = getElementPosition(player)
-    local backpack = createObject(371, x, y, z)
+    local backpack = createObject(1318, x, y, z)
     local sniper = createObject(358, x, y, z)
     local m4 = createObject(356, x, y, z)
 
