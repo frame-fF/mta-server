@@ -1,4 +1,5 @@
 local function addBackpack(player)
+    
     if not isElement(player) or getElementType(player) ~= "player" then
         return
     end

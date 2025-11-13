@@ -5,10 +5,10 @@ local function addWeaponInblack(player)
     end
 
     local x, y, z = getElementPosition(player)
-    local interior = getElementInterior(player)
-    local dimension = getElementDimension(player)
     local m4 = createObject(356, x, y, z)
     local svd = createObject(358, x, y, z)
+    local interior = getElementInterior(player)
+    local dimension = getElementDimension(player)
 
     setElementInterior(m4, interior)
     setElementDimension(m4, dimension)
@@ -19,13 +19,11 @@ local function addWeaponInblack(player)
     for slot = 0, 12 do
         local weaponInSlot = getPedWeapon(player, slot)
         if weaponInSlot == 31 then -- ตรวจสอบว่าเป็นปืน M4 หรือไม่
-            local m4 = createObject(356, x, y, z)
             if isElement(m4) then
                 exports.bone_attach:attachElementToBone(m4, player, 3, -0.19, -0.31, -0.1, 0, 270, -90)
             end
         end
         if weaponInSlot == 34 then -- ตรวจสอบว่าเป็นปืน SVD หรือไม่
-            local svd = createObject(358, x, y, z)
             if isElement(svd) then
                 exports.bone_attach:attachElementToBone(svd, player,  3, 0.19, -0.31, -0.1, 0, 270, -90)
             end
