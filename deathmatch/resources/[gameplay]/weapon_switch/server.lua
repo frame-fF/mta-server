@@ -1,148 +1,175 @@
+--[[
+    Script: Back Weapon System (Refactored for Scalability)
+    Author: MTA:SA (via Google)
+    Purpose: Shows non-equipped primary weapons on a player's back.
+             Uses a configuration table for easy addition of new weapons.
+]]
+
 -- ID อาวุธ 
 local AK47_WEAPON_ID = 30
 local M4_WEAPON_ID = 31
-
 local RIFLE_WEAPON_ID = 33
 local SNIPER_WEAPON_ID = 34
 
 -- ID ของ Object ที่จะใช้แสดง 
 local AK47_OBJECT_ID = 355
 local M4_OBJECT_ID = 356
-
 local RIFLE_OBJECT_ID = 357
 local SNIPER_OBJECT_ID = 358
 
--- ตำแหน่งการติด
+local AK47_ATTACH_POS = { 3, -0.19, -0.31, -0.1, 0, 270, -90 }
 local M4_ATTACH_POS = { 3, -0.19, -0.31, -0.1, 0, 270, -90 }
 
+local RIFLE_ATTACH_POS = { 3, 0.19, -0.31, -0.1, 0, 270, -90 }
 local SNIPER_ATTACH_POS = { 3, 0.19, -0.31, -0.1, 0, 270, -90 }
+
+
 
 -- มิติพิเศษสำหรับเก็บอาวุธที่ไม่ต้องการให้เห็น
 local LIMBO_DIMENSION = 65535
 
-local function addWeaponInblack(player)
+
+local backWeaponsConfig = {
+    [AK47_WEAPON_ID] = {
+        objectID = AK47_OBJECT_ID,
+        attachPos = AK47_ATTACH_POS
+    },
+    [M4_WEAPON_ID] = {
+        objectID = M4_OBJECT_ID,
+        attachPos = M4_ATTACH_POS
+    },
+    [RIFLE_WEAPON_ID] = {
+        objectID = RIFLE_OBJECT_ID,
+        attachPos = RIFLE_ATTACH_POS
+    },
+    [SNIPER_WEAPON_ID] = {
+        objectID = SNIPER_OBJECT_ID,
+        attachPos = SNIPER_ATTACH_POS
+    },
+}
+
+local function setupBackWeapons(player)
     if not isElement(player) or getElementType(player) ~= "player" then
         return
     end
 
-    -- ตรวจสอบและลบ object เก่า (ถ้ามี)
-    local oldM4 = getElementData(player, "backWeapon:m4")
-    if isElement(oldM4) then
-        destroyElement(oldM4)
-    end
-    local oldSNIPER = getElementData(player, "backWeapon:sniper")
-    if isElement(oldSNIPER) then
-        destroyElement(oldSNIPER)
-    end
-
-    -- สร้าง object ใหม่
+    local playerInterior = getElementInterior(player)
+    local playerDimension = getElementDimension(player)
     local x, y, z = getElementPosition(player)
-    local m4 = createObject(M4_OBJECT_ID, x, y, z)
-    local sniper = createObject(SNIPER_OBJECT_ID, x, y, z)
-    
-    local interior = getElementInterior(player)
-    local dimension = getElementDimension(player)
-
-    setElementInterior(m4, LIMBO_DIMENSION)
-    setElementDimension(m4, LIMBO_DIMENSION)
-    setElementInterior(sniper, LIMBO_DIMENSION)
-    setElementDimension(sniper, LIMBO_DIMENSION)
-
-    -- เก็บ object ไว้ใน element data
-    setElementData(player, "backWeapon:m4", m4, true)
-    setElementData(player, "backWeapon:sniper", sniper, true)
-
     local currentWeapon = getPedWeapon(player)
 
+    for weaponID, config in pairs(backWeaponsConfig) do
+        local dataKey = "backWeapon:" .. weaponID -- สร้าง key ที่ไม่ซ้ำกัน เช่น "backWeapon:31"
+        
+        -- ตรวจสอบและลบ object เก่า (ถ้ามี)
+        local oldObject = getElementData(player, dataKey)
+        if isElement(oldObject) then
+            destroyElement(oldObject)
+        end
+
+        -- สร้าง object ใหม่
+        local newObject = createObject(config.objectID, x, y, z)
+        
+        -- ซ่อนในมิติพิเศษ
+        setElementInterior(newObject, LIMBO_DIMENSION)
+        setElementDimension(newObject, LIMBO_DIMENSION)
+
+        setElementData(player, dataKey, newObject, true)
+    end
+
+    -- 2. วนลูปเช็คอาวุธในตัวผู้เล่นเพื่อ attach
+    -- (แยก loop เพื่อให้แน่ใจว่า object ทั้งหมดถูกสร้างและเก็บใน data แล้ว)
     for slot = 0, 12 do
         local weaponInSlot = getPedWeapon(player, slot)
-        if weaponInSlot == SNIPER_WEAPON_ID and currentWeapon ~= SNIPER_WEAPON_ID then
-            exports.bone_attach:attachElementToBone(sniper, player, unpack(SNIPER_ATTACH_POS))
-            setElementInterior(sniper, interior)
-            setElementDimension(sniper, dimension)
-        elseif weaponInSlot == M4_WEAPON_ID and currentWeapon ~= M4_WEAPON_ID then
-            exports.bone_attach:attachElementToBone(m4, player, unpack(M4_ATTACH_POS))
-            setElementInterior(m4, interior)
-            setElementDimension(m4, dimension)
+        local config = backWeaponsConfig[weaponInSlot] -- ดึง config ของอาวุธใน slot นี้
+
+        -- ถ้าอาวุธนี้มีใน config ของเรา และ ไม่ได้ถืออยู่
+        if config and weaponInSlot ~= currentWeapon then
+            local dataKey = "backWeapon:" .. weaponInSlot
+            local object = getElementData(player, dataKey)
+            
+            if isElement(object) then
+                exports.bone_attach:attachElementToBone(object, player, unpack(config.attachPos))
+                setElementInterior(object, playerInterior)
+                setElementDimension(object, playerDimension)
+            end
         end
     end
 end
 
+-- ฟังก์ชันสำหรับลบ object ทั้งหมดเมื่อผู้เล่นออก
+local function cleanupPlayerWeaponsOnQuit()
+    local player = source
+    if not isElement(player) then return end
+
+    -- วนลูปใน config เพื่อลบ object ทั้งหมด
+    for weaponID, _ in pairs(backWeaponsConfig) do
+        local dataKey = "backWeapon:" .. weaponID
+        local object = getElementData(player, dataKey)
+        if isElement(object) then
+            destroyElement(object)
+        end
+    end
+end
+
+-- ฟังก์ชันทั่วไปสำหรับจัดการการสลับอาวุธ
+function handleWeaponSwitch(previousWeaponID, currentWeaponID)
+    local player = source
+    if not isElement(player) then return end
+
+    local playerDimension = getElementDimension(player)
+    local playerInterior = getElementInterior(player)
+
+    -- 1. ตรวจสอบอาวุธ "ก่อนหน้า" (ที่เพิ่งสลับออก)
+    local prevConfig = backWeaponsConfig[previousWeaponID]
+    if prevConfig then
+        -- ถ้าอาวุธก่อนหน้าอยู่ใน config (เช่น M4, Sniper) -> "แสดง" object กลับมา
+        local dataKey = "backWeapon:" .. previousWeaponID
+        local object = getElementData(player, dataKey)
+        
+        if isElement(object) then
+            -- ย้าย object กลับมามิติของผู้เล่น
+            setElementDimension(object, playerDimension)
+            setElementInterior(object, playerInterior)
+            -- Attach เข้ากับกระดูก
+            exports.bone_attach:attachElementToBone(object, player, unpack(prevConfig.attachPos))
+        end
+    end
+
+    -- 2. ตรวจสอบอาวุธ "ปัจจุบัน" (ที่กำลังจะใช้)
+    local currentConfig = backWeaponsConfig[currentWeaponID]
+    if currentConfig then
+        -- ถ้าอาวุธปัจจุบันอยู่ใน config -> "ซ่อน" object โดยย้ายไปมิติอื่น
+        local dataKey = "backWeapon:" .. currentWeaponID
+        local object = getElementData(player, dataKey)
+        
+        if isElement(object) then
+            setElementDimension(object, LIMBO_DIMENSION)
+            setElementInterior(object, LIMBO_DIMENSION) -- ตั้งค่าเผื่อไว้
+        end
+    end
+end
+
+--- === Event Handlers ===
+--- 
+addEvent("onSetupBackWeapons", true)
+addEventHandler("onSetupBackWeapons", root, setupBackWeapons)
+
 addEventHandler("onPlayerSpawn", root, function()
-    setTimer(addWeaponInblack, 500, 1, source)
+    setTimer(setupBackWeapons, 500, 1, source)
 end)
 
 addEventHandler("onResourceStart", root, function()
     for _, player in ipairs(getElementsByType("player")) do
-        addWeaponInblack(player)
+        setupBackWeapons(player)
     end
 end)
 
 addEventHandler("onPlayerInteriorWarped", root, function(warpedInterior)
-    addWeaponInblack(source)
+    setupBackWeapons(source)
 end)
 
-
-local function cleanupPlayerWeaponsOnQuit()
-    local m4 = getElementData(source, "backWeapon:m4")
-    if isElement(m4) then
-        destroyElement(m4)
-    end
-    local sniper = getElementData(source, "backWeapon:sniper")
-    if isElement(sniper) then
-        destroyElement(sniper)
-    end
-end
-
 addEventHandler("onPlayerQuit", root, cleanupPlayerWeaponsOnQuit)
-
 addEventHandler("onPlayerLogout", root, cleanupPlayerWeaponsOnQuit)
 
--- --- [แก้ไขทั้งหมด] ฟังก์ชันสลับอาวุธ (ใช้การย้ายมิติ) ---
-
-function weaponSwitchBack(previousWeaponID, currentWeaponID)
-    local player = source
-    if not isElement(player) then return end
-
-    -- ดึง object ที่เราเก็บไว้
-    local m4Object = getElementData(player, "backWeapon:m4")
-    local sniperObject = getElementData(player, "backWeapon:sniper")
-
-    -- ดึงมิติและ interior ปัจจุบันของผู้เล่น
-    local playerDimension = getElementDimension(player)
-    local playerInterior = getElementInterior(player)
-
-    -- --- Logic ของ sniper ---
-    
-    -- ถ้าอาวุธใหม่คือ sniper (กำลังจะใช้) -> "ซ่อน" โดยย้ายมิติ
-    if currentWeaponID == SNIPER_WEAPON_ID and isElement(sniperObject) then
-        -- [แก้ไข] ย้ายไปมิติอื่นเพื่อซ่อน
-        setElementDimension(sniperObject, LIMBO_DIMENSION)
-    end
-    -- ถ้าอาวุธก่อนหน้าคือ sniper (เพิ่งใช้เสร็จ) -> "แสดง" โดยย้ายกลับมาและ Attach
-    if previousWeaponID == SNIPER_WEAPON_ID and isElement(sniperObject) then
-        -- [แก้ไข] ย้าย object กลับมาที่มิติ/interior ของผู้เล่นก่อน
-        setElementDimension(sniperObject, playerDimension)
-        setElementInterior(sniperObject, playerInterior)
-        -- แล้วค่อย attach
-        exports.bone_attach:attachElementToBone(sniperObject, player, unpack(SNIPER_ATTACH_POS))
-    end
-
-    -- --- Logic ของ M4 ---
-    
-    -- ถ้าอาวุธใหม่คือ M4 (กำลังจะใช้) -> "ซ่อน" โดยย้ายมิติ
-    if currentWeaponID == M4_WEAPON_ID and isElement(m4Object) then
-        -- [แก้ไข] ย้ายไปมิติอื่นเพื่อซ่อน
-        setElementDimension(m4Object, LIMBO_DIMENSION)
-    end
-    -- ถ้าอาวุธก่อนหน้าคือ M4 (เพิ่งใช้เสร็จ) -> "แสดง" โดยย้ายกลับมาและ Attach
-    if previousWeaponID == M4_WEAPON_ID and isElement(m4Object) then
-        -- [แก้ไข] ย้าย object กลับมาที่มิติ/interior ของผู้เล่นก่อน
-        setElementDimension(m4Object, playerDimension)
-        setElementInterior(m4Object, playerInterior)
-        -- แล้วค่อย attach
-        exports.bone_attach:attachElementToBone(m4Object, player, unpack(M4_ATTACH_POS))
-    end
-end
-
-addEventHandler("onPlayerWeaponSwitch", getRootElement(), weaponSwitchBack)
+addEventHandler("onPlayerWeaponSwitch", getRootElement(), handleWeaponSwitch)

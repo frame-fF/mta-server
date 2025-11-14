@@ -11,6 +11,7 @@ local function useItem(data)
                 setWeaponAmmo(player, data.id, weaponCount)
                 -- ส่งสัญญาณกลับไปว่าสำเร็จ
                 triggerClientEvent(player, "onUseItemResponse", player, true)
+                triggerEvent("onSetupBackWeapons", root, player)
             else
                 outputChatBox("You don't have this item!", player)
                 -- ส่งสัญญาณกลับไปว่าไม่สำเร็จ
@@ -26,6 +27,7 @@ local function useItem(data)
                 setWeaponAmmo(player, data.id, ammoCount)
                 -- ส่งสัญญาณกลับไปว่าสำเร็จ
                 triggerClientEvent(player, "onUseItemResponse", player, true)
+                triggerEvent("onSetupBackWeapons", root, player)
             else
                 outputChatBox("No ammo for this weapon!", player)
                 -- ส่งสัญญาณกลับไปว่าไม่สำเร็จ
@@ -49,6 +51,7 @@ local function removeItem(data)
     if data.type == "weapon" then
         takeWeapon( player, data.id )
         triggerClientEvent(player, "onUseItemResponse", player, true)
+        triggerEvent("onSetupBackWeapons", root, player)
     elseif data.type == "ammo" then
 
     end
@@ -166,6 +169,7 @@ local function dropItem(data, quantity)
 
     -- แจ้ง Client ว่าสำเร็จ
     triggerClientEvent(player, "onDropItemResponse", player, true)
+    triggerEvent("onSetupBackWeapons", root, player)
 end
 
 -- [[ NEW: ฟังก์ชันเมื่อมีคนเดินชนกล่อง ]]
