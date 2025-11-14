@@ -1,8 +1,8 @@
--- ID อาวุธ (M4 = 31, SVD/Sniper = 34)
+-- ID อาวุธ 
 local M4_WEAPON_ID = 31
 local SVD_WEAPON_ID = 34
 
--- ID ของ Object ที่จะใช้แสดง (M4 Model = 356, SVD/Sniper Model = 358)
+-- ID ของ Object ที่จะใช้แสดง 
 local M4_OBJECT_ID = 356
 local SVD_OBJECT_ID = 358
 
@@ -10,7 +10,7 @@ local SVD_OBJECT_ID = 358
 local M4_ATTACH_POS = { 3, -0.19, -0.31, -0.1, 0, 270, -90 }
 local SVD_ATTACH_POS = { 3, 0.19, -0.31, -0.1, 0, 270, -90 }
 
--- [ใหม่] กำหนดมิติสำหรับ "ซ่อน" object (เลขสูงๆ ที่ไม่น่าจะชนกับใคร)
+-- มิติพิเศษสำหรับเก็บอาวุธที่ไม่ต้องการให้เห็น
 local LIMBO_DIMENSION = 65535
 
 local function addWeaponInblack(player)
@@ -36,10 +36,10 @@ local function addWeaponInblack(player)
     local interior = getElementInterior(player)
     local dimension = getElementDimension(player)
 
-    setElementInterior(m4, interior)
-    setElementDimension(m4, dimension)
-    setElementInterior(svd, interior)
-    setElementDimension(svd, dimension)
+    setElementInterior(m4, LIMBO_DIMENSION)
+    setElementDimension(m4, LIMBO_DIMENSION)
+    setElementInterior(svd, LIMBO_DIMENSION)
+    setElementDimension(svd, LIMBO_DIMENSION)
 
     -- เก็บ object ไว้ใน element data
     setElementData(player, "backWeapon:m4", m4, true)
@@ -47,35 +47,22 @@ local function addWeaponInblack(player)
 
     local currentWeapon = getPedWeapon(player)
 
-    -- ติด M4 (ถ้าไม่ได้ถือ M4 อยู่)
-    if isElement(m4) then
-        if currentWeapon ~= M4_WEAPON_ID then
-            exports.bone_attach:attachElementToBone(m4, player, unpack(M4_ATTACH_POS))
-        else
-            -- [แก้ไข] ถ้าถืออยู่ ให้ซ่อนไว้ในมิติอื่น
-            setElementDimension(m4, LIMBO_DIMENSION)
-        end
-    end
-
-    -- ติด SVD (ถ้าไม่ได้ถือ SVD อยู่)
-    if isElement(svd) then
-        if currentWeapon ~= SVD_WEAPON_ID then
+    for slot = 0, 12 do
+        local weaponInSlot = getPedWeapon(player, slot)
+        if weaponInSlot == SVD_WEAPON_ID and currentWeapon ~= SVD_WEAPON_ID then
             exports.bone_attach:attachElementToBone(svd, player, unpack(SVD_ATTACH_POS))
-        else
-            -- [แก้ไข] ถ้าถืออยู่ ให้ซ่อนไว้ในมิติอื่น
-            setElementDimension(svd, LIMBO_DIMENSION)
+            setElementInterior(svd, interior)
+            setElementDimension(svd, dimension)
+        elseif weaponInSlot == M4_WEAPON_ID and currentWeapon ~= M4_WEAPON_ID then
+            exports.bone_attach:attachElementToBone(m4, player, unpack(M4_ATTACH_POS))
+            setElementInterior(m4, interior)
+            setElementDimension(m4, dimension)
         end
     end
 end
 
--- --- Events สำหรับการสร้างอาวุธ (เหมือนเดิม) ---
-
-addEventHandler("onPlayerJoin", root, function()
-    addWeaponInblack(source)
-end)
-
 addEventHandler("onPlayerSpawn", root, function()
-    addWeaponInblack(source)
+    setTimer(addWeaponInblack, 500, 1, source)
 end)
 
 addEventHandler("onResourceStart", root, function()
@@ -87,6 +74,18 @@ end)
 addEventHandler("onPlayerInteriorWarped", root, function(warpedInterior)
     addWeaponInblack(source)
 end)
+
+
+local function cleanupPlayerWeaponsOnQuit()
+    local m4 = getElementData(source, "backWeapon:m4")
+    destroyElement(m4)
+    local svd = getElementData(source, "backWeapon:svd")
+    destroyElement(svd)
+end
+
+addEventHandler("onPlayerQuit", root, cleanupPlayerWeaponsOnQuit)
+
+addEventHandler("onPlayerLogout", root, cleanupPlayerWeaponsOnQuit)
 
 -- --- [แก้ไขทั้งหมด] ฟังก์ชันสลับอาวุธ (ใช้การย้ายมิติ) ---
 

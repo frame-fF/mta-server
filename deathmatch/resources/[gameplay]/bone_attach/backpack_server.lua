@@ -4,6 +4,11 @@ local function addBackpack(player)
         return
     end
 
+    local oldBackpack = getElementData(player, "backpack")
+    if isElement(oldBackpack) then
+        destroyElement(oldBackpack)
+    end
+
     local x, y, z = getElementPosition(player)
     local backpack = createObject(1318, x, y, z)
     local interior = getElementInterior(player)
@@ -11,14 +16,13 @@ local function addBackpack(player)
     setElementInterior(backpack, interior)
     setElementDimension(backpack, dimension)
 
+    setElementData(player, "backpack", backpack, true)
+
     if isElement(backpack) then
         attachElementToBone(backpack, player, 3, 0, -0.225, 0.05, 90, 0, 0)
     end
 end
 
-addEventHandler("onPlayerJoin", root, function()
-    addBackpack(source)
-end)
 
 addEventHandler("onPlayerSpawn", root, function()
     addBackpack(source)
@@ -36,3 +40,12 @@ addEventHandler("onPlayerInteriorWarped", root,
         addBackpack(source)
     end
 )
+
+local function cleanupPlayerBackpackOnQuit()
+    local backpack = getElementData(source, "backpack")
+    destroyElement(backpack)
+end
+
+addEventHandler("onPlayerQuit", root, cleanupPlayerBackpackOnQuit)
+
+addEventHandler("onPlayerLogout", root, cleanupPlayerBackpackOnQuit)
