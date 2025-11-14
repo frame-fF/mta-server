@@ -65,6 +65,17 @@ local function onPlayerLogin()
             -- Set player team
             team = player_data.team and getTeamFromName(player_data.team)
 
+            -- Spawn player with saved datas
+            spawnPlayer(
+                player,
+                x, y, z,
+                player_data.rotation,
+                player_data.skin,
+                player_data.interior,
+                player_data.dimension,
+                team
+            )
+
             -- Set player name
             setPlayerName(player, result.username)
             
@@ -86,17 +97,6 @@ local function onPlayerLogin()
             -- Set Camera
             fadeCamera(player, true)
             setCameraTarget(player, player)
-            
-            -- Spawn player with saved datas
-            spawnPlayer(
-                player,
-                x, y, z,
-                player_data.rotation,
-                player_data.skin,
-                player_data.interior,
-                player_data.dimension,
-                team
-            )
         else
             outputChatBox('Error: ' .. data, player)
         end
