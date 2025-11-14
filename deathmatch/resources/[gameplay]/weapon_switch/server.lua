@@ -1,14 +1,21 @@
 -- ID อาวุธ 
+local AK47_WEAPON_ID = 30
 local M4_WEAPON_ID = 31
-local SVD_WEAPON_ID = 34
+
+local RIFLE_WEAPON_ID = 33
+local SNIPER_WEAPON_ID = 34
 
 -- ID ของ Object ที่จะใช้แสดง 
+local AK47_OBJECT_ID = 355
 local M4_OBJECT_ID = 356
-local SVD_OBJECT_ID = 358
+
+local RIFLE_OBJECT_ID = 357
+local SNIPER_OBJECT_ID = 358
 
 -- ตำแหน่งการติด
 local M4_ATTACH_POS = { 3, -0.19, -0.31, -0.1, 0, 270, -90 }
-local SVD_ATTACH_POS = { 3, 0.19, -0.31, -0.1, 0, 270, -90 }
+
+local SNIPER_ATTACH_POS = { 3, 0.19, -0.31, -0.1, 0, 270, -90 }
 
 -- มิติพิเศษสำหรับเก็บอาวุธที่ไม่ต้องการให้เห็น
 local LIMBO_DIMENSION = 65535
@@ -23,36 +30,36 @@ local function addWeaponInblack(player)
     if isElement(oldM4) then
         destroyElement(oldM4)
     end
-    local oldSVD = getElementData(player, "backWeapon:svd")
-    if isElement(oldSVD) then
-        destroyElement(oldSVD)
+    local oldSNIPER = getElementData(player, "backWeapon:sniper")
+    if isElement(oldSNIPER) then
+        destroyElement(oldSNIPER)
     end
 
     -- สร้าง object ใหม่
     local x, y, z = getElementPosition(player)
     local m4 = createObject(M4_OBJECT_ID, x, y, z)
-    local svd = createObject(SVD_OBJECT_ID, x, y, z)
+    local sniper = createObject(SNIPER_OBJECT_ID, x, y, z)
     
     local interior = getElementInterior(player)
     local dimension = getElementDimension(player)
 
     setElementInterior(m4, LIMBO_DIMENSION)
     setElementDimension(m4, LIMBO_DIMENSION)
-    setElementInterior(svd, LIMBO_DIMENSION)
-    setElementDimension(svd, LIMBO_DIMENSION)
+    setElementInterior(sniper, LIMBO_DIMENSION)
+    setElementDimension(sniper, LIMBO_DIMENSION)
 
     -- เก็บ object ไว้ใน element data
     setElementData(player, "backWeapon:m4", m4, true)
-    setElementData(player, "backWeapon:svd", svd, true)
+    setElementData(player, "backWeapon:sniper", sniper, true)
 
     local currentWeapon = getPedWeapon(player)
 
     for slot = 0, 12 do
         local weaponInSlot = getPedWeapon(player, slot)
-        if weaponInSlot == SVD_WEAPON_ID and currentWeapon ~= SVD_WEAPON_ID then
-            exports.bone_attach:attachElementToBone(svd, player, unpack(SVD_ATTACH_POS))
-            setElementInterior(svd, interior)
-            setElementDimension(svd, dimension)
+        if weaponInSlot == SNIPER_WEAPON_ID and currentWeapon ~= SNIPER_WEAPON_ID then
+            exports.bone_attach:attachElementToBone(sniper, player, unpack(SNIPER_ATTACH_POS))
+            setElementInterior(sniper, interior)
+            setElementDimension(sniper, dimension)
         elseif weaponInSlot == M4_WEAPON_ID and currentWeapon ~= M4_WEAPON_ID then
             exports.bone_attach:attachElementToBone(m4, player, unpack(M4_ATTACH_POS))
             setElementInterior(m4, interior)
@@ -78,9 +85,13 @@ end)
 
 local function cleanupPlayerWeaponsOnQuit()
     local m4 = getElementData(source, "backWeapon:m4")
-    destroyElement(m4)
-    local svd = getElementData(source, "backWeapon:svd")
-    destroyElement(svd)
+    if isElement(m4) then
+        destroyElement(m4)
+    end
+    local sniper = getElementData(source, "backWeapon:sniper")
+    if isElement(sniper) then
+        destroyElement(sniper)
+    end
 end
 
 addEventHandler("onPlayerQuit", root, cleanupPlayerWeaponsOnQuit)
@@ -95,26 +106,26 @@ function weaponSwitchBack(previousWeaponID, currentWeaponID)
 
     -- ดึง object ที่เราเก็บไว้
     local m4Object = getElementData(player, "backWeapon:m4")
-    local svdObject = getElementData(player, "backWeapon:svd")
+    local sniperObject = getElementData(player, "backWeapon:sniper")
 
     -- ดึงมิติและ interior ปัจจุบันของผู้เล่น
     local playerDimension = getElementDimension(player)
     local playerInterior = getElementInterior(player)
 
-    -- --- Logic ของ SVD ---
+    -- --- Logic ของ sniper ---
     
-    -- ถ้าอาวุธใหม่คือ SVD (กำลังจะใช้) -> "ซ่อน" โดยย้ายมิติ
-    if currentWeaponID == SVD_WEAPON_ID and isElement(svdObject) then
+    -- ถ้าอาวุธใหม่คือ sniper (กำลังจะใช้) -> "ซ่อน" โดยย้ายมิติ
+    if currentWeaponID == SNIPER_WEAPON_ID and isElement(sniperObject) then
         -- [แก้ไข] ย้ายไปมิติอื่นเพื่อซ่อน
-        setElementDimension(svdObject, LIMBO_DIMENSION)
+        setElementDimension(sniperObject, LIMBO_DIMENSION)
     end
-    -- ถ้าอาวุธก่อนหน้าคือ SVD (เพิ่งใช้เสร็จ) -> "แสดง" โดยย้ายกลับมาและ Attach
-    if previousWeaponID == SVD_WEAPON_ID and isElement(svdObject) then
+    -- ถ้าอาวุธก่อนหน้าคือ sniper (เพิ่งใช้เสร็จ) -> "แสดง" โดยย้ายกลับมาและ Attach
+    if previousWeaponID == SNIPER_WEAPON_ID and isElement(sniperObject) then
         -- [แก้ไข] ย้าย object กลับมาที่มิติ/interior ของผู้เล่นก่อน
-        setElementDimension(svdObject, playerDimension)
-        setElementInterior(svdObject, playerInterior)
+        setElementDimension(sniperObject, playerDimension)
+        setElementInterior(sniperObject, playerInterior)
         -- แล้วค่อย attach
-        exports.bone_attach:attachElementToBone(svdObject, player, unpack(SVD_ATTACH_POS))
+        exports.bone_attach:attachElementToBone(sniperObject, player, unpack(SNIPER_ATTACH_POS))
     end
 
     -- --- Logic ของ M4 ---
