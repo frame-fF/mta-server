@@ -1,7 +1,6 @@
 <meta>
     <info name="init" version="1.0" description="" type="script"/>
     <min_mta_version server="1.6" />
-    <script src="configs/zombies_spawn.lua" type="server"/>
     <script src="player/server.lua" type="server"/>
     <script src="world/server.lua" type="server"/>
 </meta>

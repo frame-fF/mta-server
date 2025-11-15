@@ -1,3 +1,7 @@
+ZOMBIES_SPAWN = {
+    {x = -2706.3330078125, y = 376.490234375, z = 4.9684176445007},
+}
+
 local function zombiesSpawn(res)
     for _, pos in ipairs(ZOMBIES_SPAWN) do
         -- สร้าง 50 ตัวต่อแต่ละตำแหน่งในตาราง (ถ้าต้องการรวมทั้งหมด ให้ย้าย loop นี้ออกไป)
