@@ -55,4 +55,6 @@ local function onClientResourceStart()
     engineImportTXD(txd, 402)
 end
 
+-- Event Handlers
+
 addEventHandler("onClientResourceStart", getRootElement(), onClientResourceStart)

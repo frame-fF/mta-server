@@ -1,4 +1,4 @@
-function onPlayerWasted()
+local function onPlayerWasted()
     local player = source -- เก็บค่า source ไว้ใน local variable
 
     -- Load or Set ElementData
@@ -40,5 +40,7 @@ function onPlayerWasted()
         setCameraTarget(player, player)
     end, 3000, 1)
 end
+
+-- Event Handlers
 
 addEventHandler("onPlayerWasted", root, onPlayerWasted)

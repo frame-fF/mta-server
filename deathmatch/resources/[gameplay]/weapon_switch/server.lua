@@ -150,8 +150,8 @@ local function handleWeaponSwitch(previousWeaponID, currentWeaponID)
     end
 end
 
---- === Event Handlers ===
---- 
+-- Event Handlers
+
 addEvent("onSetupBackWeapons", true)
 addEventHandler("onSetupBackWeapons", root, setupBackWeapons)
 
