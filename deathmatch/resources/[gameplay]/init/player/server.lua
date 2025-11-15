@@ -19,7 +19,7 @@ local function addBackpack(player)
     setElementData(player, "backpack", backpack, true)
 
     if isElement(backpack) then
-        attachElementToBone(backpack, player, 3, 0, -0.225, 0.05, 90, 0, 0)
+        exports.bone_attach:attachElementToBone(backpack, player, 3, 0, -0.225, 0.05, 90, 0, 0)
     end
 end
 
