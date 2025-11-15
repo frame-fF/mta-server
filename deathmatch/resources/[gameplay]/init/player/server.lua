@@ -1,4 +1,6 @@
 local function addBackpack(player)
+    
+    if res and res ~= getThisResource() then return end
 
     if not isElement(player) or getElementType(player) ~= "player" then
         return
