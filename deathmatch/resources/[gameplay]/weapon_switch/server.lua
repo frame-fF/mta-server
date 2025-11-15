@@ -113,7 +113,7 @@ local function cleanupPlayerWeaponsOnQuit()
 end
 
 -- ฟังก์ชันทั่วไปสำหรับจัดการการสลับอาวุธ
-function handleWeaponSwitch(previousWeaponID, currentWeaponID)
+local function handleWeaponSwitch(previousWeaponID, currentWeaponID)
     local player = source
     if not isElement(player) then return end
 
