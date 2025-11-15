@@ -25,6 +25,7 @@ local function addBackpack(player)
     end
 end
 
+-- Event Handlers
 
 addEventHandler("onPlayerSpawn", root, function()
     addBackpack(source)

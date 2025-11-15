@@ -37,7 +37,9 @@ local function zombiesSpawn(res)
         end
     end
 end
--- เพิ่ม Event Handler ให้เรียกใช้ฟังก์ชัน zombiesSpawn เมื่อ Resource เริ่มทำงาน
+
+-- Event Handlers
+
 addEventHandler("onResourceStart", root, zombiesSpawn)
 
 
@@ -64,5 +66,7 @@ local function slothbotSpawn(res)
         end
     end
 end
+
+-- Event Handlers
 
 addEventHandler("onResourceStart", root, slothbotSpawn)

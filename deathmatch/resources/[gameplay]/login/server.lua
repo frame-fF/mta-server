@@ -108,6 +108,8 @@ local function commandLogin(source, command, username, password)
     playerLogin(source, username, password)
 end
 
+-- Event Handlers
+
 addCommandHandler("log-in", commandLogin)
 
 addEventHandler("onPlayerLogin", root, onPlayerLogin)

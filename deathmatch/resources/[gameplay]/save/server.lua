@@ -78,9 +78,11 @@ local function savePlayerData()
     save(player, data)
 end
 
+
+-- Event Handlers
+
 addEvent("savePlayerData", true)
 addEventHandler("savePlayerData", root, savePlayerData)
-
 
 addEventHandler("onPlayerQuit", root,
     function()
