@@ -2,7 +2,7 @@
     <info name="skins" version="1.0" description="" type="script" />
     <script src="client.lua" type="client" />
 
-     <file src="items/backpack_patrol.dff" cache="false" />
+    <file src="items/backpack_patrol.dff" cache="false" />
     <file src="items/backpack_patrol.txd" cache="false" />
     <file src="items/backpack_british.dff" cache="false" />
     <file src="items/backpack_british.txd" cache="false" />
