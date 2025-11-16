@@ -10,6 +10,8 @@
     <file src="skins/male01.dff" cache="false" />
     <file src="skins/male01.txd" cache="false" />
     
+    <file src="clothes/boxingcap.txd" cache="false" />
+    <file src="clothes/boxingcap.dff" cache="false" />
     <file src="clothes/hockey.txd" cache="false" />
     <file src="clothes/hockeymask.dff" cache="false" />
 
