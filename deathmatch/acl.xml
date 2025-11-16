@@ -25,6 +25,7 @@
         <object name="resource.guieditor"></object>
         <object name="resource.pAttach"></object>
         <object name="resource.3DEditor"></object>
+        <object name="resource.dgs"></object>
         <object name="resource.login"></object>
         <object name="resource.save"></object>
         <object name="user.fF"></object>
@@ -69,6 +70,10 @@
     <group name="autoGroup_3DEditor">
         <acl name="autoACL_3DEditor"></acl>
         <object name="resource.3DEditor"></object>
+    </group>
+    <group name="autoGroup_dgs">
+        <acl name="autoACL_dgs"></acl>
+        <object name="resource.dgs"></object>
     </group>
     <acl name="Default">
         <right name="general.ModifyOtherObjects" access="false"></right>
@@ -914,5 +919,10 @@
     </acl>
     <acl name="autoACL_3DEditor">
         <right name="function.fetchRemote" access="false" who="" pending="true" date=""></right>
+    </acl>
+    <acl name="autoACL_dgs">
+        <right name="function.fetchRemote" access="false" who="" pending="true" date=""></right>
+        <right name="function.loadstring" access="false" who="" pending="true" date=""></right>
+        <right name="general.ModifyOtherObjects" access="false" who="" pending="true" date=""></right>
     </acl>
 </acl>
