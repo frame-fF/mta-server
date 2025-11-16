@@ -30,11 +30,11 @@ addCommandHandler("takeweapon", takeweapon)
 
 
 
-function test(player)
-   local obj = createObject(935, 0, 0, 0)
-   exports["3DEditor"]:startEdit(obj, disableMoving, disableRotating, disableScaling, player)
-end
-addCommandHandler("testing", test)
+-- function test(player)
+--    local obj = createObject(2035, -1910.3251953125, 108.513671875, 27.5625)
+--    exports["3DEditor"]:startEdit(obj, disableMoving, disableRotating, disableScaling, player)
+-- end
+-- addCommandHandler("testing", test)
 ------------------------------------- TEST ----------------------------------------------
 
 -- สร้าง Zombie
