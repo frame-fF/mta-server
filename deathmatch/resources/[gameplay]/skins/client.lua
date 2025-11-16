@@ -16,6 +16,10 @@ local function onClientResourceStart()
     engineImportTXD(txd, 7)
 
     -- clothes skins
+    local dff = engineLoadDFF("clothes/boxingcap.dff")
+    engineReplaceModel(dff, 30017)
+    local txd = engineLoadTXD("clothes/boxingcap.txd")
+    engineImportTXD(txd, 30260)
     local dff = engineLoadDFF("clothes/hockeymask.dff")
     engineReplaceModel(dff, 30091)
     local txd = engineLoadTXD("clothes/hockey.txd")
