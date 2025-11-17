@@ -1,4 +1,4 @@
-function register(source, username, email, password, password2)
+function playerRegister(source, username, email, password, password2)
     local player = source
     local url = exports.settings:baseUrl() .. '/api/player/register/'
     local sendOptions = {
@@ -21,3 +21,12 @@ function register(source, username, email, password, password2)
         end
     end)
 end
+
+
+-- เพิ่ม Event Handler รับค่า
+addEvent("guiRegisterAttempt", true)
+addEventHandler("guiRegisterAttempt", root,
+    function(username, email, password, password2)
+        playerRegister(source, username, email, password, password2)
+    end
+)

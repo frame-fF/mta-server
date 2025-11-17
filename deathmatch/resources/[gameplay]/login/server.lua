@@ -108,7 +108,7 @@ end
 --     playerLogin(source, username, password)
 -- end
 
--- เพิ่ม Event Handler รับค่าจาก DGS
+-- เพิ่ม Event Handler รับค่า
 addEvent("guiLoginAttempt", true)
 addEventHandler("guiLoginAttempt", root,
     function(username, password)
