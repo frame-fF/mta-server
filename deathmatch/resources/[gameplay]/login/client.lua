@@ -9,7 +9,7 @@ local function createLoginGUI()
 
     -- คำนวณตำแหน่งกลางจอ
     local sWidth, sHeight = guiGetScreenSize()
-    local winWidth, winHeight = 300, 185 -- เพิ่มความสูงเล็กน้อย
+    local winWidth, winHeight = 350, 220 -- เพิ่มความสูงเล็กน้อย
     local winX, winY = (sWidth - winWidth) / 2, (sHeight - winHeight) / 2
 
     -- สร้างหน้าต่าง
