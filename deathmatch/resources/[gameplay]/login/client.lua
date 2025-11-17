@@ -1,7 +1,5 @@
-loadstring(exports.dgs:dgsImportFunction())()
-
 -- สร้างตัวแปรสำหรับเก็บ GUI elements
-local loginWindow, usernameEdit, passwordEdit, loginButton, registerButton, errorLabel
+local loginWindow, usernameEdit, passwordEdit, loginButton, registerButton
 local usernameLabel, passwordLabel
 
 local function createLoginGUI()
@@ -10,57 +8,54 @@ local function createLoginGUI()
 
     -- คำนวณตำแหน่งกลางจอ
     local sWidth, sHeight = guiGetScreenSize()
-    local winWidth, winHeight = 350, 220
+    local winWidth, winHeight = 350, 250 
     local winX, winY = (sWidth - winWidth) / 2, (sHeight - winHeight) / 2
 
     -- สร้างหน้าต่าง
-    loginWindow = dgsCreateWindow(winX, winY, winWidth, winHeight, "Login", false)
+    loginWindow = guiCreateWindow(winX, winY, winWidth, winHeight, "Login", false)
     
-    usernameLabel = dgsCreateLabel(35, 20, 280, 20, "Username:", false, loginWindow) 
-    dgsSetProperty(usernameLabel, "horizontalAlign", "center") 
+    -- Username
+    usernameLabel = guiCreateLabel(35, 30, 280, 20, "Username:", false, loginWindow) 
+    guiLabelSetHorizontalAlign(usernameLabel, "center", false) -- จัดข้อความให้อยู่กึ่งกลาง
     
-    usernameEdit = dgsCreateEdit(35, 40, 280, 25, "", false, loginWindow) 
+    usernameEdit = guiCreateEdit(35, 55, 280, 25, "", false, loginWindow) 
 
-
-    passwordLabel = dgsCreateLabel(35, 70, 280, 20, "Password:", false, loginWindow)
-    dgsSetProperty(passwordLabel, "horizontalAlign", "center")
+    -- Password
+    passwordLabel = guiCreateLabel(35, 85, 280, 20, "Password:", false, loginWindow)
+    guiLabelSetHorizontalAlign(passwordLabel, "center", false) -- จัดข้อความให้อยู่กึ่งกลาง
     
-    passwordEdit = dgsCreateEdit(35, 90, 280, 25, "", false, loginWindow)
-    dgsEditSetMasked(passwordEdit, true) -- ซ่อนรหัสผ่าน
+    passwordEdit = guiCreateEdit(35, 110, 280, 25, "", false, loginWindow)
+    guiEditSetMasked(passwordEdit, true) -- ซ่อนรหัสผ่าน
 
-    loginButton = dgsCreateButton(35, 145, 135, 25, "Login", false, loginWindow) 
+    -- Buttons (ปรับตำแหน่ง Y ลงมา)
+    loginButton = guiCreateButton(35, 175, 135, 25, "Login", false, loginWindow) 
     
-    registerButton = dgsCreateButton(180, 145, 135, 25, "Register", false, loginWindow) 
+    registerButton = guiCreateButton(180, 175, 135, 25, "Register", false, loginWindow) 
 
-    -- เพิ่มอีเวนต์เมื่อกดปุ่ม Login
-    addEventHandler("onDgsMouseClick", loginButton,
-        function(button, state)
-            if button == "left" and state == "up" then
-                local username = dgsGetText(usernameEdit)
-                local password = dgsGetText(passwordEdit)
+    -- เพิ่มอีเวนต์เมื่อกดปุ่ม Login (ใช้ onGuiClick)
+    addEventHandler("onClientGUIClick", loginButton,
+        function()
+            local username = guiGetText(usernameEdit)
+            local password = guiGetText(passwordEdit)
 
-                if username ~= "" and password ~= "" then
-                    triggerServerEvent("guiLoginAttempt", localPlayer, username, password)
-                else
-                    outputChatBox("Please enter both username and password.")
-                end
+            if username ~= "" and password ~= "" then
+                triggerServerEvent("guiLoginAttempt", localPlayer, username, password)
+            else
+                outputChatBox("กรุณากรอกชื่อผู้ใช้และรหัสผ่าน")
             end
         end,
     false)
     
-    -- เพิ่มอีเวนต์เมื่อกดปุ่ม Register
-    addEventHandler("onDgsMouseClick", registerButton,
-        function(button, state)
-            if button == "left" and state == "up" then
-                local username = dgsGetText(usernameEdit)
-                local password = dgsGetText(passwordEdit)
+    -- เพิ่มอีเวนต์เมื่อกดปุ่ม Register (ใช้ onGuiClick)
+    addEventHandler("onClientGUIClick", registerButton,
+        function()
+            local username = guiGetText(usernameEdit)
+            local password = guiGetText(passwordEdit)
 
-                if username ~= "" and password ~= "" then
-                    dgsSetText(errorLabel, "") 
-                    triggerServerEvent("guiRegisterAttempt", localPlayer, username, password)
-                else
-                    dgsSetText(errorLabel, "กรุณากรอกชื่อผู้ใช้และรหัสผ่าน")
-                end
+            if username ~= "" and password ~= "" then
+                triggerServerEvent("guiRegisterAttempt", localPlayer, username, password)
+            else
+                
             end
         end,
     false)
