@@ -22,7 +22,7 @@ local function createLoginGUI()
     dgsEditSetMasked(passwordEdit, true) -- ซ่อนรหัสผ่าน
 
     -- สร้าง Label สำหรับแจ้งเตือน (ใหม่)
-    errorLabel = dgsCreateLabel(10, 115, 280, 20, "", false, loginWindow)
+    errorLabel = dgsCreateLabel(10, 120, 280, 20, "", false, loginWindow)
     dgsSetProperty(errorLabel, "textColor", tocolor(255, 100, 100)) -- ตั้งค่าสี
     dgsSetProperty(errorLabel, "horizontalAlign", "center") -- จัดกึ่งกลาง
 
