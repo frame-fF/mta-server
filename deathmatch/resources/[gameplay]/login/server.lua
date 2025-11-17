@@ -104,14 +104,16 @@ local function onPlayerLogin()
 end
 
 
-local function commandLogin(source, command, username, password)
-    playerLogin(source, username, password)
-end
+-- local function commandLogin(source, command, username, password)
+--     playerLogin(source, username, password)
+-- end
 
--- Event Handlers
-
-addCommandHandler("log-in", commandLogin)
+-- เพิ่ม Event Handler รับค่าจาก DGS
+addEvent("guiLoginAttempt", true)
+addEventHandler("guiLoginAttempt", root,
+    function(username, password)
+        playerLogin(source, username, password)
+    end
+)
 
 addEventHandler("onPlayerLogin", root, onPlayerLogin)
-
-
