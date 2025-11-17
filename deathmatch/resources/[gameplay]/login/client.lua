@@ -1,4 +1,6 @@
--- login gui
+loadstring(exports.dgs:dgsImportFunction())()
+
+
 local function createLoginGUI()
 
 end
