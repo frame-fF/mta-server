@@ -2,6 +2,15 @@
 local loginWindow, usernameEdit, passwordEdit, loginButton, registerButton
 local usernameLabel, passwordLabel
 
+
+local function hideLoginGUI()
+    if loginWindow and isElement(loginWindow) then
+        destroyElement(loginWindow) 
+        loginWindow = nil 
+    end
+    showCursor(false) 
+end
+
 local function createLoginGUI()
     if loginWindow and isElement(loginWindow) then return end
 
@@ -51,7 +60,7 @@ local function createLoginGUI()
     
     registerButton = guiCreateButton(colX + buttonWidth + padding, currentY, buttonWidth, itemHeight, "Register", false, loginWindow)
 
-    -- เพิ่มอีเวนต์เมื่อกดปุ่ม Login (ใช้ onGuiClick)
+    -- เพิ่มอีเวนต์เมื่อกดปุ่ม Login
     addEventHandler("onClientGUIClick", loginButton,
         function()
             local username = guiGetText(usernameEdit)
@@ -65,17 +74,11 @@ local function createLoginGUI()
         end,
     false)
     
-    -- เพิ่มอีเวนต์เมื่อกดปุ่ม Register (ใช้ onGuiClick)
+    -- เพิ่มอีเวนต์เมื่อกดปุ่ม Register
     addEventHandler("onClientGUIClick", registerButton,
         function()
-            local username = guiGetText(usernameEdit)
-            local password = guiGetText(passwordEdit)
-
-            if username ~= "" and password ~= "" then
-                triggerServerEvent("guiRegisterAttempt", localPlayer, username, password)
-            else
-                
-            end
+            hideLoginGUI()
+            triggerEvent("openRegisterGUI", localPlayer)
         end,
     false)
 
@@ -83,13 +86,6 @@ local function createLoginGUI()
     showCursor(true)
 end
 
-local function hideLoginGUI()
-    if loginWindow and isElement(loginWindow) then
-        destroyElement(loginWindow) 
-        loginWindow = nil 
-    end
-    showCursor(false) 
-end
 
 addEventHandler("onClientResourceStart", resourceRoot,
     function()
