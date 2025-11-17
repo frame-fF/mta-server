@@ -10,7 +10,7 @@ local function createLoginGUI()
     -- ## 1. กำหนดค่าคงที่สำหรับขนาดและระยะห่าง ##
     local winWidth, winHeight = 350, 250 -- (เพิ่มความสูงหน้าต่างเล็กน้อย)
     local colWidth = 280 -- ความกว้างของช่องกรอกและปุ่ม
-    local padding = 15  -- ระยะห่างทั่วไป
+    local padding = 15  -- ระยะห่างระหว่างองค์ประกอบ
     local itemHeight = 28 -- ความสูงของช่องกรอก/ปุ่ม
     local labelHeight = 20 -- ความสูงของตัวหนังสือ
 
