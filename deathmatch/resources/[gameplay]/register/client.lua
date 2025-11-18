@@ -2,7 +2,7 @@ local registerWindow, emailEdit, usernameEdit, passwordEdit, password2Edit, logi
 local emailLabel, usernameLabel, passwordLabel, password2Label
 
 
-local function hideRegisterGUI()
+local function closeRegisterGUI()
     if registerWindow and isElement(registerWindow) then
         destroyElement(registerWindow) 
         registerWindow = nil 
@@ -80,7 +80,7 @@ local function createRegisterGUI()
     -- เพิ่มอีเวนต์เมื่อกดปุ่ม Login
     addEventHandler("onClientGUIClick", loginButton,
         function()
-            hideRegisterGUI()
+            closeRegisterGUI()
             triggerEvent("openLoginGUI", localPlayer)
         end,
     false)
@@ -95,5 +95,5 @@ end
 addEvent( "openRegisterGUI", true )
 addEventHandler( "openRegisterGUI", localPlayer, createRegisterGUI)
 
-addEvent( "hideRegisterGUI", true )
-addEventHandler( "hideRegisterGUI", localPlayer, hideRegisterGUI)
+addEvent( "closeRegisterGUI", true )
+addEventHandler( "closeRegisterGUI", localPlayer, closeRegisterGUI)

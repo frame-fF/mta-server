@@ -17,7 +17,7 @@ function playerRegister(source, username, email, password, password2)
             addAccount(username, password)
             outputChatBox('Registration successful! You can now log in.', player, 0, 255, 0)
             -- ปิดหน้าต่างลงทะเบียนและเปิดหน้าต่างล็อกอิน
-            triggerClientEvent(player, "hideRegisterGUI", player)
+            triggerClientEvent(player, "closeRegisterGUI", player)
             triggerClientEvent(player, "openLoginGUI", player)
         else
             outputChatBox('Error: ' .. data, player)
