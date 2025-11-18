@@ -79,6 +79,9 @@
     <acl name="Default">
         <right name="general.ModifyOtherObjects" access="false"></right>
         <right name="general.http" access="false"></right>
+        <right name="command.login" access="false"></right>
+        <right name="command.logout" access="false"></right>
+        <right name="command.register" access="false"></right>
         <right name="command.start" access="false"></right>
         <right name="command.stop" access="false"></right>
         <right name="command.stopall" access="false"></right>
