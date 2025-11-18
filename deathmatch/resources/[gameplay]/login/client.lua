@@ -3,7 +3,7 @@ local loginWindow, usernameEdit, passwordEdit, loginButton, registerButton
 local usernameLabel, passwordLabel
 
 
-local function hideLoginGUI()
+local function closeLoginGUI()
     if loginWindow and isElement(loginWindow) then
         destroyElement(loginWindow) 
         loginWindow = nil 
@@ -69,7 +69,7 @@ local function createLoginGUI()
     -- เพิ่มอีเวนต์เมื่อกดปุ่ม Register
     addEventHandler("onClientGUIClick", registerButton,
         function()
-            hideLoginGUI()
+            closeLoginGUI()
             triggerEvent("openRegisterGUI", localPlayer)
         end,
     false)
@@ -93,6 +93,6 @@ addEventHandler("onClientResourceStart", resourceRoot,
 
 addEventHandler("onClientPlayerSpawn", localPlayer,
     function()
-        hideLoginGUI()
+        closeLoginGUI()
     end
 )
