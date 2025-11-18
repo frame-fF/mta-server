@@ -1,9 +1,18 @@
 -- สร้างตัวแปรสำหรับเก็บ GUI elements
 local loginWindow, usernameEdit, passwordEdit, loginButton, registerButton
 local usernameLabel, passwordLabel
+local sWidth, sHeight = guiGetScreenSize()
+local bgTexture = nil
 
 
 local function closeLoginGUI()
+    removeEventHandler("onClientRender", root, renderBackground)
+    -- ล้างเมมโมรี่รูปภาพ (Optional)
+    if bgTexture then
+        destroyElement(bgTexture)
+        bgTexture = nil
+    end
+
     if loginWindow and isElement(loginWindow) then
         destroyElement(loginWindow) 
         loginWindow = nil 
@@ -11,10 +20,23 @@ local function closeLoginGUI()
     showCursor(false) 
 end
 
+local function renderBackground()
+    if bgTexture then
+        -- dxDrawImage(x, y, w, h, image, rotation, rotX, rotY, color, postGUI)
+        -- จุดสำคัญคือ parameter สุดท้ายต้องเป็น 'false' เพื่อให้รูปอยู่หลัง Chatbox
+        dxDrawImage(0, 0, sWidth, sHeight, bgTexture, 0, 0, 0, tocolor(255, 255, 255, 255), false)
+    end
+end
+
 local function createLoginGUI()
     if loginWindow and isElement(loginWindow) then return end
 
-    local sWidth, sHeight = guiGetScreenSize()
+    if not bgTexture then
+        bgTexture = dxCreateTexture("background.jpg")
+    end
+
+    removeEventHandler("onClientRender", root, renderBackground) 
+    addEventHandler("onClientRender", root, renderBackground)
     
     -- ## 1. กำหนดค่าคงที่สำหรับขนาดและระยะห่าง ##
     local winWidth, winHeight = 350, 250 -- (เพิ่มความสูงหน้าต่างเล็กน้อย)

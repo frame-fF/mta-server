@@ -1,6 +1,7 @@
 local registerWindow, emailEdit, usernameEdit, passwordEdit, password2Edit, loginButton, registerButton 
 local emailLabel, usernameLabel, passwordLabel, password2Label
-
+local sWidth, sHeight = guiGetScreenSize()
+local bgTexture = nil
 
 local function closeRegisterGUI()
     if registerWindow and isElement(registerWindow) then
@@ -12,8 +13,6 @@ end
 
 local function createRegisterGUI()
     if registerWindow and isElement(registerWindow) then return end
-
-    local sWidth, sHeight = guiGetScreenSize()
     
     -- ## 1. กำหนดค่าคงที่สำหรับขนาดและระยะห่าง ##
     local winWidth, winHeight = 350, 380 -- (เพิ่มความสูงหน้าต่างเล็กน้อย)
