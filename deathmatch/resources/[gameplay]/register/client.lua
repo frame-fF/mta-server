@@ -16,7 +16,7 @@ local function createRegisterGUI()
     local sWidth, sHeight = guiGetScreenSize()
     
     -- ## 1. กำหนดค่าคงที่สำหรับขนาดและระยะห่าง ##
-    local winWidth, winHeight = 350, 340 -- (เพิ่มความสูงหน้าต่างเล็กน้อย)
+    local winWidth, winHeight = 350, 360 -- (เพิ่มความสูงหน้าต่างเล็กน้อย)
     local colWidth = 280 -- ความกว้างของช่องกรอกและปุ่ม
     local padding = 15  -- ระยะห่างระหว่างองค์ประกอบ
     local itemHeight = 28 -- ความสูงของช่องกรอก/ปุ่ม
@@ -59,6 +59,8 @@ local function createRegisterGUI()
     local buttonWidth = (colWidth - padding) / 2 -- คำนวณความกว้างปุ่ม 2 ปุ่ม
 
     registerButton = guiCreateButton(colX, currentY, buttonWidth, itemHeight, "Register", false, registerWindow)
+    loginButton = guiCreateButton(colX + buttonWidth + padding, currentY, buttonWidth, itemHeight, "Login", false, registerWindow)
+    
     -- เพิ่มอีเวนต์เมื่อกดปุ่ม Register
     addEventHandler("onClientGUIClick", registerButton,
         function()
@@ -75,11 +77,23 @@ local function createRegisterGUI()
         end,
     false)
 
+    -- เพิ่มอีเวนต์เมื่อกดปุ่ม Login
+    addEventHandler("onClientGUIClick", loginButton,
+        function()
+            hideRegisterGUI()
+            triggerEvent("openLoginGUI", localPlayer)
+        end,
+    false)
+
     -- แสดงเมาส์
     showCursor(true)
 end
 
 
+-- Handle Events
 
 addEvent( "openRegisterGUI", true )
 addEventHandler( "openRegisterGUI", localPlayer, createRegisterGUI)
+
+addEvent( "hideRegisterGUI", true )
+addEventHandler( "hideRegisterGUI", localPlayer, hideRegisterGUI)

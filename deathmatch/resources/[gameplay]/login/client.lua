@@ -44,7 +44,7 @@ local function createLoginGUI()
     passwordEdit = guiCreateEdit(colX, currentY, colWidth, itemHeight, "", false, loginWindow)
     guiEditSetMasked(passwordEdit, true)
     currentY = currentY + itemHeight + (padding * 2) -- ขยับ Y ลงมา (เว้นระยะห่างเยอะหน่อย)
-    
+
     -- Buttons
     local buttonWidth = (colWidth - padding) / 2 -- คำนวณความกว้างปุ่ม 2 ปุ่ม
     
@@ -78,6 +78,12 @@ local function createLoginGUI()
     showCursor(true)
 end
 
+
+
+-- Handle Events
+
+addEvent( "openLoginGUI", true )
+addEventHandler( "openLoginGUI", localPlayer, createLoginGUI)
 
 addEventHandler("onClientResourceStart", resourceRoot,
     function()
