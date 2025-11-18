@@ -27,6 +27,7 @@
         <object name="resource.3DEditor"></object>
         <object name="resource.dgs"></object>
         <object name="resource.login"></object>
+        <object name="resource.register"></object>
         <object name="resource.save"></object>
         <object name="user.fF"></object>
     </group>

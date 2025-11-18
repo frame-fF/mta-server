@@ -35,24 +35,16 @@ local function createLoginGUI()
 
     -- Username
     usernameLabel = guiCreateLabel(colX, currentY, colWidth, labelHeight, "Username:", false, loginWindow) 
-
-    
     currentY = currentY + labelHeight + (padding / 2) -- ขยับ Y ลงมา
-
     usernameEdit = guiCreateEdit(colX, currentY, colWidth, itemHeight, "", false, loginWindow) 
-
     currentY = currentY + itemHeight + padding -- ขยับ Y ลงมา (เว้นระยะห่าง)
-
     -- Password
     passwordLabel = guiCreateLabel(colX, currentY, colWidth, labelHeight, "Password:", false, loginWindow)
-
     currentY = currentY + labelHeight + (padding / 2) -- ขยับ Y ลงมา
-
     passwordEdit = guiCreateEdit(colX, currentY, colWidth, itemHeight, "", false, loginWindow)
     guiEditSetMasked(passwordEdit, true)
-
     currentY = currentY + itemHeight + (padding * 2) -- ขยับ Y ลงมา (เว้นระยะห่างเยอะหน่อย)
-
+    
     -- Buttons
     local buttonWidth = (colWidth - padding) / 2 -- คำนวณความกว้างปุ่ม 2 ปุ่ม
     
