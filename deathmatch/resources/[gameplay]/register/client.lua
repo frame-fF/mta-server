@@ -4,6 +4,13 @@ local sWidth, sHeight = guiGetScreenSize()
 local bgTexture = nil
 
 local function closeRegisterGUI()
+    removeEventHandler("onClientRender", root, renderBackground)
+    -- ล้างเมมโมรี่รูปภาพ (Optional)
+    if bgTexture then
+        destroyElement(bgTexture)
+        bgTexture = nil
+    end
+
     if registerWindow and isElement(registerWindow) then
         destroyElement(registerWindow) 
         registerWindow = nil 
@@ -11,8 +18,23 @@ local function closeRegisterGUI()
     showCursor(false) 
 end
 
+local function renderBackground()
+    if bgTexture then
+        -- dxDrawImage(x, y, w, h, image, rotation, rotX, rotY, color, postGUI)
+        -- จุดสำคัญคือ parameter สุดท้ายต้องเป็น 'false' เพื่อให้รูปอยู่หลัง Chatbox
+        dxDrawImage(0, 0, sWidth, sHeight, bgTexture, 0, 0, 0, tocolor(255, 255, 255, 255), false)
+    end
+end
+
 local function createRegisterGUI()
     if registerWindow and isElement(registerWindow) then return end
+
+    if not bgTexture then
+        bgTexture = dxCreateTexture("background.jpg")
+    end
+
+    removeEventHandler("onClientRender", root, renderBackground) 
+    addEventHandler("onClientRender", root, renderBackground)
     
     -- ## 1. กำหนดค่าคงที่สำหรับขนาดและระยะห่าง ##
     local winWidth, winHeight = 350, 380 -- (เพิ่มความสูงหน้าต่างเล็กน้อย)
