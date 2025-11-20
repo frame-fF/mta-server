@@ -70,3 +70,39 @@ end
 -- Event Handlers
 
 addEventHandler("onResourceStart", root, slothbotSpawn)
+
+
+
+TRAINS_SPAWN = {
+    -- พิกัดสถานี Cranberry Station (San Fierro)
+    { model = 537, x = -1944.65, y = 168.50, z = 26.00, length = 5 }, 
+}
+
+local function trainSpawn(res)
+    if res and res ~= getThisResource() then return end
+
+    for _, t in ipairs(TRAINS_SPAWN) do
+        -- สร้างรถไฟ
+        local trainHead = createVehicle(t.model, t.x, t.y, t.z)
+        -- ตั้งค่าให้รถไฟไม่ตกรางง่ายเกินไป (Optional)
+        setTrainDerailable(trainHead, false) 
+        -- สร้างตู้รถไฟตามความยาวที่กำหนด
+        local previousCar = trainHead
+
+        for i = 1, t.length do
+            local carriageModel = 569
+            local carriage = createVehicle(carriageModel, t.x, t.y - (i * 5), t.z)
+            
+            if carriage then
+                setTrainDerailable(carriage, false)  
+                -- 3. พ่วงตู้เข้ากับคันก่อนหน้า
+                attachTrailerToVehicle(previousCar, carriage)  
+                -- อัปเดตให้ตู้นี้เป็น "คันก่อนหน้า" สำหรับตู้ถัดไป
+                previousCar = carriage
+             end
+        end
+
+    end
+end
+
+addEventHandler("onResourceStart", root, trainSpawn)
