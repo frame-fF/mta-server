@@ -1,0 +1,25 @@
+<meta>
+	<script src="shader.lua" type="client" cache="false" />
+	<script src="server.lua" cache="false" />
+	<file src="shader.fx" />
+	<file src="img/1.jpg" />
+	<file src="img/2.jpg" />
+	<file src="img/3.jpg" />	
+	<file src="img/4.png" />
+	<file src="img/5.png" />
+	 <file src="img/6.jpg" /> 	
+	  <file src="img/8.jpg" /> 	
+	   <file src="img/9.jpg" /> 
+	      <file src="img/10.png" /> 
+		  <file src="img/11.png" /> 
+		  		  <file src="img/12.png" /> 
+				    <file src="img/13.png" /> 
+								    <file src="img/14.png" /> 
+									<file src="img/15.jpg" />
+									<file src="img/16.jpg" />
+									<file src="img/17.jpg" />
+									<file src="img/18.png" />
+									<file src="img/19.jpg" />
+									<file src="img/20.jpg" />
+									<file src="img/888.png" />
+</meta>
