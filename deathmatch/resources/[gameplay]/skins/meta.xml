@@ -28,5 +28,7 @@
 
     <file src="vehicles/buffalo.dff" cache="false" />
     <file src="vehicles/buffalo.txd" cache="false" />
+    <file src="vehicles/alpha.dff" cache="false" />
+    <file src="vehicles/alpha.txd" cache="false" />
     
 </meta>
