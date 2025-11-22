@@ -46,7 +46,10 @@ addEventHandler("onPlayerInteriorWarped", root,
 
 local function cleanupPlayerBackpackOnQuit()
     local backpack = getElementData(source, "backpack")
-    destroyElement(backpack)
+    -- ตรวจสอบว่ามีค่า backpack และค่านั้นเป็น Element จริงๆ หรือไม่
+    if backpack and isElement(backpack) then
+        destroyElement(backpack)
+    end
 end
 
 addEventHandler("onPlayerQuit", root, cleanupPlayerBackpackOnQuit)
