@@ -46,5 +46,9 @@
     <file src="vehicles/zr-350.txd" cache="false" />
     <file src="vehicles/euros.dff" cache="false" />
     <file src="vehicles/euros.txd" cache="false" />
+    <file src="vehicles/infernus.dff" cache="false" />
+    <file src="vehicles/infernus.txd" cache="false" />
+    <file src="vehicles/turismo.dff" cache="false" />
+    <file src="vehicles/turismo.txd" cache="false" />
     
 </meta>
