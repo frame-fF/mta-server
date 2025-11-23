@@ -36,6 +36,8 @@
     <file src="vehicles/alpha_2.txd" cache="false" />
     <file src="vehicles/bullet.dff" cache="false" />
     <file src="vehicles/bullet.txd" cache="false" />
+    <file src="vehicles/bullet_2.dff" cache="false" />
+    <file src="vehicles/bullet_2.txd" cache="false" />
     <file src="vehicles/merit.dff" cache="false" />
     <file src="vehicles/merit.txd" cache="false" />
     <file src="vehicles/jester.dff" cache="false" />
