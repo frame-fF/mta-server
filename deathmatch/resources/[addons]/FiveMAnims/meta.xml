@@ -1,0 +1,8 @@
+<meta>
+
+	<script src="cliente.lua" type="client" />
+
+	<script src="server.lua" type="server" />
+
+	<file src="ped.ifp" />
+</meta>
