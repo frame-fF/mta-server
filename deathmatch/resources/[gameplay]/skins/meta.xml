@@ -11,6 +11,8 @@
     <file src="skins/male01.txd" cache="false" />
     <file src="skins/ofost.dff" cache="false" />
     <file src="skins/ofost.txd" cache="false" />
+    <file src="skins/hmori.dff" cache="false" />
+    <file src="skins/hmori.txd" cache="false" />
     
     <file src="clothes/boxingcap.txd" cache="false" />
     <file src="clothes/boxingcap.dff" cache="false" />
@@ -50,5 +52,9 @@
     <file src="vehicles/infernus.txd" cache="false" />
     <file src="vehicles/turismo.dff" cache="false" />
     <file src="vehicles/turismo.txd" cache="false" />
+    <file src="vehicles/willard.dff" cache="false" />
+    <file src="vehicles/willard.txd" cache="false" />
+    <file src="vehicles/stallion.dff" cache="false" />
+    <file src="vehicles/stallion.txd" cache="false" />
     
 </meta>
