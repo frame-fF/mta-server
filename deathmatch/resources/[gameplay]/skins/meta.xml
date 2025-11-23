@@ -56,5 +56,13 @@
     <file src="vehicles/willard.txd" cache="false" />
     <file src="vehicles/stallion.dff" cache="false" />
     <file src="vehicles/stallion.txd" cache="false" />
+    <file src="vehicles/bravura.dff" cache="false" />
+    <file src="vehicles/bravura.txd" cache="false" />
+    <file src="vehicles/flash.dff" cache="false" />
+    <file src="vehicles/flash.txd" cache="false" />
+    <file src="vehicles/fcr-900.dff" cache="false" />
+    <file src="vehicles/fcr-900.txd" cache="false" />
+    <file src="vehicles/tahoma.dff" cache="false" />
+    <file src="vehicles/tahoma.txd" cache="false" />
     
 </meta>
