@@ -70,5 +70,7 @@
     <file src="vehicles/hotring_racer_3.txd" cache="false" />
     <file src="vehicles/taxi.dff" cache="false" />
     <file src="vehicles/taxi.txd" cache="false" />
+    <file src="vehicles/emperor.dff" cache="false" />
+    <file src="vehicles/emperor.txd" cache="false" />
     
 </meta>
