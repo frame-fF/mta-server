@@ -64,5 +64,11 @@
     <file src="vehicles/fcr-900.txd" cache="false" />
     <file src="vehicles/tahoma.dff" cache="false" />
     <file src="vehicles/tahoma.txd" cache="false" />
+    <file src="vehicles/cheetah.dff" cache="false" />
+    <file src="vehicles/cheetah.txd" cache="false" />
+    <file src="vehicles/hotring_racer_3.dff" cache="false" />
+    <file src="vehicles/hotring_racer_3.txd" cache="false" />
+    <file src="vehicles/taxi.dff" cache="false" />
+    <file src="vehicles/taxi.txd" cache="false" />
     
 </meta>
