@@ -3,4 +3,5 @@
     <min_mta_version server="1.6" />
     <script src="player/server.lua" type="server"/>
     <script src="world/server.lua" type="server"/>
+    <script src="world/client.lua" type="client"/>
 </meta>
