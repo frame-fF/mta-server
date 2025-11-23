@@ -1,0 +1,6 @@
+<meta>
+    <script src="client.lua" type="client" cache="true" />
+    
+    <file src="ped.ifp" />
+    <min_mta_version client="1.5.6-9.18728"></min_mta_version>
+</meta>
