@@ -61,6 +61,10 @@ local function onClientResourceStart()
     engineReplaceModel(dff, 602)
     local txd = engineLoadTXD("vehicles/alpha.txd")
     engineImportTXD(txd, 602)
+    local dff = engineLoadDFF("vehicles/bullet.dff")
+    engineReplaceModel(dff, 541)
+    local txd = engineLoadTXD("vehicles/bullet.txd")
+    engineImportTXD(txd, 541)
 end
 
 -- Event Handlers
