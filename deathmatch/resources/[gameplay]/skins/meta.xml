@@ -9,6 +9,8 @@
 
     <file src="skins/male01.dff" cache="false" />
     <file src="skins/male01.txd" cache="false" />
+    <file src="skins/ofost.dff" cache="false" />
+    <file src="skins/ofost.txd" cache="false" />
     
     <file src="clothes/boxingcap.txd" cache="false" />
     <file src="clothes/boxingcap.dff" cache="false" />
