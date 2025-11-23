@@ -1,0 +1,18 @@
+<meta>
+    <info author="Saml1er" version="1.0.0" description="Demo for testing various IFP animations with synchronization." />
+
+    <file src="Animations/parkour.ifp" />
+    <file src="Animations/Assassins_creed_ped.ifp" />
+    <file src="Animations/zombie_ped.ifp" />
+    <file src="Animations/gta3_ped.ifp" />
+    <file src="Animations/gtavc_stories_ped.ifp" />
+    <file src="Animations/gtavc_modded_ped.ifp" />
+    <file src="Animations/gta4_ped.ifp" /> 
+    <file src="Animations/gta5_ped.ifp" /> 
+    <file src="Animations/StandingWebsterAerialBack360.ifp" /> 
+
+    <script src="animations_client.lua" type="client" />
+    <script src="client.lua" type="client" />
+    <script src="sync_animations_server.lua" type="server" />
+
+</meta>
