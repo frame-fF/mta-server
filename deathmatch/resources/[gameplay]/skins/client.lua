@@ -22,6 +22,10 @@ local function onClientResourceStart()
     engineReplaceModel(dff, 43)
     local txd = engineLoadTXD("skins/hmori.txd")
     engineImportTXD(txd, 43)
+    local dff = engineLoadDFF("skins/zero.dff")
+    engineReplaceModel(dff, 306)
+    local txd = engineLoadTXD("skins/zero.txd")
+    engineImportTXD(txd, 306)
 
     -- clothes skins
     local dff = engineLoadDFF("clothes/boxingcap.dff")
@@ -169,6 +173,10 @@ local function onClientResourceStart()
     engineReplaceModel(dff, 547)
     local txd = engineLoadTXD("vehicles/primo.txd")
     engineImportTXD(txd, 547)
+    local dff = engineLoadDFF("vehicles/sentinel.dff")
+    engineReplaceModel(dff, 405)
+    local txd = engineLoadTXD("vehicles/sentinel.txd")
+    engineImportTXD(txd, 405)
 end
 
 -- Event Handlers

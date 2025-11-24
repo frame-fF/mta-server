@@ -13,6 +13,8 @@
     <file src="skins/ofost.txd" cache="false" />
     <file src="skins/hmori.dff" cache="false" />
     <file src="skins/hmori.txd" cache="false" />
+    <file src="skins/zero.dff" cache="false" />
+    <file src="skins/zero.txd" cache="false" />
     
     <file src="clothes/boxingcap.txd" cache="false" />
     <file src="clothes/boxingcap.dff" cache="false" />
@@ -90,5 +92,7 @@
     <file src="vehicles/premier.txd" cache="false" />
     <file src="vehicles/primo.dff" cache="false" />
     <file src="vehicles/primo.txd" cache="false" />
+    <file src="vehicles/sentinel.dff" cache="false" />
+    <file src="vehicles/sentinel.txd" cache="false" />
     
 </meta>
