@@ -1,0 +1,9 @@
+<meta>
+
+	<info name="estilos anim" author="NegoZ" type="script" version="1.0"/>
+
+	<script src="Nego_C.lua" type="client" cache="false"/>
+	<file src="ped.ifp" cache="false"/>
+	<file src="bikep.ifp" cache="false"/>
+	<file src="crack.ifp" cache="false"/>
+</meta>
