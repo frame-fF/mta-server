@@ -72,5 +72,7 @@
     <file src="vehicles/taxi.txd" cache="false" />
     <file src="vehicles/emperor.dff" cache="false" />
     <file src="vehicles/emperor.txd" cache="false" />
+    <file src="vehicles/bobcat.dff" cache="false" />
+    <file src="vehicles/bobcat.txd" cache="false" />
     
 </meta>
