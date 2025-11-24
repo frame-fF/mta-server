@@ -64,23 +64,44 @@ local NegoAnim = {
 	
 }
 
-addEventHandler("onClientResourceStart", resourceRoot,function()
+-- ฟังก์ชันสำหรับเปิดใช้งานท่าทาง (เมื่อกดวิ่ง)
+function enableNegoAnims()
+    for _, animName in ipairs(NegoAnim.anims) do
+        -- แทนที่ท่าทางสำหรับ Local Player เท่านั้น
+        engineReplaceAnimation(localPlayer, "ped", animName, NegoAnim.ifp["block"], animName)
+        engineReplaceAnimation(localPlayer, "bikep", animName, NegoAnim.ifp["block2"], animName)
+        engineReplaceAnimation(localPlayer, "crack", animName, NegoAnim.ifp["block3"], animName)
+    end
+end
 
-	NegoAnim.ifp["block"] = "ped"
-	NegoAnim.ifp["block2"] = "bikep"
-	NegoAnim.ifp["block3"] = "crack"
-	
-	NegoAnim.ifp["ifp"] = engineLoadIFP("ped.ifp", NegoAnim.ifp["block"])
-	NegoAnim.ifp["ifp"] = engineLoadIFP("bikep.ifp", NegoAnim.ifp["block2"])
-	NegoAnim.ifp["ifp"] = engineLoadIFP("crack.ifp", NegoAnim.ifp["block3"])
+-- ฟังก์ชันสำหรับคืนค่าท่าทางเดิม (เมื่อปล่อยปุ่มวิ่ง)
+function disableNegoAnims()
+    for _, animName in ipairs(NegoAnim.anims) do
+        -- คืนค่าท่าทางเดิม
+        engineRestoreAnimation(localPlayer, "ped", animName)
+        engineRestoreAnimation(localPlayer, "bikep", animName)
+        engineRestoreAnimation(localPlayer, "crack", animName)
+    end
+end
 
-	for _, v in ipairs(NegoAnim.anims) do
-		for _, p in ipairs(getElementsByType("player")) do
-			engineReplaceAnimation(p, "ped", v, NegoAnim.ifp["block"], v)
-			engineReplaceAnimation(p, "bikep", v, NegoAnim.ifp["block2"], v)
-			engineReplaceAnimation(p, "crack", v, NegoAnim.ifp["block3"], v)
-		end
-	end
+addEventHandler("onClientResourceStart", resourceRoot, function()
+
+    NegoAnim.ifp["block"] = "NegoPedBlock" 
+    NegoAnim.ifp["block2"] = "NegoBikeBlock"
+    NegoAnim.ifp["block3"] = "NegoCrackBlock"
+    
+    -- โหลดไฟล์ IFP เข้ามาใน Block ที่เราตั้งชื่อใหม่
+    local ifp1 = engineLoadIFP("ped.ifp", NegoAnim.ifp["block"])
+    local ifp2 = engineLoadIFP("bikep.ifp", NegoAnim.ifp["block2"])
+    local ifp3 = engineLoadIFP("crack.ifp", NegoAnim.ifp["block3"])
 end)
 
--- NEGOZ
+-- ผูกปุ่ม (Bind Key) กับฟังก์ชัน
+-- "sprint" คือปุ่มวิ่ง (ค่าเริ่มต้นคือ Shift หรือ Spacebar บนบางเครื่อง)
+bindKey("sprint", "down", enableNegoAnims) -- กดลง -> เปิดใช้งาน
+bindKey("sprint", "up", disableNegoAnims)   -- ปล่อยมือ -> ปิดใช้งาน
+
+-- addEventHandler("onClientPlayerWeaponSwitch", localPlayer, function()
+--     -- เมื่อเปลี่ยนอาวุธ ให้คืนค่าเดิมก่อนเสมอ เพื่อล้างสถานะที่อาจจะค้าง
+--     disableNegoAnims()
+-- end)
