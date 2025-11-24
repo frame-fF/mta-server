@@ -82,5 +82,7 @@
     <file src="vehicles/admiral.txd" cache="false" />
     <file src="vehicles/elegy.dff" cache="false" />
     <file src="vehicles/elegy.txd" cache="false" />
+    <file src="vehicles/super_gt.dff" cache="false" />
+    <file src="vehicles/super_gt.txd" cache="false" />
     
 </meta>
