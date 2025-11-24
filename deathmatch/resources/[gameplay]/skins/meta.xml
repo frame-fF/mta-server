@@ -50,6 +50,8 @@
     <file src="vehicles/euros.txd" cache="false" />
     <file src="vehicles/infernus.dff" cache="false" />
     <file src="vehicles/infernus.txd" cache="false" />
+    <file src="vehicles/infernus_2.dff" cache="false" />
+    <file src="vehicles/infernus_2.txd" cache="false" />
     <file src="vehicles/turismo.dff" cache="false" />
     <file src="vehicles/turismo.txd" cache="false" />
     <file src="vehicles/willard.dff" cache="false" />
@@ -78,5 +80,7 @@
     <file src="vehicles/police_ls.txd" cache="false" />
     <file src="vehicles/admiral.dff" cache="false" />
     <file src="vehicles/admiral.txd" cache="false" />
+    <file src="vehicles/elegy.dff" cache="false" />
+    <file src="vehicles/elegy.txd" cache="false" />
     
 </meta>
