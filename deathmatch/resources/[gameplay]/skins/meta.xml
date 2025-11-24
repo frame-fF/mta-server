@@ -84,5 +84,11 @@
     <file src="vehicles/elegy.txd" cache="false" />
     <file src="vehicles/super_gt.dff" cache="false" />
     <file src="vehicles/super_gt.txd" cache="false" />
+    <file src="vehicles/sultan.dff" cache="false" />
+    <file src="vehicles/sultan.txd" cache="false" />
+    <file src="vehicles/premier.dff" cache="false" />
+    <file src="vehicles/premier.txd" cache="false" />
+    <file src="vehicles/primo.dff" cache="false" />
+    <file src="vehicles/primo.txd" cache="false" />
     
 </meta>
