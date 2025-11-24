@@ -74,5 +74,9 @@
     <file src="vehicles/emperor.txd" cache="false" />
     <file src="vehicles/bobcat.dff" cache="false" />
     <file src="vehicles/bobcat.txd" cache="false" />
+    <file src="vehicles/police_ls.dff" cache="false" />
+    <file src="vehicles/police_ls.txd" cache="false" />
+    <file src="vehicles/admiral.dff" cache="false" />
+    <file src="vehicles/admiral.txd" cache="false" />
     
 </meta>
