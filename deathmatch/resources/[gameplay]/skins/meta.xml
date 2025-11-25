@@ -98,5 +98,7 @@
     <file src="vehicles/sentinel.txd" cache="false" />
     <file src="vehicles/solair.dff" cache="false" />
     <file src="vehicles/solair.txd" cache="false" />
+    <file src="vehicles/freeway.dff" cache="false" />
+    <file src="vehicles/freeway.txd" cache="false" />
     
 </meta>
