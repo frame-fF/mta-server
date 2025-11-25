@@ -50,6 +50,8 @@
     <file src="vehicles/merit.txd" cache="false" />
     <file src="vehicles/jester.dff" cache="false" />
     <file src="vehicles/jester.txd" cache="false" />
+    <file src="vehicles/jester_2.dff" cache="false" />
+    <file src="vehicles/jester_2.txd" cache="false" />
     <file src="vehicles/zr-350.dff" cache="false" />
     <file src="vehicles/zr-350.txd" cache="false" />
     <file src="vehicles/euros.dff" cache="false" />
