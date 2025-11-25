@@ -29,8 +29,12 @@
     <file src="weapons/ak47.txd" cache="false" />
     <file src="weapons/m4.dff" cache="false" />
     <file src="weapons/m4.txd" cache="false" />
+    <file src="weapons/rifle.dff" cache="false" />
+    <file src="weapons/rifle.txd" cache="false" />
     <file src="weapons/sniper.dff" cache="false" />
     <file src="weapons/sniper.txd" cache="false" />
+    <file src="weapons/shotgun.dff" cache="false" />
+    <file src="weapons/shotgun.txd" cache="false" />
     <file src="weapons/gun_para.dff" cache="false" />
     <file src="weapons/gun_para.txd" cache="false" />
 

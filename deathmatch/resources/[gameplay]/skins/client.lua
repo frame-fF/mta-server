@@ -62,11 +62,21 @@ local function onClientResourceStart()
     engineReplaceModel(dff, 356)
     local txd = engineLoadTXD("weapons/m4.txd")
     engineImportTXD(txd, 356)
+    -- rifle
+    local dff = engineLoadDFF("weapons/rifle.dff")
+    engineReplaceModel(dff, 357)
+    local txd = engineLoadTXD("weapons/rifle.txd")
+    engineImportTXD(txd, 357)
     -- sniper
     local dff = engineLoadDFF("weapons/sniper.dff")
     engineReplaceModel(dff, 358)
     local txd = engineLoadTXD("weapons/sniper.txd")
     engineImportTXD(txd, 358)
+    -- shotgun
+    local dff = engineLoadDFF("weapons/shotgun.dff")
+    engineReplaceModel(dff, 349)
+    local txd = engineLoadTXD("weapons/shotgun.txd")
+    engineImportTXD(txd, 349)
 
     -- vehicle skins
     local dff = engineLoadDFF("vehicles/buffalo.dff")
