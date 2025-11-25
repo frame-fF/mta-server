@@ -135,9 +135,9 @@ local function onClientResourceStart()
     engineReplaceModel(dff, 521)
     local txd = engineLoadTXD("vehicles/fcr-900.txd")
     engineImportTXD(txd, 521)
-    local dff = engineLoadDFF("vehicles/tahoma.dff")
+    local dff = engineLoadDFF("vehicles/tahoma.dff") -- bad
     engineReplaceModel(dff, 566)
-    local txd = engineLoadTXD("vehicles/tahoma.txd")
+    local txd = engineLoadTXD("vehicles/tahoma.txd")  -- bad
     engineImportTXD(txd, 566)
     local dff = engineLoadDFF("vehicles/cheetah.dff")
     engineReplaceModel(dff, 415)
