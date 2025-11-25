@@ -1,0 +1,29 @@
+<meta>
+    <info author="PrettySweetie" name=" " version="1" description=""/>
+	 
+	<file src="180sx.wav" />
+	<file src="gtr2000.wav" />
+	<file src="ae86.wav" />
+	<file src="civic.wav" />
+	<file src="gear.wav" />
+	<file src="BlowoffCivic.wav" />
+	<file src="rx8.wav" />
+	<file src="m5.wav" />
+	<file src="e92.wav" />
+	<file src="gtr35.wav" />
+	<file src="gtr34.wav" />
+	<file src="e30.wav" />
+	<file src="bmwe36.wav" />
+	<file src="32_offhigh.wav" />
+	<file src="bm5.wav" />
+	<file src="bmw5.wav" />
+	<file src="bmwe36.wav" />
+	<file src="backfire.wav" />
+	<file src="motor2.wav" />
+	<file src="s15.wav" />
+	<file src="tekne.wav" />
+				 
+	 <script src="client.lua" type="client" cache="false"/>
+	 
+
+</meta>
