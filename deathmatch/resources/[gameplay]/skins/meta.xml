@@ -66,6 +66,8 @@
     <file src="vehicles/willard.txd" cache="false" />
     <file src="vehicles/stallion.dff" cache="false" />
     <file src="vehicles/stallion.txd" cache="false" />
+    <file src="vehicles/stallion_2.dff" cache="false" />
+    <file src="vehicles/stallion_2.txd" cache="false" />
     <file src="vehicles/bravura.dff" cache="false" />
     <file src="vehicles/bravura.txd" cache="false" />
     <file src="vehicles/flash.dff" cache="false" />
