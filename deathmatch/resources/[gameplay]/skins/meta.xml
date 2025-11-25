@@ -38,6 +38,8 @@
     <file src="vehicles/alpha.txd" cache="false" />
     <file src="vehicles/alpha_2.dff" cache="false" />
     <file src="vehicles/alpha_2.txd" cache="false" />
+    <file src="vehicles/alpha_3.dff" cache="false" />
+    <file src="vehicles/alpha_3.txd" cache="false" />
     <file src="vehicles/bullet.dff" cache="false" />
     <file src="vehicles/bullet.txd" cache="false" />
     <file src="vehicles/bullet_2.dff" cache="false" />
@@ -94,5 +96,7 @@
     <file src="vehicles/primo.txd" cache="false" />
     <file src="vehicles/sentinel.dff" cache="false" />
     <file src="vehicles/sentinel.txd" cache="false" />
+    <file src="vehicles/solair.dff" cache="false" />
+    <file src="vehicles/solair.txd" cache="false" />
     
 </meta>
