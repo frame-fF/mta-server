@@ -1,5 +1,4 @@
 local function addBackpack(player)
-    
     if res and res ~= getThisResource() then return end
 
     if not isElement(player) or getElementType(player) ~= "player" then
@@ -55,3 +54,35 @@ end
 addEventHandler("onPlayerQuit", root, cleanupPlayerBackpackOnQuit)
 
 addEventHandler("onPlayerLogout", root, cleanupPlayerBackpackOnQuit)
+
+local handsUp = false
+local sitting = false
+
+function funcBindSit(player, key, keyState)
+    if sitting then
+        setPedAnimation(player, false)
+        sitting = false
+    else
+        if isPedInVehicle(player) then return end
+        setPedAnimation(player, "BEACH", "ParkSit_M_loop", -1, false)
+        sitting = true
+    end
+end
+
+function funcBindHandsup(player, key, keyState)
+    if handsUp then
+        setPedAnimation(player, false)
+        handsUp = false
+    else
+        if isPedInVehicle(player) then return end
+        setPedAnimation(player, "SHOP", "SHP_Rob_HandsUp", -1, false)
+        handsUp = true
+    end
+end
+
+function bindTheKeys()
+    bindKey(source, ".", "down", funcBindHandsup)
+    bindKey(source, "-", "down", funcBindSit)
+end
+
+addEventHandler("onPlayerLogin", root, bindTheKeys)
